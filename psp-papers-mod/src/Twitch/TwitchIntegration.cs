@@ -40,7 +40,7 @@ namespace psp_papers_mod.Twitch {
             this.client = new TwitchClient(
                 protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
                 //Logs everything from the twitch client to the console
-                ,logger: new TwitchLogger<TwitchClient>()
+                //,logger: new TwitchLogger<TwitchClient>()
             );
             this.client.Initialize(credentials, PapersPSP.Channel.Value);
 
