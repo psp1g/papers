@@ -40,8 +40,8 @@ namespace psp_papers_mod.Twitch {
                 // Or split username in half as first and last name
                 : (int) System.Math.Floor((float) username.Length / 2);
 
-            this.First = username.Substring(0, splitIndex);
-            this.Last = username.Substring(splitIndex);
+            this.First = username[..splitIndex];
+            this.Last = username[splitIndex..];
         }
 
         public void Chatted() {
@@ -109,7 +109,6 @@ namespace psp_papers_mod.Twitch {
 
         public void Deny(int seconds) {
             TwitchIntegration.ActiveChatter = null;
-            BoothEnginePatch.Stamp(StampApprovalKind.DENIED);
             PapersPSP.Twitch.TimeoutUser(this.Username, seconds, "Denied Entry");
 
             this.WasDenied = true;
