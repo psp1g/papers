@@ -9,8 +9,8 @@ namespace psp_papers_mod.Patches {
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GameTransition), "call")]
-        public static void Prefix(GameTransitionKind kind) {
-            Console.Out.WriteLine("KIND: " + kind.toString());
+        public static void Prefix(GameTransitionKind gameTransitionKind) {
+            Console.Out.WriteLine("KIND: " + gameTransitionKind.toString());
         }
 
     }

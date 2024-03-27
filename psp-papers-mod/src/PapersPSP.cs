@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System.Reflection;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using BepInEx.Unity.IL2CPP;
@@ -59,7 +60,7 @@ public class PapersPSP : BasePlugin {
         Twitch = new TwitchIntegration();
         Initialized = true;
 
-        this.harmony.PatchAll();
+        this.harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 
 }

@@ -1,4 +1,4 @@
-using System;
+using app;
 using data;
 using HarmonyLib;
 using play.day;
@@ -8,6 +8,17 @@ namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(BoothEngine))]
 public class BoothEnginePatch {
+
+    // private static BoothEngine instance = null;
+    //
+    // [HarmonyPostfix]
+    // [HarmonyPatch(MethodType.Constructor)]
+    // [HarmonyPatch(new System.Type[] { })]
+    // private static void ConstructorPrefix(BoothEngine __instance) {
+    //     __instance.speak("POOP LOL XD", true);
+    //     BoothEnginePatch.instance = __instance;
+    //     PapersPSP.Log.LogInfo($"CONSTRUCTOR");
+    // }
 
     /*
      * Prevent the execution of the speak function only if:
@@ -23,12 +34,12 @@ public class BoothEnginePatch {
         return fromInspector || !PapersPSP.Enabled;
     }
 
-    // original speak method
-    [HarmonyReversePatch]
-    [HarmonyPatch(typeof(BoothEngine), "speak")]
-    public static void SpeakReversePatch(object instance, string text, bool fromInspector) {
-        throw new NotImplementedException("stub");
-    }
+    // // original speak method
+    // [HarmonyReversePatch]
+    // [HarmonyPatch(typeof(BoothEngine), "speak")]
+    // public static void SpeakReversePatch(object instance, string text, bool fromInspector) {
+    //     throw new NotImplementedException("stub");
+    // }
 
     public static void Speak(string text, bool inspector = false) {
 
@@ -37,17 +48,17 @@ public class BoothEnginePatch {
     // Timeout active user in chat on denied stamp
     [HarmonyPrefix]
     [HarmonyPatch(typeof(BoothEngine), "stampPaper", typeof(string), typeof(StampApprovalKind))]
-    private static void StampPrefix(string idWithIndex, StampApprovalKind approvalKind) {
-        if (approvalKind != StampApprovalKind.DENIED || TwitchIntegration.ActiveChatter == null) return;
+    private static void StampPrefix(string idWithIndex, StampApprovalKind approvalType) {
+        if (approvalType != StampApprovalKind.DENIED || TwitchIntegration.ActiveChatter == null) return;
         TwitchIntegration.ActiveChatter.Deny(TwitchIntegration.ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS);
     }
 
     // original stamp method
-    [HarmonyReversePatch]
-    [HarmonyPatch(typeof(BoothEngine), "stampPaper")]
-    public static void Stamp(object instance, int idWithIndex, StampApprovalKind kind) {
-        throw new NotImplementedException("stub");
-    }
+    // [HarmonyReversePatch]
+    // [HarmonyPatch(typeof(BoothEngine), "stampPaper")]
+    // public static void Stamp(object instance, int idWithIndex, StampApprovalKind kind) {
+    //     throw new NotImplementedException("stub");
+    // }
 
     public static void Stamp(StampApprovalKind kind) {
 
