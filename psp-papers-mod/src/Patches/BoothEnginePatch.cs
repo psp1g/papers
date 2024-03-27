@@ -15,9 +15,7 @@ public class BoothEnginePatch {
     [HarmonyPostfix]
     [HarmonyPatch("start")]
     private static void StartPostfix(BoothEngine __instance) {
-        __instance.speak("POOP LOL XD", true);
         BoothEnginePatch.instance = __instance;
-        PapersPSP.Log.LogInfo($"CONSTRUCTOR");
     }
 
     [HarmonyPrefix]
@@ -56,7 +54,7 @@ public class BoothEnginePatch {
             return true;
         }
 
-        return fromInspector;
+        return fromInspector && text == "Papers, please.";
     }
 
     public static void Speak(string text, bool inspector = false) {
@@ -67,9 +65,7 @@ public class BoothEnginePatch {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(BoothEngine), "stampPaper", typeof(string), typeof(StampApprovalKind))]
     private static void StampPrefix(string idWithIndex, StampApprovalKind approvalType) {
-        PapersPSP.Log.LogInfo($"STAMP {approvalType.toString()}");
-        if (approvalType != StampApprovalKind.DENIED || TwitchIntegration.ActiveChatter == null) return;
-        TwitchIntegration.ActiveChatter.Deny(TwitchIntegration.ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS);
+        lastStamp = approvalType;
     }
 
     public static void Stamp(StampApprovalKind kind) {

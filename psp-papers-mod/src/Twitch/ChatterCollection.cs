@@ -13,6 +13,8 @@ namespace psp_papers_mod.Twitch {
         }
 
         public Chatter SelectRandomActiveChatter() {
+            if (this.Count == 0) return null;
+
             List<int> weights = this
                 .Select(data => {
                     Chatter chatter = data.Value;
