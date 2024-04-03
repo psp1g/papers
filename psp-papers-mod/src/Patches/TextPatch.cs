@@ -10,8 +10,6 @@ namespace psp_papers_mod.Patches;
 public static class TextPatch {
 
     public static string Process(string text) {
-
-        PapersPSP.Log.LogInfo($"TEXT: {text}");
         return Regex.Replace(text, "arstotzka", "SUSUSTERJA", RegexOptions.IgnoreCase);
     }
 

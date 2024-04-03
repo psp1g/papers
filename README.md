@@ -1,14 +1,13 @@
 # PSP PAPERS PLS
 
-This is a [Papers, Please](https://papersplea.se/) mod for the
+This is a [Papers, Please](https://papersplea.se/) twitch integration mod for the
 [Unity C# / IL2CPP version](https://store.steampowered.com/news/app/239030/view/3651894293966905793)
 of the game, made for [PSP1G](https://www.twitch.tv/psp1g) by [LittleBigBug](https://github.com/LittleBigBug)
 
 It integrates [Twitch](https://twitch.tv) chat with the game in endless mode, and randomly selects
 a random chatter for each traveller.
 
-This mod uses [BepInEx 6](https://github.com/BepInEx/BepInEx) to mount and load the mod,
-and [Harmony](https://github.com/pardeike/Harmony) for patching.
+This mod uses [BepInEx 6](https://github.com/BepInEx/BepInEx)
 
 ## Setup
 
