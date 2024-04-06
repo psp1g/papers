@@ -25,6 +25,10 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Install .NET
+        run: |
+          choco install dotnetfx --version=4.8.1 -y
+
       - name: Build installer executable
         run: |
           cd .\psp-papers-installer\
