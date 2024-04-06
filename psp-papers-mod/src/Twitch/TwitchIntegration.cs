@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using psp_papers_mod.Patches;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
+using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
-using TwitchLib.Communication.Clients;
 using TwitchLib.Communication.Events;
-using TwitchLib.Communication.Models;
 
 namespace psp_papers_mod.Twitch {
 
@@ -40,7 +39,7 @@ namespace psp_papers_mod.Twitch {
             this.client = new TwitchClient(
                 protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
                 //Logs everything from the twitch client to the console
-                //,logger: new TwitchLogger<TwitchClient>()
+                ,logger: new TwitchLogger<TwitchClient>()
             );
             this.client.Initialize(credentials, PapersPSP.Channel.Value);
 
@@ -84,10 +83,10 @@ namespace psp_papers_mod.Twitch {
             Chatter chatter = this.FrequentChatters[username];
             chatter.Chatted();
 
-            if (chatter.IsActiveChatter) {
-                // User is the "active chatter" and their messages should appear as the traveler's
+            // todo; check in a game
+            // User is the "active chatter" and their messages should appear as the traveler's
+            if (chatter.IsActiveChatter)
                 BoothEnginePatch.Speak(e.ChatMessage.Message);
-            }
         }
 
         /**
@@ -102,15 +101,25 @@ namespace psp_papers_mod.Twitch {
         private void OnUserBanned(object sender, OnUserBannedArgs e) { this.HandleUserBan(e.UserBan.Username); }
         private void OnUserTimedOut(object sender, OnUserTimedoutArgs e) { this.HandleUserBan(e.UserTimeout.Username); }
 
-        public void TimeoutUser(string username, int seconds, string reason = "") {
-            if (!this.client.IsInitialized || !this.client.IsConnected) return;
-            // todo; Maybe replace with TwitchLib function to time out
-            this.client.SendMessage(PapersPSP.Channel.Value, $"/timeout {username} {seconds} {reason}");
+        public static bool Connected() {
+            return PapersPSP.Twitch.client.IsInitialized && PapersPSP.Twitch.client.IsConnected;
+        }
+
+        public static void TimeoutUser(string username, TimeSpan time, string reason = "") {
+            if (!TwitchIntegration.Connected()) return;
+            PapersPSP.Twitch.client.TimeoutUser(PapersPSP.Channel.Value, username, time, reason);
+        }
+
+        public static void Message(string message) {
+            if (!TwitchIntegration.Connected()) return;
+            PapersPSP.Twitch.client.SendMessage(PapersPSP.Channel.Value, message);
         }
 
         public static void SetActiveChatter(Chatter chatter) {
             ActiveChatter = chatter;
             RecentActiveChatters.Insert(0, chatter);
+
+            TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter!");
 
             // Cap history to max
             if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)

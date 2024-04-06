@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using System.Text.RegularExpressions;
-using app.vis;
 using HarmonyLib;
 using Il2CppSystem;
 using play.ui;

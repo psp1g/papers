@@ -1,4 +1,3 @@
-using data;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -108,8 +107,10 @@ namespace psp_papers_mod.Twitch {
         }
 
         public void Deny(int seconds) {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(seconds);
+
             TwitchIntegration.ActiveChatter = null;
-            PapersPSP.Twitch.TimeoutUser(this.Username, seconds, "Denied Entry");
+            TwitchIntegration.TimeoutUser(this.Username, timeSpan, "Denied Entry");
 
             this.WasDenied = true;
             this.JustDenied = true;
