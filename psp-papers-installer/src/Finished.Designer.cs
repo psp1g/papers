@@ -35,9 +35,9 @@ namespace psp_papers_installer {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            //
+            // 
             // label2
-            //
+            // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 59);
             this.label2.Name = "label2";
@@ -45,9 +45,9 @@ namespace psp_papers_installer {
             this.label2.TabIndex = 3;
             this.label2.Text = "Mod Installation Complete!";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // label3
-            //
+            // 
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 131);
             this.label3.Name = "label3";
@@ -55,9 +55,9 @@ namespace psp_papers_installer {
             this.label3.TabIndex = 4;
             this.label3.Text = "To Uninstall, just Verify the Integrity of the game files within Steam.";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // label4
-            //
+            // 
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(12, 170);
             this.label4.Name = "label4";
@@ -65,9 +65,9 @@ namespace psp_papers_installer {
             this.label4.TabIndex = 5;
             this.label4.Text = "Note: The game will always restart itself when you launch it.";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // play
-            //
+            // 
             this.play.Location = new System.Drawing.Point(261, 450);
             this.play.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.play.Name = "play";
@@ -76,9 +76,9 @@ namespace psp_papers_installer {
             this.play.Text = "Play";
             this.play.UseVisualStyleBackColor = true;
             this.play.Click += new System.EventHandler(this.play_Click);
-            //
+            // 
             // label1
-            //
+            // 
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 219);
             this.label1.Name = "label1";
@@ -86,9 +86,9 @@ namespace psp_papers_installer {
             this.label1.TabIndex = 8;
             this.label1.Text = "To update the mod, simply run this installer again.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
             // pictureBox1
-            //
+            // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
@@ -99,9 +99,9 @@ namespace psp_papers_installer {
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.WaitOnLoad = true;
-            //
+            // 
             // Finished
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
