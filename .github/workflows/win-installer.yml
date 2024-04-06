@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: CD into the installer
-        run: cd psp-papers-installer
+        run: cd .\psp-papers-installer\
 
       - name: XD
         run: ls
