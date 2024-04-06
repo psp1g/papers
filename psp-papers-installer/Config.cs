@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Tomlyn;
-using Tomlyn.Model;
 
 namespace psp_papers_installer {
 
