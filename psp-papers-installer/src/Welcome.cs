@@ -36,7 +36,7 @@ namespace psp_papers_installer {
                 };
                 wc.OpenReadAsync(new Uri(RemoteVersion));
             }
-            catch (WebException e) {
+            catch (WebException _) {
                 this.latestVersion.Text = "??";
             }
 
