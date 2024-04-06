@@ -27,7 +27,7 @@ jobs:
 
       - name: Install .NET
         run: |
-          choco install dotnetfx --version=4.8.1 -y
+          choco install netfx-4.8.1-devpack -y
 
       - name: Build installer executable
         run: |
