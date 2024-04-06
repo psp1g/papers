@@ -225,13 +225,13 @@ namespace psp_papers_installer {
 
             this.SetProgress(950);
 
-            if (this.update && Directory.Exists(Path.Combine(Program.PapersDir, "img_path")))
-                Directory.Delete(Path.Combine(Program.PapersDir, "img_path"), true);
+            if (this.update && Directory.Exists(Path.Combine(Program.PapersDir, "img_patch")))
+                Directory.Delete(Path.Combine(Program.PapersDir, "img_patch"), true);
 
             // Finally, move the image patch folder to the root directory
             Directory.Move(
                 Path.Combine(Program.PapersDir, "papers-main", "img_patch"),
-                Path.Combine(Program.PapersDir, "img_path")
+                Path.Combine(Program.PapersDir, "img_patch")
             );
 
             if (!this.update) {
