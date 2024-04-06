@@ -28,9 +28,9 @@ jobs:
       - name: Build installer executable
         run: |
           choco install netfx-4.8.1-devpack -y
+          dotnet restore "psp-papers-mod.sln"
           cd .\psp-papers-installer\
           ls
-          dotnet restore "psp-papers-installer.csproj"
           dotnet msbuild "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
