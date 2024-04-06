@@ -22,16 +22,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
 
       - name: Build installer executable
         run: |
-          choco install netfx-4.8.1-devpack -y
           dotnet restore "psp-papers-mod.sln"
           cd .\psp-papers-installer\
           ls
-          dotnet msbuild "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
+          dotnet build "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
 
