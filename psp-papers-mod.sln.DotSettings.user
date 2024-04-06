@@ -251,4 +251,10 @@
   &lt;Assembly Path="C:\Users\Ethan\.nuget\packages\harmonyx\2.10.1\lib\netstandard2.0\0Harmony.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/CustomGlobalProperties/=PapersPleaseDir/@EntryIndexedValue">C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/CustomGlobalProperties/=PapersPleaseDir/@EntryIndexedValue">C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</s:String>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FConfig/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FFinished/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FInstalling/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FWindow/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>
