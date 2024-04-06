@@ -25,13 +25,8 @@ jobs:
       - name: CD into the installer
         run: cd psp-papers-installer/
 
-      - name: Create SDK JSON settings
-        run: "echo '{\"sdk\":{\"version\": \"6.x\"}}' > ./global.json"
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '6.x'
+      - name: XD
+        run: ls
 
       - name: Install .NET Framework 4.8
         run: |
