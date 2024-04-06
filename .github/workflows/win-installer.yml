@@ -2,8 +2,14 @@ name: Build PSP Papers Mod Installer
 
 on:
   push:
+    paths:
+      - psp-papers-installer/**
+      - .github/workflows/win-installer.yml
     branches: [ "main" ]
   pull_request:
+    paths:
+      - psp-papers-installer/**
+      - .github/workflows/win-installer.yml
     branches: [ "main" ]
 
 jobs:
