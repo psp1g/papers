@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -23,7 +24,7 @@ namespace psp_papers_installer {
 
         private const string dotNetPathPattern = @"Adding to current process PATH: ""(.+)""\.$";
 
-        private const int totalSteps = 1050;
+        private const int totalSteps = 1100;
 
         private string dotNetDir = "";
 
@@ -225,7 +226,7 @@ namespace psp_papers_installer {
 
             this.SetProgress(950);
 
-            if (this.update && Directory.Exists(Path.Combine(Program.PapersDir, "img_patch")))
+            if (Directory.Exists(Path.Combine(Program.PapersDir, "img_patch")))
                 Directory.Delete(Path.Combine(Program.PapersDir, "img_patch"), true);
 
             // Finally, move the image patch folder to the root directory
@@ -248,6 +249,18 @@ namespace psp_papers_installer {
             }
 
             this.SetProgress(1050);
+
+            this.log.AppendText("Moving installer to game files");
+
+            string installerLocation = Assembly.GetExecutingAssembly().Location;
+            string locInstallerPath = Path.Combine(Program.PapersDir, "PspPapersInstaller.exe");
+
+            if (File.Exists(locInstallerPath)) File.Delete(locInstallerPath);
+
+            FileInfo installerInfo = new FileInfo(installerLocation);
+            installerInfo.CopyTo(locInstallerPath);
+
+            this.SetProgress(1100);
 
             this.@continue.Enabled = true;
             this.log.AppendText("\n\n~~~~~~~~~~~\nFinished!");
