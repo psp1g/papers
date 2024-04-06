@@ -18,23 +18,26 @@ namespace psp_papers_installer {
 
             this.currentVersion.Text = Program.InstalledVersion(UsualPath);
 
-            try {
-                using WebClient wc = new WebClient();
-                wc.OpenReadCompleted += (sender, args) => {
-                    if (args.Error != null) {
-                        this.latestVersion.Text = "??";
-                        return;
-                    }
-                    using StreamReader reader = new StreamReader(args.Result);
-                    string version = reader.ReadToEnd();
+            try
+            {
+                using (WebClient wc = new WebClient()) {
+                    wc.OpenReadCompleted += (sender, args) => {
+                        if (args.Error != null) {
+                            this.latestVersion.Text = "??";
+                            return;
+                        }
+                        using (StreamReader reader = new StreamReader(args.Result)) { 
+                            string version = reader.ReadToEnd();
 
-                    this.latestVersion.Text = version;
-                    Program.latestVersion = version;
+                            this.latestVersion.Text = version;
+                            Program.latestVersion = version;
 
-                    this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
-                    this.papersPath_TextChanged(null, null);
-                };
-                wc.OpenReadAsync(new Uri(RemoteVersion));
+                            this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
+                            this.papersPath_TextChanged(null, null);
+                        }
+                    };
+                    wc.OpenReadAsync(new Uri(RemoteVersion));
+                }
             }
             catch (WebException _) {
                 this.latestVersion.Text = "??";
