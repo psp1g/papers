@@ -22,26 +22,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: CD into the installer
-        run: cd .\psp-papers-installer\
-
-      - name: XD
-        run: ls
-
-      - name: Install .NET Framework 4.8
-        run: |
-          choco install netfx-4.8-devpack
-
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
 
-      - name: Download dependencies
-        run: dotnet restore "psp-papers-installer.csproj"
-        env:
-          Configuration: ${{ matrix.configuration }}
-
-      - name: Create installer executable
-        run: dotnet msbuild "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
+      - name: Build installer executable
+        run: |
+          cd .\psp-papers-installer\
+          ls
+          dotnet restore "psp-papers-installer.csproj"
+          dotnet msbuild "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
 
@@ -49,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PspPapersModInstaller
-          path: psp-papers-installer\bin\Release
+          path: .\psp-papers-installer\bin\Release
