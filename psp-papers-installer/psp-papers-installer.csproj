@@ -4,11 +4,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>psp_papers_installer</RootNamespace>
     <AssemblyName>psp_papers_installer</AssemblyName>
-    <RuntimeIdentifiers>win-x64;win</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <GenerateResourceMSBuildArchitecture>CurrentArchitecture</GenerateResourceMSBuildArchitecture>
     <GenerateResourceMSBuildRuntime>CurrentRuntime</GenerateResourceMSBuildRuntime>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <PublishUrl>publish\</PublishUrl>
+    <PublishSingleFile>true</PublishSingleFile>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>

@@ -30,8 +30,7 @@ jobs:
         run: |
           dotnet restore "psp-papers-mod.sln"
           cd .\psp-papers-installer\
-          ls
-          dotnet build "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
+          dotnet publish "psp-papers-installer.csproj" -r win-x64 -c $env:Configuration /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true --self-contained=false
         env:
           Configuration: ${{ matrix.configuration }}
 
@@ -39,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PspPapersModInstaller
-          path: .\psp-papers-installer\bin\Release
+          path: .\psp-papers-installer\bin\Release\net8.0-windows\win-x64\publish\psp_papers_installer.exe
