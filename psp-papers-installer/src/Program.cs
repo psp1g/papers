@@ -8,7 +8,7 @@ namespace psp_papers_installer {
 
         internal static Window window;
         internal static string PapersDir;
-        internal static string newestVersion;
+        internal static string latestVersion;
 
         /// <summary>
         /// The main entry point for the application.

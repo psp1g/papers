@@ -10,11 +10,13 @@ namespace psp_papers_installer {
         const string UsualPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PapersPlease";
         const string RemoteVersion = "https://raw.githubusercontent.com/psp1g/papers/main/version";
 
-        private bool UpToDate => this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
-        private bool clickedOnce = false;
+        private bool upToDate;
+        private bool clickedOnce;
 
         public Welcome() {
             this.InitializeComponent();
+
+            this.currentVersion.Text = Program.InstalledVersion(UsualPath);
 
             try {
                 using WebClient wc = new WebClient();
@@ -24,7 +26,13 @@ namespace psp_papers_installer {
                         return;
                     }
                     using StreamReader reader = new StreamReader(args.Result);
-                    this.latestVersion.Text = reader.ReadToEnd();
+                    string version = reader.ReadToEnd();
+
+                    this.latestVersion.Text = version;
+                    Program.latestVersion = version;
+
+                    this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
+                    this.papersPath_TextChanged(null, null);
                 };
                 wc.OpenReadAsync(new Uri(RemoteVersion));
             }
@@ -39,7 +47,6 @@ namespace psp_papers_installer {
 
             this.papersPath.Text = UsualPath;
             this.papersPath_TextChanged(null, null);
-            this.currentVersion.Text = Program.InstalledVersion(UsualPath);
             if (!Program.AlreadyInstalled(UsualPath))
                 this.pathStatus.Text = "Detected Path";
         }
@@ -102,7 +109,7 @@ namespace psp_papers_installer {
             }
 
             if (Program.AlreadyInstalled(path)) {
-                this.@continue.Text = this.UpToDate ? "Up to Date" : "Update";
+                this.@continue.Text = this.upToDate ? "Up to Date" : "Update";
 
                 this.toInstall.Text = "To Update";
                 this.pathStatus.Text = "Mod Already Installed";
@@ -126,7 +133,7 @@ namespace psp_papers_installer {
         }
 
         private void continue_Click(object sender, EventArgs e) {
-            if (this.UpToDate && !this.clickedOnce) {
+            if (this.upToDate && !this.clickedOnce) {
                 this.clickedOnce = true;
                 this.@continue.Text = "Re-install anyway?";
                 return;

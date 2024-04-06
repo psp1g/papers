@@ -39,10 +39,10 @@ namespace psp_papers_installer {
 
             if (Program.AlreadyInstalled()) {
                 this.update = true;
-                this.log.AppendText("Updating PSP Papers Please..\n");
+                this.log.AppendText($"Updating PSP Papers Please to @{Program.latestVersion}\n");
                 this.title.Text = "Updating Mod...";
             } else
-                this.log.AppendText("Starting install..\n");
+                this.log.AppendText($"Starting install of PSP Papers Please @{Program.latestVersion}\n");
 
             Thread installerThread = new Thread(this.Download);
             installerThread.Start();
@@ -67,9 +67,8 @@ namespace psp_papers_installer {
                 }
             }
 
-            using (WebClient wc = new WebClient())
-            {
-                this.log.AppendText($"Downloading PSP Papers Mod - {Git}\n");
+            using (WebClient wc = new WebClient()) {
+                this.log.AppendText($"Downloading PSP Papers Mod @{Program.latestVersion} - {Git}\n");
                 wc.DownloadProgressChanged += modDlProgress;
                 wc.DownloadFileAsync(
                     new Uri(Git),
