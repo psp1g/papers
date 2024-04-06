@@ -8,6 +8,7 @@ namespace psp_papers_installer {
 
         internal static Window window;
         internal static string PapersDir;
+        internal static string newestVersion;
 
         /// <summary>
         /// The main entry point for the application.
@@ -34,10 +35,17 @@ namespace psp_papers_installer {
         }
 
         internal static bool AlreadyInstalled(string path) {
-            return File.Exists(Path.Combine(path, "BepInEx", "plugins", "psp-papers-mod.dll")) ||
-                   File.Exists(Path.Combine(path, "psp-paper-mod.zip")) ||
-                   Directory.Exists(Path.Combine(path, "papers-main")) ||
-                   Directory.Exists(Path.Combine(path, "img_patch"));
+            return File.Exists(Path.Combine(path, "papers-main", "version"));
+        }
+
+        internal static string InstalledVersion() {
+            return InstalledVersion(PapersDir);
+        }
+
+        internal static string InstalledVersion(string path) {
+            string versionPath = Path.Combine(path, "papers-main", "version");
+            if (!File.Exists(versionPath)) return "None";
+            return File.ReadAllText(versionPath);
         }
 
     }

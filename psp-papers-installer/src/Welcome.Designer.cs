@@ -39,6 +39,10 @@ namespace psp_papers_installer {
             this.browse = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.pathStatus = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.currentVersion = new System.Windows.Forms.Label();
+            this.latestVersion = new System.Windows.Forms.Label();
             this.toInstall.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,10 +193,54 @@ namespace psp_papers_installer {
             this.pathStatus.TabIndex = 11;
             this.pathStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(500, 506);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(157, 19);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Latest Version:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(500, 487);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(157, 19);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Currently Installed:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // currentVersion
+            // 
+            this.currentVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentVersion.Location = new System.Drawing.Point(609, 487);
+            this.currentVersion.Name = "currentVersion";
+            this.currentVersion.Size = new System.Drawing.Size(48, 19);
+            this.currentVersion.TabIndex = 14;
+            this.currentVersion.Text = "1.1.1";
+            this.currentVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // latestVersion
+            // 
+            this.latestVersion.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.latestVersion.Location = new System.Drawing.Point(609, 506);
+            this.latestVersion.Name = "latestVersion";
+            this.latestVersion.Size = new System.Drawing.Size(48, 19);
+            this.latestVersion.TabIndex = 15;
+            this.latestVersion.Text = "1.1.1";
+            this.latestVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Welcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.latestVersion);
+            this.Controls.Add(this.currentVersion);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.pathStatus);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.browse);
@@ -213,6 +261,11 @@ namespace psp_papers_installer {
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label currentVersion;
+        private System.Windows.Forms.Label latestVersion;
 
         private System.Windows.Forms.Label pathStatus;
 

@@ -1,24 +1,46 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace psp_papers_installer {
     public partial class Welcome : UserControl  {
 
-        private const string usualPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PapersPlease";
+        const string UsualPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PapersPlease";
+        const string RemoteVersion = "https://raw.githubusercontent.com/psp1g/papers/main/version";
+
+        private bool UpToDate => this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
+        private bool clickedOnce = false;
 
         public Welcome() {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            string exePath = Path.Combine(usualPath, "PapersPlease.exe");
-            string dataPath = Path.Combine(usualPath, "PapersPlease_Data");
+            try {
+                using WebClient wc = new WebClient();
+                wc.OpenReadCompleted += (sender, args) => {
+                    if (args.Error != null) {
+                        this.latestVersion.Text = "??";
+                        return;
+                    }
+                    using StreamReader reader = new StreamReader(args.Result);
+                    this.latestVersion.Text = reader.ReadToEnd();
+                };
+                wc.OpenReadAsync(new Uri(RemoteVersion));
+            }
+            catch (WebException e) {
+                this.latestVersion.Text = "??";
+            }
+
+            string exePath = Path.Combine(UsualPath, "PapersPlease.exe");
+            string dataPath = Path.Combine(UsualPath, "PapersPlease_Data");
 
             if (!File.Exists(exePath) && !File.Exists(dataPath)) return;
 
-            this.papersPath.Text = usualPath;
+            this.papersPath.Text = UsualPath;
             this.papersPath_TextChanged(null, null);
-            if (!Program.AlreadyInstalled(usualPath))
+            this.currentVersion.Text = Program.InstalledVersion(UsualPath);
+            if (!Program.AlreadyInstalled(UsualPath))
                 this.pathStatus.Text = "Detected Path";
         }
 
@@ -60,8 +82,10 @@ namespace psp_papers_installer {
 
             this.@continue.Text = "Install";
             this.toInstall.Text = "To Install";
+            this.currentVersion.Text = "None";
             this.netsdk.Checked = true;
             this.bepInEx.Checked = true;
+            this.clickedOnce = false;
 
             if (!File.Exists(exePath)) {
                 this.pathStatus.Text = "PapersPlease.exe couldn't be found!";
@@ -78,10 +102,14 @@ namespace psp_papers_installer {
             }
 
             if (Program.AlreadyInstalled(path)) {
-                this.@continue.Text = "Update";
+                this.@continue.Text = this.UpToDate ? "Up to Date" : "Update";
+
                 this.toInstall.Text = "To Update";
                 this.pathStatus.Text = "Mod Already Installed";
+                this.currentVersion.Text = Program.InstalledVersion(path);
+
                 this.pathStatus.ForeColor = Color.Teal;
+
                 this.@continue.Enabled = true;
                 this.netsdk.Checked = false;
                 this.bepInEx.Checked = false;
@@ -98,6 +126,12 @@ namespace psp_papers_installer {
         }
 
         private void continue_Click(object sender, EventArgs e) {
+            if (this.UpToDate && !this.clickedOnce) {
+                this.clickedOnce = true;
+                this.@continue.Text = "Re-install anyway?";
+                return;
+            }
+
             this.Hide();
 
             Program.PapersDir = this.papersPath.Text.Trim();
