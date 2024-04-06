@@ -239,7 +239,7 @@ namespace psp_papers_installer {
             if (!this.update) {
                 this.SetProgress(1000);
 
-                this.log.AppendText("Generating default configurations..");
+                this.log.AppendText("Generating default configurations..\n");
 
                 // lol
                 Process gProc = Process.Start(Path.Combine(Program.PapersDir, "PapersPlease.exe"));
@@ -251,15 +251,18 @@ namespace psp_papers_installer {
 
             this.SetProgress(1050);
 
-            this.log.AppendText("Moving installer to game files");
+            ProcessModule processModule = Process.GetCurrentProcess().MainModule;
 
-            string installerLocation = Assembly.GetExecutingAssembly().Location;
-            string locInstallerPath = Path.Combine(Program.PapersDir, "PspPapersInstaller.exe");
+            if (processModule != null) {
+                this.log.AppendText("Moving installer to game files\n");
+                string installerLocation = processModule.FileName;
+                string locInstallerPath = Path.Combine(Program.PapersDir, "PspPapersInstaller.exe");
 
-            if (File.Exists(locInstallerPath)) File.Delete(locInstallerPath);
+                if (File.Exists(locInstallerPath)) File.Delete(locInstallerPath);
 
-            FileInfo installerInfo = new FileInfo(installerLocation);
-            installerInfo.CopyTo(locInstallerPath);
+                FileInfo installerInfo = new FileInfo(installerLocation);
+                installerInfo.CopyTo(locInstallerPath);
+            }
 
             this.SetProgress(1100);
 
