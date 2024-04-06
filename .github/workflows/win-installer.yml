@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
 
       - name: List repository files
-        run: ls -l
+        run: ls
 
       - name: Create SDK JSON settings
         run: "echo '{\"sdk\":{\"version\": \"6.x\"}}' > ./global.json"
