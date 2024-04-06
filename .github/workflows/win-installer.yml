@@ -21,12 +21,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Create SDK JSON settings
         run: "echo '{\"sdk\":{\"version\": \"6.x\"}}' > ./global.json"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '6.x'
+
+      - name: Install .NET Framework 4.8
+        run: |
+          choco install netfx-4.8-devpack
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
