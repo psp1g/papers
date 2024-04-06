@@ -83,14 +83,14 @@ namespace psp_papers_installer {
 
             if (path == "") {
                 this.pathStatus.Text = "";
-                this.@continue.Enabled = false;
+                this.cont.Enabled = false;
                 return;
             }
 
             string exePath = Path.Combine(path, "PapersPlease.exe");
             string dataPath = Path.Combine(path, "PapersPlease_Data");
 
-            this.@continue.Text = "Install";
+            this.cont.Text = "Install";
             this.toInstall.Text = "To Install";
             this.currentVersion.Text = "None";
             this.netsdk.Checked = true;
@@ -100,19 +100,19 @@ namespace psp_papers_installer {
             if (!File.Exists(exePath)) {
                 this.pathStatus.Text = "PapersPlease.exe couldn't be found!";
                 this.pathStatus.ForeColor = Color.Crimson;
-                this.@continue.Enabled = false;
+                this.cont.Enabled = false;
                 return;
             }
 
             if (!Directory.Exists(dataPath)) {
                 this.pathStatus.Text = "Incorrect Game Version! (Unity Version Required)";
                 this.pathStatus.ForeColor = Color.Crimson;
-                this.@continue.Enabled = false;
+                this.cont.Enabled = false;
                 return;
             }
 
             if (Program.AlreadyInstalled(path)) {
-                this.@continue.Text = this.upToDate ? "Up to Date" : "Update";
+                this.cont.Text = this.upToDate ? "Up to Date" : "Update";
 
                 this.toInstall.Text = "To Update";
                 this.pathStatus.Text = "Mod Already Installed";
@@ -120,7 +120,7 @@ namespace psp_papers_installer {
 
                 this.pathStatus.ForeColor = Color.Teal;
 
-                this.@continue.Enabled = true;
+                this.cont.Enabled = true;
                 this.netsdk.Checked = false;
                 this.bepInEx.Checked = false;
                 return;
@@ -128,17 +128,17 @@ namespace psp_papers_installer {
 
             this.pathStatus.Text = "Looks good!";
             this.pathStatus.ForeColor = Color.LimeGreen;
-            this.@continue.Enabled = true;
+            this.cont.Enabled = true;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             System.Diagnostics.Process.Start("explorer.exe", "https://github.com/psp1g/papers");
         }
 
-        private void continue_Click(object sender, EventArgs e) {
+        private void cont_Click(object sender, EventArgs e) {
             if (this.upToDate && !this.clickedOnce) {
                 this.clickedOnce = true;
-                this.@continue.Text = "Re-install anyway?";
+                this.cont.Text = "Re-install anyway?";
                 return;
             }
 
@@ -153,4 +153,5 @@ namespace psp_papers_installer {
         }
 
     }
+
 }

@@ -23,21 +23,23 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
-            this.SuspendLayout();
+        private void InitializeComponent()
+        {
+            SuspendLayout();
             // 
             // Window
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(669, 586);
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(685, 625);
-            this.MinimumSize = new System.Drawing.Size(685, 625);
-            this.Name = "Window";
-            this.Text = "PSP PAPERS PLEASE MOD INSTALLER";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            ClientSize = new System.Drawing.Size(693, 631);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MaximumSize = new System.Drawing.Size(709, 670);
+            MinimumSize = new System.Drawing.Size(709, 670);
+            Name = "Window";
+            Text = "PSP PAPERS PLEASE MOD INSTALLER";
+            ResumeLayout(false);
         }
 
         #endregion

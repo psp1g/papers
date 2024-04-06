@@ -10,15 +10,15 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace psp_papers_installer {
-
     // Gross code
     // Just wanted it to work without anything fancy
     // Its already a windows form app (cope)
     public partial class Installing : UserControl {
-
         private const string Git = "https://github.com/psp1g/papers/archive/refs/heads/main.zip";
+
         private const string BepInEx =
             "https://builds.bepinex.dev/projects/bepinex_be/688/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.688%2B4901521.zip";
+
         private const string dotNetInstallScript =
             "https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1";
 
@@ -41,7 +41,8 @@ namespace psp_papers_installer {
                 this.update = true;
                 this.log.AppendText($"Updating PSP Papers Please to @{Program.latestVersion}\n");
                 this.title.Text = "Updating Mod...";
-            } else
+            }
+            else
                 this.log.AppendText($"Starting install of PSP Papers Please @{Program.latestVersion}\n");
 
             Thread installerThread = new Thread(this.Download);
@@ -131,7 +132,8 @@ namespace psp_papers_installer {
 
             ProcessStartInfo startInfo = new ProcessStartInfo {
                 FileName = "powershell.exe",
-                Arguments = $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 6.0.1xx\"",
+                Arguments =
+                    $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 6.0.1xx\"",
 
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -261,7 +263,7 @@ namespace psp_papers_installer {
 
             this.SetProgress(1100);
 
-            this.@continue.Enabled = true;
+            this.cont.Enabled = true;
             this.log.AppendText("\n\n~~~~~~~~~~~\nFinished!");
         }
 
@@ -316,12 +318,10 @@ namespace psp_papers_installer {
 
             this.SetProgress(this.dlSteps.Sum());
 
-            if (this.dlSteps.Sum() == this.dlSteps.Length * 100) {
-                this.Extract();
-            }
+            if (this.dlSteps.Sum() == this.dlSteps.Length * 100) this.Extract();
         }
 
-        private void continue_Click(object sender, EventArgs e) {
+        private void cont_Click(object sender, EventArgs e) {
             this.Hide();
 
             Config cfg = new Config();
@@ -330,5 +330,4 @@ namespace psp_papers_installer {
             cfg.Show();
         }
     }
-
 }

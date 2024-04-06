@@ -22,10 +22,10 @@ namespace psp_papers_installer {
             else
                 this.error.Text = "";
 
-            this.@continue.Enabled = this.error.Text == "";
+            this.cont.Enabled = this.error.Text == "";
         }
 
-        private void continue_Click(object sender, EventArgs e) {
+        private void cont_Click(object sender, EventArgs e) {
             string cfgPath = Path.Combine(Program.PapersDir, "BepInEx", "config", "wtf.psp.papers.cfg");
             string toml = File.ReadAllText(cfgPath);
 
