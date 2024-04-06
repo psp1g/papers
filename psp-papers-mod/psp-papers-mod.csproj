@@ -18,11 +18,11 @@
         <PackageReference Include="TwitchLib.Client" Version="3.3.1" />
 
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>lib\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>$(PapersPleaseDir)\BepInEx\interop\Il2Cppmscorlib.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="Assembly-CSharp">
-            <HintPath>lib\Assembly-CSharp.dll</HintPath>
+            <HintPath>$(PapersPleaseDir)\BepInEx\interop\Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
