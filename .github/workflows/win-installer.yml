@@ -22,8 +22,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: List repository files
-        run: ls
+      - name: CD into the installer
+        run: cd psp-papers-installer/
 
       - name: Create SDK JSON settings
         run: "echo '{\"sdk\":{\"version\": \"6.x\"}}' > ./global.json"
@@ -41,12 +41,12 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       - name: Download dependencies
-        run: dotnet restore "psp-papers-installer/psp-papers-installer.csproj"
+        run: dotnet restore "psp-papers-installer.csproj"
         env:
           Configuration: ${{ matrix.configuration }}
 
       - name: Create installer executable
-        run: dotnet msbuild "psp-papers-installer/psp-papers-installer.csproj" /p:Configuration=$env:Configuration
+        run: dotnet msbuild "psp-papers-installer.csproj" /p:Configuration=$env:Configuration
         env:
           Configuration: ${{ matrix.configuration }}
 
