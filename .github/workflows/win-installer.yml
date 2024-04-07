@@ -50,13 +50,13 @@ jobs:
 
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (contains(github.event.head_commit.message, '(release):') || contains(github.event.head_commit.message, '(pre-release):'))
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (contains(github.event.head_commit.message, 'installer(release):') || contains(github.event.head_commit.message, 'installer(pre-release):'))
 
     steps:
       - name: Get release version
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
-          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*\((release|pre-release):\s*//')
+          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*installer\((release|pre-release):\s*//')
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
       - name: Determine if pre-release
@@ -76,7 +76,10 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ env.RELEASE_NAME }}
-          body: Standalone executable to automate installing the Papers PSP Mod! Run right from the ZIP
+          body: |
+            Standalone executable to automate installing and updating the Papers PSP Mod!
+            Run right from the ZIP
+            The installer will copy itself into the Papers Please game directory. Run it again to update the mod (if any updates available)
           draft: false
           prerelease: ${{ env.IS_PRE_RELEASE }}
 
