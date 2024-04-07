@@ -79,6 +79,7 @@ jobs:
       - name: Rename Artifact
         run: |
           ls -l
+          echo hi
           mv PspPapersModInstaller PspPapersModInstaller-win-x64.zip
 
       - name: Create Release
