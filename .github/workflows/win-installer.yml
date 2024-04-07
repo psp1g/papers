@@ -1,4 +1,4 @@
-name: Build PSP Papers Mod Installer
+name: PSP Papers Mod Installer
 
 on:
   push:
@@ -50,18 +50,16 @@ jobs:
 
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'release:')
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (contains(github.event.head_commit.message, '(release):') || contains(github.event.head_commit.message, '(pre-release):'))
 
     steps:
       - name: Get release version
-        id: release_name
         run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
-          RELEASE_NAME=$(echo $COMMIT_MESSAGE | sed 's/(pre-release): //; s/(release): //')
+          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*\((release|pre-release):\s*//')
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
       - name: Determine if pre-release
-        id: determine_pre_release
         run: |
           echo "IS_PRE_RELEASE=$(echo $COMMIT_MESSAGE | grep -q "(pre-release):" && echo true || echo false)" >> $GITHUB_ENV
 
@@ -72,7 +70,6 @@ jobs:
           path: ./PspPapersModInstaller
 
       - name: Create Release
-        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -84,7 +81,6 @@ jobs:
           prerelease: ${{ env.IS_PRE_RELEASE }}
 
       - name: Upload Release Asset
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
