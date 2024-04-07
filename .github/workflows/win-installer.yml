@@ -59,39 +59,31 @@ jobs:
           RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*installer\((release|pre-release)\):\s*//')
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
-      - name: Print RELEASE_NAME
-        run: echo "RELEASE_NAME=${{ env.RELEASE_NAME }}"
-
       - name: Determine if pre-release
         run: |
           echo "IS_PRE_RELEASE=$(echo $COMMIT_MESSAGE | grep -q "(pre-release):" && echo true || echo false)" >> $GITHUB_ENV
+
+      - name: Print RELEASE_NAME
+        run: |
+          echo "RELEASE_NAME=${{ env.RELEASE_NAME }}"
+          echo "IS_PRE_RELEASE=${{ env.IS_PRE_RELEASE }}"
 
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: PspPapersModInstaller
-          path: ./PspPapersModInstaller
+          path: ./PspPapersModInstaller-win-x64.zip
 
       - name: Create Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.RELEASE_NAME }}
           release_name: ${{ env.RELEASE_NAME }}
+          files: PspPapersModInstaller-win-x64.zip
           body: |
-            Standalone executable to automate installing and updating the Papers PSP Mod!
-            Run right from the ZIP
+            Standalone executable to automate installing and updating the Papers PSP Mod
             The installer will copy itself into the Papers Please game directory. Run it again to update the mod (if any updates available)
           draft: false
           prerelease: ${{ env.IS_PRE_RELEASE }}
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./PspPapersModInstaller
-          asset_name: PspPapersModInstaller-win-x64.zip
-          asset_content_type: application/octet-stream
