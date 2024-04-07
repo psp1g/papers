@@ -11,6 +11,10 @@
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <PublishUrl>publish\</PublishUrl>
     <PublishSingleFile>true</PublishSingleFile>
+    <SupportedPlatform Include="windows7" />
+    <SupportedPlatform Include="windows8" />
+    <SupportedPlatform Include="windows10" />
+    <SupportedPlatform Include="windows11" />
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
