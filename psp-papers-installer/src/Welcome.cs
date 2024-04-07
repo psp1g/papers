@@ -136,10 +136,19 @@ namespace psp_papers_installer {
         }
 
         private void cont_Click(object sender, EventArgs e) {
+            string path = this.papersPath.Text.Trim();
+
+            string bepPath = Path.Combine(path, "BepInEx");
+
             if (this.upToDate && !this.clickedOnce) {
                 this.clickedOnce = true;
                 this.cont.Text = "Re-install anyway?";
                 return;
+            }
+
+            if (Directory.Exists(bepPath) && !Program.AlreadyInstalled(path)) {
+                DialogResult result = MessageBox.Show("BepInEx seems to be installed already! Would you like to continue installing and replace with BepInEx 6?", "BepInEx already installed", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (result != DialogResult.Yes) return;
             }
 
             this.Hide();
