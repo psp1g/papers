@@ -168,7 +168,8 @@ namespace psp_papers_installer {
         }
 
         private void Run() {
-            this.Log("Running the game with BepInEx (Generating hollowed assemblies)");
+            this.Log("Running the game with BepInEx for the first time (Generating hollowed assemblies)");
+            this.Log("DO NOT CLOSE THE GAME!!! IT WILL CLOSE AUTOMATICALLY\n");
             Process gProc = Process.Start(Path.Combine(Program.PapersDir, "PapersPlease.exe"));
 
             gProc?.WaitForExit();
@@ -178,6 +179,17 @@ namespace psp_papers_installer {
 
             this.Log("Closing game");
             Process.GetProcessesByName("PapersPlease").FirstOrDefault()?.CloseMainWindow();
+
+            string unhollowedPath = Path.Combine(Program.PapersDir, "BepInEx", "interop", "Assembly-CSharp.dll");
+
+            if (!File.Exists(unhollowedPath)) {
+                this.Log("The game didn't generate unhollowed assemblies as expected!! Trying again..");
+                this.SetProgress(600);
+                this.Run();
+                return;
+            }
+
+            this.Log("Success! Assembly-CSharp.dll found");
 
             this.SetProgress(700);
             this.Restore();
