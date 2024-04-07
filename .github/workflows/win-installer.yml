@@ -43,7 +43,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: PspPapersModInstaller-win-x64.zip
+          name: PspPapersModInstaller
           path: .\psp-papers-installer\bin\Release\net8.0-windows\win-x64\publish\psp_papers_installer.exe
 
   create_release:
@@ -71,10 +71,15 @@ jobs:
           echo "RELEASE_NAME=${{ env.RELEASE_NAME }}"
           echo "IS_PRE_RELEASE=${{ env.IS_PRE_RELEASE }}"
 
-      - name: Download artifact
+      - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: PspPapersModInstaller-win-x64.zip
+          name: PspPapersModInstaller
+
+      - name: Rename Artifact
+        run: |
+          ls -l
+          mv PspPapersModInstaller PspPapersModInstaller-win-x64.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
