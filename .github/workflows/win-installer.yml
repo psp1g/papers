@@ -75,7 +75,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: PspPapersModInstaller
-          path: ./PspPapersModInstaller-win-x64.zip
+          path: PspPapersModInstaller-win-x64.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -84,7 +84,7 @@ jobs:
         with:
           tag_name: v${{ env.RELEASE_NAME }}
           release_name: ${{ env.RELEASE_NAME }}
-          files: ./PspPapersModInstaller-win-x64.zip
+          files: PspPapersModInstaller-win-x64.zip
           body: |
             Standalone executable to automate installing and updating the Papers PSP Mod
             The installer will copy itself into the Papers Please game directory. Run it again to update the mod (if any updates available)
