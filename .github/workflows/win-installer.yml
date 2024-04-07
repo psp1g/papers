@@ -43,7 +43,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: PspPapersModInstaller
+          name: PspPapersModInstaller-win-x64.zip
           path: .\psp-papers-installer\bin\Release\net8.0-windows\win-x64\publish\psp_papers_installer.exe
 
   create_release:
@@ -72,10 +72,9 @@ jobs:
           echo "IS_PRE_RELEASE=${{ env.IS_PRE_RELEASE }}"
 
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          name: PspPapersModInstaller
-          path: PspPapersModInstaller-win-x64.zip
+          name: PspPapersModInstaller-win-x64.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -83,7 +82,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.RELEASE_NAME }}
-          release_name: ${{ env.RELEASE_NAME }}
           files: PspPapersModInstaller-win-x64.zip
           body: |
             Standalone executable to automate installing and updating the Papers PSP Mod
