@@ -56,7 +56,7 @@ jobs:
       - name: Get release version
         run: |
           COMMIT_MESSAGE="${{ github.event.head_commit.message }}"
-          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*installer\((release|pre-release)):\s*//')
+          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*installer\((release|pre-release)\):\s*//')
           echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
 
       - name: Print RELEASE_NAME
