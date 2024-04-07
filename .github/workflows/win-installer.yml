@@ -77,7 +77,7 @@ jobs:
 
       - name: Rename Artifact
         run: |
-          mv psp_papers_installer.exe PspPapersModInstaller-win-x64.zip
+          mv psp_papers_installer.exe PspPapersModInstaller-win-x64.exe
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -85,7 +85,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.RELEASE_NAME }}
-          files: PspPapersModInstaller-win-x64.zip
+          files: PspPapersModInstaller-win-x64.exe
           body: |
             Standalone executable to automate installing and updating the Papers PSP Mod
             The installer will copy itself into the Papers Please game directory. Run it again to update the mod (if any updates available)
