@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
@@ -66,6 +67,10 @@ namespace psp_papers_installer {
                     Directory.Delete(Path.Combine(Program.PapersDir, "BepInEx", "plugins"), true);
                     Directory.CreateDirectory(Path.Combine(Program.PapersDir, "BepInEx", "plugins"));
                 }
+            } else {
+                // If not updating, remove existing BepInEx stuff if any
+                if (Directory.Exists(Path.Combine(Program.PapersDir, "BepInEx")))
+                    Directory.Delete(Path.Combine(Program.PapersDir, "BepInEx"), true);
             }
 
             using (WebClient wc = new WebClient()) {
@@ -110,7 +115,9 @@ namespace psp_papers_installer {
                 this.log.AppendText($"Extracting BepInEx 6 BE to {Program.PapersDir}\n");
                 ZipFile.ExtractToDirectory(
                     Path.Combine(Program.PapersDir, "bepinex.zip"),
-                    Program.PapersDir
+                    Program.PapersDir,
+                    Encoding.UTF8,
+                    true
                 );
                 this.SetProgress(400);
                 this.log.AppendText("Extracted BepInEx\n");
@@ -119,7 +126,9 @@ namespace psp_papers_installer {
             this.log.AppendText($"Extracting PSP Papers Mod to {Program.PapersDir}\n");
             ZipFile.ExtractToDirectory(
                 Path.Combine(Program.PapersDir, "psp-paper-mod.zip"),
-                Program.PapersDir
+                Program.PapersDir,
+                Encoding.UTF8,
+                true
             );
             this.SetProgress(500);
 
