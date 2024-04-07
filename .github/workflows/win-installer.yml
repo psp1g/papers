@@ -63,7 +63,7 @@ jobs:
 
       - name: Determine if pre-release
         run: |
-          echo "IS_PRE_RELEASE=$(echo $COMMIT_MESSAGE | grep -q "(pre-release):" && echo true || echo false)" >> $GITHUB_ENV
+          echo "IS_PRE_RELEASE=$(echo "${{ github.event.head_commit.message }}" | grep -q "(pre-release):" && echo true || echo false)" >> $GITHUB_ENV
 
       - name: Print RELEASE_NAME
         run: |
