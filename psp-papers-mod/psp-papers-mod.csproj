@@ -3,6 +3,7 @@
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <TargetFramework>net6.0</TargetFramework>
+		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
         <LangVersion>latest</LangVersion>
         <RootNamespace>psp_papers_mod</RootNamespace>
         <RestoreAdditionalProjectSources>
@@ -11,6 +12,7 @@
             https://nuget.samboy.dev/v3/index.json
         </RestoreAdditionalProjectSources>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<PapersPleaseDir>C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</PapersPleaseDir>
     </PropertyGroup>
 
     <ItemGroup>

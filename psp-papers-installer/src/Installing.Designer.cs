@@ -25,72 +25,80 @@ namespace psp_papers_installer {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
-            this.title = new System.Windows.Forms.Label();
-            this.log = new System.Windows.Forms.RichTextBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.@continue = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            //
+        private void InitializeComponent()
+        {
+            title = new System.Windows.Forms.Label();
+            log = new System.Windows.Forms.RichTextBox();
+            progressBar1 = new System.Windows.Forms.ProgressBar();
+            cont = new System.Windows.Forms.Button();
+            SuspendLayout();
+            // 
             // title
-            //
-            this.title.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.Location = new System.Drawing.Point(12, 9);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(645, 43);
-            this.title.TabIndex = 2;
-            this.title.Text = "Installing Mod...";
-            //
+            // 
+            title.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            title.Location = new System.Drawing.Point(0, 10);
+            title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            title.Name = "title";
+            title.Size = new System.Drawing.Size(685, 49);
+            title.TabIndex = 2;
+            title.Text = "Installing Mod...";
+            title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // log
-            //
-            this.log.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.log.Location = new System.Drawing.Point(12, 82);
-            this.log.Name = "log";
-            this.log.ReadOnly = true;
-            this.log.Size = new System.Drawing.Size(645, 374);
-            this.log.TabIndex = 3;
-            this.log.Text = "";
-            //
+            // 
+            log.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            log.Location = new System.Drawing.Point(14, 95);
+            log.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            log.Name = "log";
+            log.ReadOnly = true;
+            log.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            log.Size = new System.Drawing.Size(656, 393);
+            log.TabIndex = 3;
+            log.Text = "";
+            log.UseWaitCursor = true;
+            // 
             // progressBar1
-            //
-            this.progressBar1.Location = new System.Drawing.Point(12, 462);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(645, 23);
-            this.progressBar1.TabIndex = 4;
-            //
-            // continue
-            //
-            this.@continue.Enabled = false;
-            this.@continue.Location = new System.Drawing.Point(531, 529);
-            this.@continue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.@continue.Name = "continue";
-            this.@continue.Size = new System.Drawing.Size(126, 44);
-            this.@continue.TabIndex = 7;
-            this.@continue.Text = "Continue";
-            this.@continue.UseVisualStyleBackColor = true;
-            this.@continue.Click += new System.EventHandler(this.continue_Click);
-            //
+            // 
+            progressBar1.Location = new System.Drawing.Point(14, 494);
+            progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new System.Drawing.Size(656, 27);
+            progressBar1.TabIndex = 4;
+            // 
+            // cont
+            // 
+            cont.Enabled = false;
+            cont.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            cont.Location = new System.Drawing.Point(541, 551);
+            cont.Name = "cont";
+            cont.Size = new System.Drawing.Size(130, 57);
+            cont.TabIndex = 5;
+            cont.Text = "Continue";
+            cont.UseVisualStyleBackColor = true;
+            cont.Click += cont_Click;
+            // 
             // Installing
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.@continue);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.log);
-            this.Controls.Add(this.title);
-            this.MaximumSize = new System.Drawing.Size(685, 625);
-            this.MinimumSize = new System.Drawing.Size(685, 625);
-            this.Name = "Installing";
-            this.Size = new System.Drawing.Size(685, 625);
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(cont);
+            Controls.Add(progressBar1);
+            Controls.Add(log);
+            Controls.Add(title);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximumSize = new System.Drawing.Size(685, 625);
+            MinimumSize = new System.Drawing.Size(685, 625);
+            Name = "Installing";
+            Size = new System.Drawing.Size(685, 625);
+            ResumeLayout(false);
         }
-
-        private System.Windows.Forms.Button @continue;
 
         private System.Windows.Forms.RichTextBox log;
         private System.Windows.Forms.ProgressBar progressBar1;
 
         private System.Windows.Forms.Label title;
+
+        private System.Windows.Forms.Button cont;
 
         #endregion
     }

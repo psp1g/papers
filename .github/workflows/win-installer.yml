@@ -1,0 +1,91 @@
+name: PSP Papers Mod Installer
+
+on:
+  push:
+    paths:
+      - psp-papers-installer/**
+      - .github/workflows/win-installer.yml
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - psp-papers-installer/**
+      - .github/workflows/win-installer.yml
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Build installer executable
+        run: |
+          dotnet restore "psp-papers-mod.sln"
+          cd .\psp-papers-installer\
+          dotnet publish "psp-papers-installer.csproj" -r win-x64 -c $env:Configuration /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true --self-contained=false
+        env:
+          Configuration: ${{ matrix.configuration }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: PspPapersModInstaller
+          path: .\psp-papers-installer\bin\Release\net8.0-windows\win-x64\publish\psp_papers_installer.exe
+
+  create_release:
+
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && (contains(github.event.head_commit.message, '(release):') || contains(github.event.head_commit.message, '(pre-release):'))
+
+    steps:
+      - name: Get release version
+        run: |
+          COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+          RELEASE_NAME=$(echo "$COMMIT_MESSAGE" | sed -E 's/.*\((release|pre-release):\s*//')
+          echo "RELEASE_NAME=$RELEASE_NAME" >> $GITHUB_ENV
+
+      - name: Determine if pre-release
+        run: |
+          echo "IS_PRE_RELEASE=$(echo $COMMIT_MESSAGE | grep -q "(pre-release):" && echo true || echo false)" >> $GITHUB_ENV
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: PspPapersModInstaller
+          path: ./PspPapersModInstaller
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ env.RELEASE_NAME }}
+          body: Standalone executable to automate installing the Papers PSP Mod! Run right from the ZIP
+          draft: false
+          prerelease: ${{ env.IS_PRE_RELEASE }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./PspPapersModInstaller
+          asset_name: PspPapersModInstaller-win-x64.zip
+          asset_content_type: application/octet-stream

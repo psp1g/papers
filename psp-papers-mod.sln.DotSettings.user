@@ -250,8 +250,11 @@
   &lt;Assembly Path="C:\Users\Ethan\.nuget\packages\twitchlib.client.models\3.3.1\lib\netstandard2.0\TwitchLib.Client.Models.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Ethan\.nuget\packages\harmonyx\2.10.1\lib\netstandard2.0\0Harmony.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\6.0.417\MSBuild.dll</s:String>
+	
 	
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/CustomGlobalProperties/=PapersPleaseDir/@EntryIndexedValue">C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FConfig/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FFinished/@EntryIndexedValue">True</s:Boolean>
 	
