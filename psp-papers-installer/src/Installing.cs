@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -52,7 +51,13 @@ namespace psp_papers_installer {
 
         private void SetProgress(int prog) {
             double pct = prog / (totalSteps * 1d);
-            this.progressBar1.Value = (int)(pct * 100);
+            this.progressBar1.Invoke(new Action(() =>
+                this.progressBar1.Value = (int)(pct * 100)
+            ));
+        }
+
+        private void Log(string message) {
+            this.log.Invoke(new Action(() => this.log.AppendText($"{message}\n")));
         }
 
         private void Download() {
@@ -67,14 +72,16 @@ namespace psp_papers_installer {
                     Directory.Delete(Path.Combine(Program.PapersDir, "BepInEx", "plugins"), true);
                     Directory.CreateDirectory(Path.Combine(Program.PapersDir, "BepInEx", "plugins"));
                 }
-            } else {
+            }
+            else {
                 // If not updating, remove existing BepInEx stuff if any
                 if (Directory.Exists(Path.Combine(Program.PapersDir, "BepInEx")))
                     Directory.Delete(Path.Combine(Program.PapersDir, "BepInEx"), true);
             }
 
             using (WebClient wc = new WebClient()) {
-                this.log.AppendText($"Downloading PSP Papers Mod @{Program.latestVersion} - {Git}\n");
+                this.Log($"Downloading PSP Papers Mod @{Program.latestVersion} - {Git}");
+
                 wc.DownloadProgressChanged += modDlProgress;
                 wc.DownloadFileAsync(
                     new Uri(Git),
@@ -84,7 +91,8 @@ namespace psp_papers_installer {
 
             if (!this.update) {
                 using (WebClient wc = new WebClient()) {
-                    this.log.AppendText($"Downloading BepInEx 6 BE - {BepInEx}\n");
+                    this.Log($"Downloading BepInEx 6 BE - {BepInEx}");
+
                     wc.DownloadProgressChanged += bepInExDlProgress;
                     wc.DownloadFileAsync(
                         new Uri(BepInEx),
@@ -93,7 +101,7 @@ namespace psp_papers_installer {
                 }
 
                 using (WebClient wc = new WebClient()) {
-                    this.log.AppendText($"Downloading .NET 6 SDK Install Script - {dotNetInstallScript}\n");
+                    this.Log($"Downloading .NET 6 SDK Install Script - {dotNetInstallScript}");
                     wc.DownloadProgressChanged += dotnetDlProgress;
                     wc.DownloadFileAsync(
                         new Uri(dotNetInstallScript),
@@ -112,7 +120,7 @@ namespace psp_papers_installer {
             this.extract = true;
 
             if (!this.update) {
-                this.log.AppendText($"Extracting BepInEx 6 BE to {Program.PapersDir}\n");
+                this.Log($"Extracting BepInEx 6 BE to {Program.PapersDir}");
                 ZipFile.ExtractToDirectory(
                     Path.Combine(Program.PapersDir, "bepinex.zip"),
                     Program.PapersDir,
@@ -120,10 +128,10 @@ namespace psp_papers_installer {
                     true
                 );
                 this.SetProgress(400);
-                this.log.AppendText("Extracted BepInEx\n");
+                this.Log("Extracted BepInEx");
             }
 
-            this.log.AppendText($"Extracting PSP Papers Mod to {Program.PapersDir}\n");
+            this.Log($"Extracting PSP Papers Mod to {Program.PapersDir}");
             ZipFile.ExtractToDirectory(
                 Path.Combine(Program.PapersDir, "psp-paper-mod.zip"),
                 Program.PapersDir,
@@ -132,12 +140,12 @@ namespace psp_papers_installer {
             );
             this.SetProgress(500);
 
-            this.log.AppendText("Extracted PSP Papers Mod\n");
+            this.Log("Extracted PSP Papers Mod");
             this.DotNetInstall();
         }
 
         private void DotNetInstall() {
-            this.log.AppendText("Installing .NET 6 SDK\n");
+            this.Log("Installing .NET 6 SDK");
 
             ProcessStartInfo startInfo = new ProcessStartInfo {
                 FileName = "powershell.exe",
@@ -160,7 +168,7 @@ namespace psp_papers_installer {
         }
 
         private void Run() {
-            this.log.AppendText("Running the game with BepInEx (Generating hollowed assemblies)\n");
+            this.Log("Running the game with BepInEx (Generating hollowed assemblies)");
             Process gProc = Process.Start(Path.Combine(Program.PapersDir, "PapersPlease.exe"));
 
             gProc?.WaitForExit();
@@ -168,7 +176,7 @@ namespace psp_papers_installer {
 
             Thread.Sleep(3000);
 
-            this.log.AppendText("Closing game\n");
+            this.Log("Closing game");
             Process.GetProcessesByName("PapersPlease").FirstOrDefault()?.CloseMainWindow();
 
             this.SetProgress(700);
@@ -176,7 +184,7 @@ namespace psp_papers_installer {
         }
 
         private void Restore() {
-            this.log.AppendText("Installing C# nuget dependencies\n");
+            this.Log("Installing C# nuget dependencies");
 
             string projPath = Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "psp-papers-mod.csproj");
             ProcessStartInfo startInfo = new ProcessStartInfo {
@@ -199,7 +207,7 @@ namespace psp_papers_installer {
         }
 
         private void Compile() {
-            this.log.AppendText("Compiling psp-papers-mod.csproj\n");
+            this.Log("Compiling psp-papers-mod.csproj");
 
             string projPath = Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "psp-papers-mod.csproj");
             ProcessStartInfo startInfo = new ProcessStartInfo {
@@ -212,7 +220,7 @@ namespace psp_papers_installer {
                 CreateNoWindow = true
             };
 
-            Process netProc = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
+            Process netProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
 
             netProc.Exited += this.onCompileFinish;
             netProc.OutputDataReceived += this.netProcOutput;
@@ -222,7 +230,7 @@ namespace psp_papers_installer {
         }
 
         private void Install() {
-            this.log.AppendText("Installing PSP Papers Mod\n");
+            this.Log("Installing PSP Papers Mod");
 
             // Copy built plugin DLLs into plugins folder
             string[] paths = Directory.GetFiles(
@@ -248,13 +256,13 @@ namespace psp_papers_installer {
             if (!this.update) {
                 this.SetProgress(1000);
 
-                this.log.AppendText("Generating default configurations..\n");
+                this.Log("Generating default configurations..");
 
                 // lol
                 Process gProc = Process.Start(Path.Combine(Program.PapersDir, "PapersPlease.exe"));
                 gProc?.WaitForExit();
                 Thread.Sleep(1000);
-                this.log.AppendText("Closing game\n");
+                this.Log("Closing game");
                 Process.GetProcessesByName("PapersPlease").FirstOrDefault()?.CloseMainWindow();
             }
 
@@ -263,7 +271,7 @@ namespace psp_papers_installer {
             ProcessModule processModule = Process.GetCurrentProcess().MainModule;
 
             if (processModule != null) {
-                this.log.AppendText("Moving installer to game files\n");
+                this.Log("Moving installer to game files");
                 string installerLocation = processModule.FileName;
                 string locInstallerPath = Path.Combine(Program.PapersDir, "PspPapersInstaller.exe");
 
@@ -275,8 +283,8 @@ namespace psp_papers_installer {
 
             this.SetProgress(1100);
 
-            this.cont.Enabled = true;
-            this.log.AppendText("\n\n~~~~~~~~~~~\nFinished!");
+            this.cont.Invoke(new Action(() => this.cont.Enabled = true));
+            this.Log("\n\n~~~~~~~~~~~\nFinished!");
         }
 
         private void onNetFinish(object sender, EventArgs e) {
@@ -299,7 +307,7 @@ namespace psp_papers_installer {
 
         private void logProcOutput(object sender, DataReceivedEventArgs e) {
             if (e?.Data == null) return;
-            this.log.AppendText($"{e.Data}\n");
+            this.Log($"{e.Data}");
         }
 
         private void netProcOutput(object sender, DataReceivedEventArgs e) {
@@ -307,7 +315,7 @@ namespace psp_papers_installer {
             Match match = Regex.Match(e.Data, dotNetPathPattern);
             if (match.Success) this.dotNetDir = match.Groups[1].Value;
 
-            this.log.AppendText($"{e.Data}\n");
+            this.Log($"{e.Data}");
         }
 
         private void bepInExDlProgress(object sender, DownloadProgressChangedEventArgs e) {
