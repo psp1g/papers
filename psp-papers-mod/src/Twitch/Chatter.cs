@@ -146,14 +146,15 @@ namespace psp_papers_mod.Twitch {
             this.Reset();
         }
 
-        public Task<BanUserResponse> Timeout(int seconds, string reason = "") {
+        public async void Timeout(int seconds, string reason = "") {
+            PapersPSP.Log.LogInfo($"Timing out user {this.Username}");
             BanUserRequest banRequest = new() {
                 Reason = reason,
                 Duration = seconds,
                 UserId = this.UserID,
             };
 
-            return PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
+            await PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
                 PapersPSP.Twitch.BroadcasterID,
                 PapersPSP.Twitch.BotID,
                 banRequest

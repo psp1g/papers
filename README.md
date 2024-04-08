@@ -31,6 +31,20 @@ they will no longer be eligible to be the active chatter again during the sessio
 - Chatters who do not type in chat will never be selected as the active chatter until they do
 - Moderators can optionally be "nerfed" since they can send messages more often (MODS FYOUcat)
 
+### Getting a Twitch API token:
+
+- Create an app on twitch: https://dev.twitch.tv/console/apps/
+- Specify `http://localhost:3000` as the OAuth Redirect URL
+- Log into your bot on twitch
+- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=<YOURCLIENTID>&redirect_uri=http://localhost:3000&scope=moderator:manage:banned_users+channel:read:subscriptions+channel:manage:predictions&state=pspHappy123`
+- Copy the value of the `code` parameter
+- Make a POST request to get the oauth token:
+  ```sh
+  curl -X POST "https://id.twitch.tv/oauth2/token" -H "Content-Type: application/x-www-form-urlencoded" \
+    -d "client_id=<YOUR CLIENT ID>&client_secret=<YOUR CLIENT SECRET>&code=<CODE FROM PREV STEP>&grant_type=authorization_code&redirect_uri=http://localhost:3000"
+  ```
+- Done!
+
 ## Development Set-up
 
 - Install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) and [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
