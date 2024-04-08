@@ -9,32 +9,14 @@ namespace psp_papers_installer {
 
         public Config() {
             this.InitializeComponent();
-            this.onTextChanged(null, null);
-        }
 
-        private void onTextChanged(object sender, EventArgs e) {
-            if (this.twitchChannel.Text.Trim() == "")
-                this.error.Text = "Please enter a twitch channel";
-            else if (this.botUsername.Text.Trim() == "")
-                this.error.Text = "Please enter a bot username";
-            else if (this.botToken.Text.Trim() == "")
-                this.error.Text = "Please enter a bot token";
-            else
-                this.error.Text = "";
-
-            this.cont.Enabled = this.error.Text == "";
+            string cfgPath = Path.Combine(Program.PapersDir, "BepInEx", "config", "wtf.psp.papers.cfg");
+            this.cfgEditor.Text = File.ReadAllText(cfgPath);
         }
 
         private void cont_Click(object sender, EventArgs e) {
             string cfgPath = Path.Combine(Program.PapersDir, "BepInEx", "config", "wtf.psp.papers.cfg");
-            string toml = File.ReadAllText(cfgPath);
-
-            // yah
-            string result = Regex.Replace(toml, @"Channel = .+", $"Channel = {this.twitchChannel.Text.Trim()}");
-            result = Regex.Replace(result, @"Username = .+", $"Username = {this.botUsername.Text.Trim()}");
-            result = Regex.Replace(result, @"Token = .+", $"Token = {this.botToken.Text.Trim()}");
-
-            File.WriteAllText(cfgPath, result);
+            File.WriteAllText(cfgPath, this.cfgEditor.Text);
 
             this.Hide();
 
@@ -42,6 +24,10 @@ namespace psp_papers_installer {
             fin.Dock = DockStyle.Fill;
             fin.Parent = Program.window;
             fin.Show();
+        }
+
+        private void openFolder_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("explorer.exe", Path.Combine(Program.PapersDir, "BepInEx", "config"));
         }
 
     }

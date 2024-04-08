@@ -28,15 +28,12 @@ namespace psp_papers_installer {
         private void InitializeComponent()
         {
             label1 = new System.Windows.Forms.Label();
-            label2 = new System.Windows.Forms.Label();
-            twitchChannel = new System.Windows.Forms.TextBox();
-            botUsername = new System.Windows.Forms.TextBox();
-            label3 = new System.Windows.Forms.Label();
-            botToken = new System.Windows.Forms.TextBox();
-            label4 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             error = new System.Windows.Forms.Label();
             cont = new System.Windows.Forms.Button();
+            cfgEditor = new System.Windows.Forms.RichTextBox();
+            label2 = new System.Windows.Forms.Label();
+            openFolder = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // label1
@@ -47,78 +44,19 @@ namespace psp_papers_installer {
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(685, 43);
             label1.TabIndex = 2;
-            label1.Text = "Twitch Configuration";
+            label1.Text = "Configuration";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            label2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label2.Location = new System.Drawing.Point(30, 90);
-            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(150, 25);
-            label2.TabIndex = 3;
-            label2.Text = "Twitch Channel";
-            // 
-            // twitchChannel
-            // 
-            twitchChannel.Location = new System.Drawing.Point(30, 120);
-            twitchChannel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            twitchChannel.Name = "twitchChannel";
-            twitchChannel.Size = new System.Drawing.Size(305, 29);
-            twitchChannel.TabIndex = 4;
-            twitchChannel.Text = "psp1g";
-            twitchChannel.TextChanged += onTextChanged;
-            // 
-            // botUsername
-            // 
-            botUsername.Location = new System.Drawing.Point(352, 120);
-            botUsername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            botUsername.Name = "botUsername";
-            botUsername.Size = new System.Drawing.Size(305, 29);
-            botUsername.TabIndex = 6;
-            botUsername.Text = "ai1g";
-            botUsername.TextChanged += onTextChanged;
-            // 
-            // label3
-            // 
-            label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label3.Location = new System.Drawing.Point(352, 90);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(150, 25);
-            label3.TabIndex = 5;
-            label3.Text = "Bot Username";
-            // 
-            // botToken
-            // 
-            botToken.Location = new System.Drawing.Point(30, 194);
-            botToken.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            botToken.Name = "botToken";
-            botToken.PasswordChar = '*';
-            botToken.Size = new System.Drawing.Size(627, 29);
-            botToken.TabIndex = 8;
-            botToken.TextChanged += onTextChanged;
-            // 
-            // label4
-            // 
-            label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label4.Location = new System.Drawing.Point(30, 164);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(150, 25);
-            label4.TabIndex = 7;
-            label4.Text = "Bot Token";
             // 
             // label5
             // 
             label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label5.Location = new System.Drawing.Point(13, 332);
+            label5.Location = new System.Drawing.Point(0, 506);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(644, 23);
+            label5.Padding = new System.Windows.Forms.Padding(8);
+            label5.Size = new System.Drawing.Size(682, 42);
             label5.TabIndex = 10;
             label5.Text = "Note: Config can be edited anytime in PapersPlease\\BepInEx\\config\\wtf.psp.papers.cfg";
-            label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // error
             // 
@@ -132,7 +70,6 @@ namespace psp_papers_installer {
             // 
             // cont
             // 
-            cont.Enabled = false;
             cont.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             cont.Location = new System.Drawing.Point(541, 551);
             cont.Name = "cont";
@@ -142,19 +79,45 @@ namespace psp_papers_installer {
             cont.UseVisualStyleBackColor = true;
             cont.Click += cont_Click;
             // 
+            // cfgEditor
+            // 
+            cfgEditor.Location = new System.Drawing.Point(13, 87);
+            cfgEditor.Name = "cfgEditor";
+            cfgEditor.Size = new System.Drawing.Size(658, 416);
+            cfgEditor.TabIndex = 18;
+            cfgEditor.Text = "";
+            // 
+            // label2
+            // 
+            label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label2.Location = new System.Drawing.Point(-11, 58);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(696, 26);
+            label2.TabIndex = 19;
+            label2.Text = "Twitch Auth keys need to be configured for the mod to work";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // openFolder
+            // 
+            openFolder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            openFolder.Location = new System.Drawing.Point(405, 551);
+            openFolder.Name = "openFolder";
+            openFolder.Size = new System.Drawing.Size(130, 57);
+            openFolder.TabIndex = 20;
+            openFolder.Text = "Open Folder";
+            openFolder.UseVisualStyleBackColor = true;
+            openFolder.Click += openFolder_Click;
+            // 
             // Config
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(openFolder);
+            Controls.Add(label2);
+            Controls.Add(cfgEditor);
             Controls.Add(cont);
             Controls.Add(error);
             Controls.Add(label5);
-            Controls.Add(botToken);
-            Controls.Add(label4);
-            Controls.Add(botUsername);
-            Controls.Add(label3);
-            Controls.Add(twitchChannel);
-            Controls.Add(label2);
             Controls.Add(label1);
             Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -163,25 +126,20 @@ namespace psp_papers_installer {
             Name = "Config";
             Size = new System.Drawing.Size(685, 625);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         private System.Windows.Forms.Label error;
 
         private System.Windows.Forms.Label label5;
 
-        private System.Windows.Forms.TextBox botUsername;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox botToken;
-        private System.Windows.Forms.Label label4;
-
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox twitchChannel;
-
         private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Button cont;
 
         #endregion
+
+        private System.Windows.Forms.RichTextBox cfgEditor;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button openFolder;
     }
 }
