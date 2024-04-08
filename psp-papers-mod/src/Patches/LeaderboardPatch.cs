@@ -1,7 +1,6 @@
 using app.plat;
 using HarmonyLib;
 using Il2CppSystem;
-using LibCpp2IL.BinaryStructures;
 using play;
 
 namespace psp_papers_mod.Patches;

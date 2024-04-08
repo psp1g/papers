@@ -1,21 +1,34 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using psp_papers_mod.Patches;
+using TwitchLib.Api.Helix.Models.Moderation.BanUser;
+using TwitchLib.Client.Models;
 using StampApprovalKind = data.StampApprovalKind;
 
 namespace psp_papers_mod.Twitch {
 
     public class Chatter {
 
+        public string UserID { get; }
+
         public string Username { get; }
         public string First { get; }
         public string Last { get; }
+
+        public bool VIP { get; }
+        public bool Moderator { get; }
+        public bool Subscriber { get; }
+        public bool TwitchStaff { get; }
+        public bool Streamer { get; }
+
         public int RecentChats { get; set; } = 0;
         public int SemiRecentChats { get; set; } = 0;
 
         public bool IsActiveChatter => TwitchIntegration.ActiveChatter?.Username == this.Username;
         public bool WasDenied { get; set; }
+        public bool HasBeenActiveChatter { get; set; }
 
         public bool WasRecentlyActiveChatter =>
             TwitchIntegration.RecentActiveChatters.Exists(c => c.Username == this.Username);
@@ -29,22 +42,32 @@ namespace psp_papers_mod.Twitch {
         private List<double> RecentChatExpires = new List<double>();
         private List<double> SemiRecentChatExpires = new List<double>();
 
-        public Chatter(string username) {
-            this.Username = username;
+        public Chatter(ChatMessage chatMessage) {
+            this.UserID = chatMessage.UserId;
+            this.Username = chatMessage.Username;
 
+            this.Moderator = chatMessage.IsModerator;
+            this.Subscriber = chatMessage.IsSubscriber;
+            this.Streamer = chatMessage.IsBroadcaster;
+            this.TwitchStaff = chatMessage.IsStaff;
+            this.VIP = chatMessage.IsVip;
+
+            // todo; maybe improve?
             // Find last uppercase letter in username
-            int lastCapital = System.Array.FindLastIndex(username.ToArray(), char.IsUpper);
+            int lastCapital = System.Array.FindLastIndex(this.Username.ToArray(), char.IsUpper);
             int splitIndex = lastCapital > 0
                 ? lastCapital
                 // Or split username in half as first and last name
-                : (int) System.Math.Floor((float) username.Length / 2);
+                : (int) System.Math.Floor((float) this.Username.Length / 2);
 
-            this.First = username[..splitIndex];
-            this.Last = username[splitIndex..];
+            this.First = this.Username[..splitIndex];
+            this.Last = this.Username[splitIndex..];
         }
 
         public void Chatted() {
-            if (this.BannedWhileTalking) return;
+            // Not allowed to be an active chatter if: They were banned while talking or; They're the streamer
+            if (this.BannedWhileTalking || this.Streamer) return;
+            if (this.HasBeenActiveChatter && Cfg.AlwaysPreventSameActiveChatter.Value) return;
 
             this.RecentChats = System.Math.Min(this.RecentChats + 1, TwitchIntegration.MAX_CHATTER_FREQ_CHATS);
 
@@ -54,6 +77,8 @@ namespace psp_papers_mod.Twitch {
             this.SemiRecentChatExpires.Add(now + (60 * 15)); // 5 + 10 minutes
         }
 
+        // todo; make non-blocking?
+        // This could be heavy with a lot of chatters
         public void FlushExpired(double now) {
             bool hasRecent = this.RecentChats > 0;
             bool hasSemiRecent = this.SemiRecentChats > 0;
@@ -100,21 +125,39 @@ namespace psp_papers_mod.Twitch {
             if (this.WasDenied) weight *= TwitchIntegration.DENIED_WEIGHT_MODIFIER;
 
             // Weight penalty for being a recent active chatter
-            if (this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition > 0)
+            if (this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition >= 0)
                 weight *= (float)this.RecentlyActiveChatterPosition / TwitchIntegration.MAX_ACTIVE_CHATTER_HISTORY;
+
+            // Chat role modifiers
+            if (this.VIP) weight *= Cfg.VIPWeightMultiplier.Value;
+            if (this.Moderator) weight *= Cfg.ModeratorWeightMultiplier.Value;
+            if (this.Subscriber) weight *= Cfg.SubscriberWeightMultiplier.Value;
+            if (this.TwitchStaff) weight *= Cfg.TwitchStaffWeightMultiplier.Value;
 
             return (int) System.Math.Round(weight);
         }
 
-        public void Deny(int seconds) {
-            TimeSpan timeSpan = TimeSpan.FromSeconds(seconds);
-
+        public void Deny(int seconds = 60) {
             TwitchIntegration.ActiveChatter = null;
-            TwitchIntegration.TimeoutUser(this.Username, timeSpan, "Denied Entry");
+            this.Timeout(seconds, "Denied Entry");
 
             this.WasDenied = true;
             this.JustDenied = true;
             this.Reset();
+        }
+
+        public Task<BanUserResponse> Timeout(int seconds, string reason = "") {
+            BanUserRequest banRequest = new() {
+                Reason = reason,
+                Duration = seconds,
+                UserId = this.UserID,
+            };
+
+            return PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
+                PapersPSP.Twitch.BroadcasterID,
+                PapersPSP.Twitch.BotID,
+                banRequest
+            );
         }
 
         public void OnTimedOut() {
@@ -130,6 +173,7 @@ namespace psp_papers_mod.Twitch {
                 BoothEnginePatch.Stamp(StampApprovalKind.DENIED);
             }
 
+            // Reset recent chat stats so the chatter isn't selected as the active chatter while banned/timed out
             this.Reset();
         }
 

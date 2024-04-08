@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Threading.Tasks;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -26,7 +27,6 @@ public class PapersPSP : BasePlugin {
         Log = base.Log;
 
         Cfg.StartBindings(this);
-
         Log.LogInfo("Loaded config...");
 
         if (Cfg.Channel.Value.Trim() == "" || Cfg.BotName.Value.Trim() == "" || Cfg.BotPass.Value.Trim() == "") {
@@ -35,6 +35,8 @@ public class PapersPSP : BasePlugin {
         }
 
         Twitch = new TwitchIntegration();
+        Twitch.Connect().Wait();
+
         Initialized = true;
 
         this.harmony.PatchAll(Assembly.GetExecutingAssembly());
