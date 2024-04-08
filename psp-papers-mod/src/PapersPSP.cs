@@ -20,39 +20,16 @@ public class PapersPSP : BasePlugin {
 
     internal new static ManualLogSource Log { get; private set; }
 
-    internal static ConfigEntry<string> Channel { get; private set; }
-    internal static ConfigEntry<string> BotName { get; private set; }
-    internal static ConfigEntry<string> BotPass { get; private set; }
-
     private readonly Harmony harmony = new("PapersPSP");
 
     public override void Load() {
         Log = base.Log;
 
-        Channel = this.Config.Bind(
-                "Twitch",
-                "Channel",
-                "psp1g",
-                "The chat channel to integrate with"
-            );
-
-        BotName = this.Config.Bind(
-                "Twitch.Bot",
-                "Username",
-                "ai1g",
-                "Username of the bot to sign into"
-            );
-
-        BotPass = this.Config.Bind(
-                "Twitch.Bot",
-                "Token",
-                "",
-                "Twitch bot authentication token"
-            );
+        Cfg.StartBindings(this);
 
         Log.LogInfo("Loaded config...");
 
-        if (Channel.Value.Trim() == "" || BotName.Value.Trim() == "" || BotPass.Value.Trim() == "") {
+        if (Cfg.Channel.Value.Trim() == "" || Cfg.BotName.Value.Trim() == "" || Cfg.BotPass.Value.Trim() == "") {
             Log.LogError("No channel/bot credentials provided to integrate with! The PSP papers plugin will have no effect.");
             return;
         }
