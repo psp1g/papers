@@ -1,17 +1,13 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using psp_papers_mod.Patches;
 using TwitchLib.Api;
-using TwitchLib.Api.Helix.Models.Moderation.BanUser;
-using TwitchLib.Api.Helix.Models.Users.GetUsers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
-using TwitchLib.Client.Extensions;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using TwitchLib.Api.Helix.Models.Users.GetUsers;
 
 namespace psp_papers_mod.Twitch {
 
