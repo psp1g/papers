@@ -16,7 +16,7 @@ public class BoothEnvPatch {
         Console.Out.WriteLine("PAPER ID " + paperId);
         bool moddedPaper = paperId.StartsWith("modded-");
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
-        return !BlockPaperIDs.Contains(paperId) || paperId.StartsWith("mod-");
+        return !BlockPaperIDs.Contains(paperId) || moddedPaper;
     }
 
 }
