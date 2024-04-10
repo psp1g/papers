@@ -2,7 +2,6 @@ using System.Linq;
 using HarmonyLib;
 using Il2CppSystem;
 using play.day;
-using test.auto;
 
 namespace psp_papers_mod.Patches;
 

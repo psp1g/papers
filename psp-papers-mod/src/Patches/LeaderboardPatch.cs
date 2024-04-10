@@ -1,6 +1,5 @@
 using app.plat;
 using HarmonyLib;
-using Il2CppSystem;
 using play;
 
 namespace psp_papers_mod.Patches;
@@ -37,7 +36,6 @@ public class PlatformSocialPatch {
     [HarmonyPrefix]
     [HarmonyPatch("reportStat", typeof(string), typeof(int))]
     private static bool ReportStatPrefix(string name, int value) {
-        Console.Out.WriteLine(name +" "+ value);
         return false;
     }
 
