@@ -1,12 +1,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Il2CppSystem;
 using psp_papers_mod.Patches;
-using TwitchLib.Api;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using TwitchLib.Api;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
 
 namespace psp_papers_mod.Twitch {
@@ -68,6 +69,22 @@ namespace psp_papers_mod.Twitch {
         }
 
         public async Task Connect() {
+            SubbedResult subbedResult = await IVR.CheckSubscribed("psp1g", "xqc");
+                // .ContinueWith(task => {
+                //     if (task.IsFaulted) {
+                //         // Handle the exception
+                //         Console.Error.WriteLine("Task faulted: " + task.Exception);
+                //         return false;
+                //     }
+                //
+                //     bool isSubscribed = task.Result;
+                //     //this.Juicer = isSubscribed;
+                //     if (isSubscribed) Console.Out.WriteLine("PSP1G IS A JUICER!!!!!!!!!!!!");
+                //     return true;
+                // });
+
+            Console.Out.WriteLine($"PSP JUICER:  {subbedResult.UserSubbed}");
+
             // Fetch the Bot and Broadcaster ID
             GetUsersResponse userResp =
                 await this.api.Helix.Users.GetUsersAsync(null, [Cfg.BotName.Value, Cfg.Channel.Value]);
