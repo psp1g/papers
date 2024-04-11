@@ -7,10 +7,8 @@ public static class Cfg {
     internal static ConfigEntry<string> Channel { get; private set; }
 
     internal static ConfigEntry<string> BotName { get; private set; }
-    internal static ConfigEntry<string> BotPass { get; private set; }
-
-    internal static ConfigEntry<string> APIClientID { get; private set; }
-    internal static ConfigEntry<string> APISecret { get; private set; }
+    internal static ConfigEntry<string> AccessToken { get; private set; }
+    internal static ConfigEntry<string> ClientID { get; private set; }
 
     internal static ConfigEntry<bool> AlwaysPreventSameActiveChatter { get; private set; }
 
@@ -34,57 +32,50 @@ public static class Cfg {
             "Username of the bot to sign into"
         );
 
-        BotPass = mod.Config.Bind(
+        AccessToken = mod.Config.Bind(
             "Twitch.Bot",
-            "Token",
+            "AccessToken",
             "",
             "Twitch bot authentication token"
         );
 
-        APIClientID = mod.Config.Bind(
-            "Twitch.API",
+        ClientID = mod.Config.Bind(
+            "Twitch.Bot",
             "ClientID",
             "",
             "Twitch API client ID"
         );
 
-        APISecret = mod.Config.Bind(
-            "Twitch.API",
-            "Secret",
-            "",
-            "Twitch API Auth Token/Secret"
-        );
-
         AlwaysPreventSameActiveChatter = mod.Config.Bind(
-            "Mod.ActiveChatterSelection",
+            "Twitch.ChatterSelection",
             "AlwaysPreventSameActiveChatter",
             false,
             "A recent active chatter has less chance of being an active chatter again, and has no chance to be the active chatter twice in a row. Set this to true if you never want the same active chatter twice"
         );
 
         VIPWeightMultiplier = mod.Config.Bind(
-            "Mod.ActiveChatterSelection",
+            "Twitch.ChatterSelection",
             "VIPWeightMultiplier",
             1.0d,
             "A VIP's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
 
         ModeratorWeightMultiplier = mod.Config.Bind(
-            "Mod.ActiveChatterSelection",
+            "Twitch.ChatterSelection",
             "ModeratorWeightMultiplier",
             1.0d,
             "A moderator's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
 
         SubscriberWeightMultiplier = mod.Config.Bind(
-            "Mod.ActiveChatterSelection",
+            "Twitch.ChatterSelection",
             "SubscriberWeightMultiplier",
             1.0d,
             "A subscriber's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
 
         TwitchStaffWeightMultiplier = mod.Config.Bind(
-            "Mod.ActiveChatterSelection",
+            "Twitch.ChatterSelection",
             "StaffWeightMultiplier",
             1.0d,
             "A Twitch Staff's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"

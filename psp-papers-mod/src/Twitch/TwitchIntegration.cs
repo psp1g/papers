@@ -39,14 +39,14 @@ namespace psp_papers_mod.Twitch {
 
             this.api = new TwitchAPI {
                 Settings = {
-                    ClientId = Cfg.APIClientID.Value,
-                    AccessToken = Cfg.APISecret.Value
+                    ClientId = Cfg.ClientID.Value,
+                    AccessToken = Cfg.AccessToken.Value
                 }
             };
 
             PapersPSP.Log.LogInfo($"Connecting to {Cfg.Channel.Value} with bot {Cfg.BotName.Value}...");
 
-            ConnectionCredentials credentials = new(Cfg.BotName.Value, Cfg.BotPass.Value);
+            ConnectionCredentials credentials = new(Cfg.BotName.Value, Cfg.AccessToken.Value);
 
             this.client = new TwitchClient(
                 protocol: TwitchLib.Client.Enums.ClientProtocol.TCP

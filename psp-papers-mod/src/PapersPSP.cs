@@ -30,7 +30,7 @@ public class PapersPSP : BasePlugin {
         Cfg.StartBindings(this);
         Log.LogInfo("Loaded config...");
 
-        if (Cfg.Channel.Value.Trim() == "" || Cfg.BotName.Value.Trim() == "" || Cfg.BotPass.Value.Trim() == "") {
+        if (Cfg.Channel.Value.Trim() == "" || Cfg.BotName.Value.Trim() == "" || Cfg.AccessToken.Value.Trim() == "") {
             Log.LogError("No channel/bot credentials provided to integrate with! The PSP papers plugin will have no effect.");
             return;
         }
