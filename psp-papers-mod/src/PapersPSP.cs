@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using BepInEx;
 using BepInEx.Configuration;
@@ -13,11 +14,11 @@ namespace psp_papers_mod;
 [BepInProcess("PapersPlease.exe")]
 public class PapersPSP : BasePlugin {
 
-    public static bool Enabled { get; set; } = true;
+    internal static bool Initialized { get; private set; }
 
-    public static bool Initialized { get; private set; }
+    internal static TwitchIntegration Twitch { get; private set; }
 
-    public static TwitchIntegration Twitch { get; private set; }
+    internal static readonly Random Random = new();
 
     internal new static ManualLogSource Log { get; private set; }
 

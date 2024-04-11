@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using psp_papers_mod.Patches;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Client.Models;

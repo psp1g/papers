@@ -46,8 +46,6 @@ public class BoothEnginePatch {
     private static bool SpeakPrefix(ref string text, bool fromInspector) {
         PapersPSP.Log.LogInfo($"Character Speaking: \"{text}\" Inspector: {fromInspector}");
 
-        if (!PapersPSP.Enabled) return true;
-
         if (text.StartsWith("__override__")) {
             text = text.Replace("__override__", "");
             return true;

@@ -11,8 +11,9 @@ public class CitationPatch {
     [HarmonyPrefix]
     [HarmonyPatch("addCitation", typeof(string))]
     private static bool AddCitationPostfix(string message, Citation __result) {
-        Console.Out.WriteLine(message + __result.penaltyCost + __result.type.ToString());
-        return false; // causes an error
+        // Prevent any Citations, makes endless mode truly endless, and you can't lose
+        // This causes an error, but doesn't seem to break anything (other than citations, like intended)
+        return false;
     }
 
 }

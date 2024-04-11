@@ -253,7 +253,7 @@
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\6.0.417\MSBuild.dll</s:String>
 	
 	
-	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/CustomGlobalProperties/=PapersPleaseDir/@EntryIndexedValue">C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</s:String>
+	
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/SolBuilderDuo/UseMsbuildSolutionBuilder/@EntryValue">No</s:String>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FConfig/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FFinished/@EntryIndexedValue">True</s:Boolean>
@@ -261,5 +261,6 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FInstalling/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FWindow/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
+	
 	
 	</wpf:ResourceDictionary>

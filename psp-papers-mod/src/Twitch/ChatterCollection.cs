@@ -27,7 +27,7 @@ namespace psp_papers_mod.Twitch {
                 .ToList();
 
             int maxCumulativeWeight = cumulativeWeights.Last();
-            int random = (int)(maxCumulativeWeight * new Random().NextDouble());
+            int random = (int)(maxCumulativeWeight * PapersPSP.Random.NextDouble());
 
             int i = 0;
 
