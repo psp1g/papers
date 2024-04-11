@@ -28,12 +28,14 @@ namespace psp_papers_installer {
         private void InitializeComponent()
         {
             label1 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
+            note = new System.Windows.Forms.Label();
             error = new System.Windows.Forms.Label();
             cont = new System.Windows.Forms.Button();
             cfgEditor = new System.Windows.Forms.RichTextBox();
             label2 = new System.Windows.Forms.Label();
             openFolder = new System.Windows.Forms.Button();
+            show = new System.Windows.Forms.Button();
+            showLabel = new System.Windows.Forms.Label();
             SuspendLayout();
             // 
             // label1
@@ -47,16 +49,17 @@ namespace psp_papers_installer {
             label1.Text = "Configuration";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // note
             // 
-            label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            label5.Location = new System.Drawing.Point(0, 506);
-            label5.Name = "label5";
-            label5.Padding = new System.Windows.Forms.Padding(8);
-            label5.Size = new System.Drawing.Size(682, 42);
-            label5.TabIndex = 10;
-            label5.Text = "Note: Config can be edited anytime in PapersPlease\\BepInEx\\config\\wtf.psp.papers.cfg";
-            label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            note.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            note.Location = new System.Drawing.Point(0, 506);
+            note.Name = "note";
+            note.Padding = new System.Windows.Forms.Padding(8);
+            note.Size = new System.Drawing.Size(682, 42);
+            note.TabIndex = 10;
+            note.Text = "Note: Config can be edited anytime in PapersPlease\\BepInEx\\config\\wtf.psp.papers.cfg";
+            note.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            note.Visible = false;
             // 
             // error
             // 
@@ -70,6 +73,7 @@ namespace psp_papers_installer {
             // 
             // cont
             // 
+            cont.Enabled = false;
             cont.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             cont.Location = new System.Drawing.Point(541, 551);
             cont.Name = "cont";
@@ -83,6 +87,7 @@ namespace psp_papers_installer {
             // 
             cfgEditor.Location = new System.Drawing.Point(13, 87);
             cfgEditor.Name = "cfgEditor";
+            cfgEditor.ReadOnly = true;
             cfgEditor.Size = new System.Drawing.Size(658, 416);
             cfgEditor.TabIndex = 18;
             cfgEditor.Text = "";
@@ -99,6 +104,7 @@ namespace psp_papers_installer {
             // 
             // openFolder
             // 
+            openFolder.Enabled = false;
             openFolder.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             openFolder.Location = new System.Drawing.Point(405, 551);
             openFolder.Name = "openFolder";
@@ -108,16 +114,42 @@ namespace psp_papers_installer {
             openFolder.UseVisualStyleBackColor = true;
             openFolder.Click += openFolder_Click;
             // 
+            // show
+            // 
+            show.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            show.Location = new System.Drawing.Point(274, 277);
+            show.Name = "show";
+            show.Size = new System.Drawing.Size(130, 57);
+            show.TabIndex = 21;
+            show.Text = "Show";
+            show.UseVisualStyleBackColor = true;
+            show.Click += show_Click;
+            // 
+            // showLabel
+            // 
+            showLabel.BackColor = System.Drawing.SystemColors.Control;
+            showLabel.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            showLabel.ForeColor = System.Drawing.Color.Crimson;
+            showLabel.Location = new System.Drawing.Point(27, 224);
+            showLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            showLabel.Name = "showLabel";
+            showLabel.Size = new System.Drawing.Size(630, 50);
+            showLabel.TabIndex = 22;
+            showLabel.Text = "DONT SHOW ON STREAM";
+            showLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // Config
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(showLabel);
+            Controls.Add(show);
             Controls.Add(openFolder);
             Controls.Add(label2);
             Controls.Add(cfgEditor);
             Controls.Add(cont);
             Controls.Add(error);
-            Controls.Add(label5);
+            Controls.Add(note);
             Controls.Add(label1);
             Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -130,7 +162,7 @@ namespace psp_papers_installer {
 
         private System.Windows.Forms.Label error;
 
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label note;
 
         private System.Windows.Forms.Label label1;
 
@@ -141,5 +173,7 @@ namespace psp_papers_installer {
         private System.Windows.Forms.RichTextBox cfgEditor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button openFolder;
+        private System.Windows.Forms.Button show;
+        private System.Windows.Forms.Label showLabel;
     }
 }

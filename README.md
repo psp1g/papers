@@ -20,9 +20,6 @@ If they get denied at the border, they get banned in chat.
 
 ### Notes
 
-- **The game will always "crash" and restart when you launch the game, this is normal**
-
-
 - If a chatter is banned or timed out while they are the current chatter (ie. by a mod or nightbot for saying naughty things),
 they will no longer be eligible to be the active chatter again during the session
 - Chatters who were recently active chatters have a much lower chance of becoming an chatter again
@@ -36,7 +33,7 @@ they will no longer be eligible to be the active chatter again during the sessio
 - Create an app on twitch: https://dev.twitch.tv/console/apps/
 - Specify `http://localhost:3000` as the OAuth Redirect URL
 - Log into your bot on twitch
-- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=<YOURCLIENTID>&redirect_uri=http://localhost:3000&scope=moderator:manage:banned_users+channel:read:subscriptions+channel:manage:predictions&state=pspHappy123`
+- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=<YOURCLIENTID>&redirect_uri=http://localhost:3000&scope=chat:read+chat:edit+moderator:manage:banned_users+channel:manage:predictions&state=pspHappy123`
 - Copy the value of the `code` parameter
 - Make a POST request to get the oauth token:
   ```sh
