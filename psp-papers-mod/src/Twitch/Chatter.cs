@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using psp_papers_mod.Patches;
+using System.Threading.Tasks;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Client.Models;
 using StampApprovalKind = data.StampApprovalKind;
@@ -21,6 +22,9 @@ namespace psp_papers_mod.Twitch {
         public bool Subscriber { get; }
         public bool TwitchStaff { get; }
         public bool Streamer { get; }
+        public bool Juicer { get; private set; }
+
+        private bool JuicerChecked = false;
 
         public int RecentChats { get; set; } = 0;
         public int SemiRecentChats { get; set; } = 0;
@@ -134,6 +138,14 @@ namespace psp_papers_mod.Twitch {
             if (this.TwitchStaff) weight *= Cfg.TwitchStaffWeightMultiplier.Value;
 
             return (int) System.Math.Round(weight);
+        }
+
+        public async Task JuicerCheck() {
+            if (this.JuicerChecked) return;
+
+            bool isJuicer = await IVR.CheckSubscribed(this.Username, "xqc");
+            this.Juicer = isJuicer;
+            this.JuicerChecked = true;
         }
 
         public void Deny(int seconds = 60) {

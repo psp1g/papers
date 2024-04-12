@@ -5,6 +5,11 @@ using play.day;
 
 namespace psp_papers_mod.Patches;
 
+public static class CustomPapers {
+    public static string PassedJuicerCheck = "JuicerCheckPassed";
+    public static string[] FailedJuicerCheck = ["JuicerCheckFailed1", "JuicerCheckFailed2", "JuicerCheckFailed3"];
+}
+
 [HarmonyPatch(typeof(BoothEnv))]
 public class BoothEnvPatch {
 
@@ -25,6 +30,10 @@ public class BoothEnvPatch {
         bool moddedPaper = paperId.StartsWith("modded-");
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
         return !BlockPaperIDs.Contains(paperId) || moddedPaper;
+    }
+
+    public static void AddPaper(string paperId) {
+        BoothEnvPatch.BoothEnv.addPaper($"modded-{paperId}");
     }
 
 }

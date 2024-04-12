@@ -249,6 +249,71 @@
   &lt;Assembly Path="C:\Users\Ethan\Documents\il2cppdumper\DummyDll\Assembly-CSharp.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Ethan\.nuget\packages\twitchlib.client.models\3.3.1\lib\netstandard2.0\TwitchLib.Client.Models.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Ethan\.nuget\packages\harmonyx\2.10.1\lib\netstandard2.0\0Harmony.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.CoreModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\Unity.2D.PixelPerfect.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AccessibilityModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AIModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AndroidJNIModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AnimationModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AssetBundleModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.AudioModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ClothModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ClusterInputModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ClusterRendererModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.CrashReportingModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.DirectorModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.DSPGraphModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.GameCenterModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.GIModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.GridModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.HotReloadModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ImageConversionModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.IMGUIModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.InputLegacyModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.InputModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.JSONSerializeModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.LocalizationModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ParticleSystemModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.PerformanceReportingModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.Physics2DModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.PhysicsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ProfilerModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.ScreenCaptureModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.SharedInternalsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.SpriteMaskModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.SpriteShapeModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.StreamingModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.SubstanceModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.SubsystemsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TerrainModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TerrainPhysicsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TextCoreModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TextRenderingModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TilemapModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.TLSModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UIElementsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UIElementsNativeModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UIModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UmbraModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UNETModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityAnalyticsModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityConnectModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityCurlModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityTestProtocolModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityWebRequestAssetBundleModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityWebRequestAudioModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityWebRequestModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityWebRequestTextureModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.UnityWebRequestWWWModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.VehiclesModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.VFXModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.VideoModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.VirtualTexturingModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.VRModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.WindModule.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Steam\steamapps\common\PapersPlease\BepInEx\interop\UnityEngine.XRModule.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\dotnet\sdk\6.0.417\MSBuild.dll</s:String>
 	
@@ -261,6 +326,7 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FInstalling/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=psp_002Dpapers_002Dinstaller_002FWindow/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
+	
 	
 	
 	</wpf:ResourceDictionary>
