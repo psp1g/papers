@@ -60,8 +60,8 @@ public class UnityThreadInvoker : UnityEngine.MonoBehaviour {
 
 public static class UnityThreadInvokerTaskExtensions {
 
-    public static void SuccessWithUnityThread(this Task task, Action action) {
-        task.ContinueWith(t => {
+    public static Task SuccessWithUnityThread(this Task task, Action action) {
+        return task.ContinueWith(t => {
             if (!t.IsCompletedSuccessfully) {
                 Console.Out.WriteLine("Async Error: SuccessWithUnityThread");
                 return t;
@@ -72,15 +72,15 @@ public static class UnityThreadInvokerTaskExtensions {
         });
     }
 
-    public static void ResultWithUnityThread<T>(this Task<T> task, Action<T> action) {
-        task.ContinueWith(t => {
+    public static Task<T> ResultWithUnityThread<T>(this Task<T> task, Action<T> action) {
+        return task.ContinueWith(t => {
             if (!t.IsCompletedSuccessfully) {
                 Console.Out.WriteLine("Async Error: ResultWithUnityThread");
-                return t;
+                return t.Result;
             }
 
             UnityThreadInvoker.Invoke(action, t.Result);
-            return t;
+            return t.Result;
         });
     }
 
