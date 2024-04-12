@@ -28,5 +28,13 @@
             <HintPath>$(PapersPleaseDir)\BepInEx\interop\Assembly-CSharp.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(PapersPleaseDir)\BepInEx\interop\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(PapersPleaseDir)\BepInEx\interop\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
 </Project>
