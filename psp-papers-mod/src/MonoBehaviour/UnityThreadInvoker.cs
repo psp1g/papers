@@ -33,7 +33,6 @@ public class UnityThreadInvoker : UnityEngine.MonoBehaviour {
     private static readonly UnityTaskActionQueue actionQueue = new();
 
     private void Awake() {
-        Console.Out.WriteLine("AWAKE???");
         DontDestroyOnLoad(this.gameObject);
     }
 
