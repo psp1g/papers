@@ -67,7 +67,7 @@ namespace psp_papers_installer {
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(685, 45);
             label4.TabIndex = 5;
-            label4.Text = "Note: The game will always restart itself when you launch it.";
+            label4.Text = "";//"Note: The game will always restart itself when you launch it.";
             label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // play
