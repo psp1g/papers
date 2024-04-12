@@ -33,7 +33,7 @@ they will no longer be eligible to be the active chatter again during the sessio
 - Create an app on twitch: https://dev.twitch.tv/console/apps/
 - Specify `http://localhost:3000` as the OAuth Redirect URL
 - Log into your bot on twitch
-- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=<YOURCLIENTID>&redirect_uri=http://localhost:3000&scope=chat:read+chat:edit+moderator:manage:banned_users+channel:manage:predictions&state=pspHappy123`
+- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=YOURCLIENTIDHERE&redirect_uri=http://localhost:3000&scope=chat:read+chat:edit+moderator:manage:banned_users+channel:manage:predictions&state=pspHappy123`
 - Copy the value of the `code` parameter
 - Make a POST request to get the oauth token:
   ```sh

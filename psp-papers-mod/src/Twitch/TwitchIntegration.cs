@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Il2CppSystem;
 using psp_papers_mod.Patches;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -10,168 +9,150 @@ using TwitchLib.Communication.Events;
 using TwitchLib.Api;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
 
-namespace psp_papers_mod.Twitch {
+namespace psp_papers_mod.Twitch;
 
-    public class TwitchIntegration {
+public class TwitchIntegration {
 
-        public const int EXPIRY_TIMEOUT_MINUTES = 5;
-        public const int MAX_ACTIVE_CHATTER_HISTORY = 20;
-        public const int MAX_CHATTER_FREQ_CHATS = 20;
-        public const int MAX_CHATTER_OLDER_CHATS = 30;
-        public const int ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS = 120;
-        public const float CHATS_WEIGHT_MODIFIER = 1.25f;
-        public const float OLDER_CHATS_WEIGHT_MODIFIER = 0.5f;
-        public const float DENIED_WEIGHT_MODIFIER = 0.8f;
+    public const int EXPIRY_TIMEOUT_MINUTES = 5;
+    public const int MAX_ACTIVE_CHATTER_HISTORY = 20;
+    public const int MAX_CHATTER_FREQ_CHATS = 20;
+    public const int MAX_CHATTER_OLDER_CHATS = 30;
+    public const int ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS = 120;
+    public const float CHATS_WEIGHT_MODIFIER = 1.25f;
+    public const float OLDER_CHATS_WEIGHT_MODIFIER = 0.5f;
+    public const float DENIED_WEIGHT_MODIFIER = 0.8f;
 
-        public ChatterCollection FrequentChatters { get; }
+    public ChatterCollection FrequentChatters { get; }
 
-        public static Chatter ActiveChatter { get; set; }
+    public static Chatter ActiveChatter { get; set; }
 
-        public static List<Chatter> RecentActiveChatters { get; private set; } = new();
+    public static List<Chatter> RecentActiveChatters { get; private set; } = new();
 
-        public string BotID { get; private set; } = "";
-        public string BroadcasterID { get; private set; } = "";
+    public string BotID { get; private set; } = "";
+    public string BroadcasterID { get; private set; } = "";
 
-        internal TwitchAPI api;
-        internal TwitchClient client;
+    internal TwitchAPI api;
+    internal TwitchClient client;
 
-        public TwitchIntegration() {
-            this.FrequentChatters = new ChatterCollection();
+    public TwitchIntegration() {
+        this.FrequentChatters = new ChatterCollection();
 
-            this.api = new TwitchAPI {
-                Settings = {
-                    ClientId = Cfg.ClientID.Value,
-                    AccessToken = Cfg.AccessToken.Value
-                }
-            };
-
-            PapersPSP.Log.LogInfo($"Connecting to {Cfg.Channel.Value} with bot {Cfg.BotName.Value}...");
-
-            ConnectionCredentials credentials = new(Cfg.BotName.Value, Cfg.AccessToken.Value);
-
-            this.client = new TwitchClient(
-                protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
-                //Logs everything from the twitch client to the console
-                ,logger: new TwitchLogger<TwitchClient>()
-            );
-            this.client.Initialize(credentials, Cfg.Channel.Value);
-
-            this.client.OnError += this.OnError;
-            this.client.OnConnectionError += this.OnConnectionError;
-            this.client.OnConnected += this.OnConnected;
-            this.client.OnJoinedChannel += this.OnJoined;
-            this.client.OnMessageReceived += this.OnMessage;
-            this.client.OnUserBanned += this.OnUserBanned;
-            this.client.OnUserTimedout += this.OnUserTimedOut;
-        }
-        ~TwitchIntegration() {
-            this.client.Disconnect();
-        }
-
-        public async Task Connect() {
-            SubbedResult subbedResult = await IVR.CheckSubscribed("psp1g", "xqc");
-                // .ContinueWith(task => {
-                //     if (task.IsFaulted) {
-                //         // Handle the exception
-                //         Console.Error.WriteLine("Task faulted: " + task.Exception);
-                //         return false;
-                //     }
-                //
-                //     bool isSubscribed = task.Result;
-                //     //this.Juicer = isSubscribed;
-                //     if (isSubscribed) Console.Out.WriteLine("PSP1G IS A JUICER!!!!!!!!!!!!");
-                //     return true;
-                // });
-
-            Console.Out.WriteLine($"PSP JUICER:  {subbedResult.UserSubbed}");
-
-            // Fetch the Bot and Broadcaster ID
-            GetUsersResponse userResp =
-                await this.api.Helix.Users.GetUsersAsync(null, [Cfg.BotName.Value, Cfg.Channel.Value]);
-
-            User bot = userResp.Users[0];
-            User broadcaster = userResp.Users[1];
-
-            if (broadcaster == null || bot == null) {
-                PapersPSP.Log.LogError($"Twitch API request for broadcaster/bot information failed! The Channel and/or Bot username is not valid");
-                return;
+        this.api = new TwitchAPI {
+            Settings = {
+                ClientId = Cfg.ClientID.Value,
+                AccessToken = Cfg.AccessToken.Value
             }
+        };
 
-            this.BotID = bot.Id;
-            this.BroadcasterID = broadcaster.Id;
+        PapersPSP.Log.LogInfo($"Connecting to {Cfg.Channel.Value} with bot {Cfg.BotName.Value}...");
 
-            // Connect to Twitch Chat IRC
-            this.client.Connect();
+        ConnectionCredentials credentials = new(Cfg.BotName.Value, Cfg.AccessToken.Value);
+
+        this.client = new TwitchClient(
+            protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
+            //Logs everything from the twitch client to the console
+            ,logger: new TwitchLogger<TwitchClient>()
+        );
+        this.client.Initialize(credentials, Cfg.Channel.Value);
+
+        this.client.OnError += this.OnError;
+        this.client.OnConnectionError += this.OnConnectionError;
+        this.client.OnConnected += this.OnConnected;
+        this.client.OnJoinedChannel += this.OnJoined;
+        this.client.OnMessageReceived += this.OnMessage;
+        this.client.OnUserBanned += this.OnUserBanned;
+        this.client.OnUserTimedout += this.OnUserTimedOut;
+    }
+    ~TwitchIntegration() {
+        this.client.Disconnect();
+    }
+
+    public async Task Connect() {
+        // Fetch the Bot and Broadcaster ID
+        GetUsersResponse userResp =
+            await this.api.Helix.Users.GetUsersAsync(null, [Cfg.BotName.Value, Cfg.Channel.Value]);
+
+        User bot = userResp.Users[0];
+        User broadcaster = userResp.Users[1];
+
+        if (broadcaster == null || bot == null) {
+            PapersPSP.Log.LogError($"Twitch API request for broadcaster/bot information failed! The Channel and/or Bot username is not valid");
+            return;
         }
 
-        private void OnError(object sender, OnErrorEventArgs e) {
-            PapersPSP.Log.LogError($"There was an error with twitch chat! Err: {e.Exception.Message}");
-        }
+        this.BotID = bot.Id;
+        this.BroadcasterID = broadcaster.Id;
 
-        private void OnConnectionError(object sender, OnConnectionErrorArgs e) {
-            PapersPSP.Log.LogError($"There was an error connecting to twitch chat! Err: {e.Error.Message}");
-        }
+        // Connect to Twitch Chat IRC
+        this.client.Connect();
+    }
 
-        private void OnConnected(object sender, OnConnectedArgs e) {
-            PapersPSP.Log.LogInfo("Connected to Twitch IRC.");
-        }
+    private void OnError(object sender, OnErrorEventArgs e) {
+        PapersPSP.Log.LogError($"There was an error with twitch chat! Err: {e.Exception.Message}");
+    }
 
-        private void OnJoined(object sender, OnJoinedChannelArgs e) {
-            PapersPSP.Log.LogInfo($"Connected to IRC Channel {Cfg.Channel.Value}");
-            //this.client.SendMessage(PapersPSP.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
-        }
+    private void OnConnectionError(object sender, OnConnectionErrorArgs e) {
+        PapersPSP.Log.LogError($"There was an error connecting to twitch chat! Err: {e.Error.Message}");
+    }
 
-        private void OnMessage(object sender, OnMessageReceivedArgs e) {
-            string username = e.ChatMessage.Username.ToLower();
+    private void OnConnected(object sender, OnConnectedArgs e) {
+        PapersPSP.Log.LogInfo("Connected to Twitch IRC.");
+    }
 
-            if (!this.FrequentChatters.ContainsKey(username))
-                this.FrequentChatters.Add(username, new Chatter(e.ChatMessage));
+    private void OnJoined(object sender, OnJoinedChannelArgs e) {
+        PapersPSP.Log.LogInfo($"Connected to IRC Channel {Cfg.Channel.Value}");
+        //this.client.SendMessage(PapersPSP.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
+    }
 
-            Chatter chatter = this.FrequentChatters[username];
-            chatter.Chatted();
+    private void OnMessage(object sender, OnMessageReceivedArgs e) {
+        string username = e.ChatMessage.Username.ToLower();
 
-            // todo; check in a game
-            // User is the "active chatter" and their messages should appear as the traveler's
-            if (chatter.IsActiveChatter)
-                BoothEnginePatch.Speak(e.ChatMessage.Message);
-        }
+        if (!this.FrequentChatters.ContainsKey(username))
+            this.FrequentChatters.Add(username, new Chatter(e.ChatMessage));
 
-        /**
-         * Set chatter weight to 0 on bans or time outs
-         */
-        private void HandleUserBan(string username) {
-            this.FrequentChatters
-                .TryGetValue(username.ToLower(), out Chatter chatter);
+        Chatter chatter = this.FrequentChatters[username];
+        chatter.Chatted();
 
-            chatter?.OnTimedOut();
-        }
-        private void OnUserBanned(object sender, OnUserBannedArgs e) { this.HandleUserBan(e.UserBan.Username); }
-        private void OnUserTimedOut(object sender, OnUserTimedoutArgs e) { this.HandleUserBan(e.UserTimeout.Username); }
+        // todo; check in a game
+        // User is the "active chatter" and their messages should appear as the traveler's
+        if (chatter.IsActiveChatter)
+            BoothEnginePatch.Speak(e.ChatMessage.Message);
+    }
 
-        public static bool Connected() {
-            return PapersPSP.Twitch.client.IsInitialized && PapersPSP.Twitch.client.IsConnected;
-        }
+    /**
+     * Set chatter weight to 0 on bans or time outs
+     */
+    private void HandleUserBan(string username) {
+        this.FrequentChatters
+            .TryGetValue(username.ToLower(), out Chatter chatter);
 
-        public static void Message(string message) {
-            if (!TwitchIntegration.Connected()) return;
-            PapersPSP.Twitch.client.SendMessage(Cfg.Channel.Value, message);
-        }
+        chatter?.OnTimedOut();
+    }
+    private void OnUserBanned(object sender, OnUserBannedArgs e) { this.HandleUserBan(e.UserBan.Username); }
+    private void OnUserTimedOut(object sender, OnUserTimedoutArgs e) { this.HandleUserBan(e.UserTimeout.Username); }
 
-        public static void SetActiveChatter(Chatter chatter) {
-            ActiveChatter = chatter;
-            RecentActiveChatters.Insert(0, chatter);
+    public static bool Connected() {
+        return PapersPSP.Twitch.client.IsInitialized && PapersPSP.Twitch.client.IsConnected;
+    }
 
-            chatter.HasBeenActiveChatter = true;
+    public static void Message(string message) {
+        if (!TwitchIntegration.Connected()) return;
+        PapersPSP.Twitch.client.SendMessage(Cfg.Channel.Value, message);
+    }
 
-            TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter! Show me your papers! sus RightHand");
+    public static void SetActiveChatter(Chatter chatter) {
+        ActiveChatter = chatter;
+        RecentActiveChatters.Insert(0, chatter);
 
-            // Cap history to max
-            if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)
-                RecentActiveChatters = RecentActiveChatters
-                    .Take(MAX_ACTIVE_CHATTER_HISTORY)
-                    .ToList();
-        }
+        chatter.HasBeenActiveChatter = true;
 
+        TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter! Show me your papers! sus RightHand");
+
+        // Cap history to max
+        if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)
+            RecentActiveChatters = RecentActiveChatters
+                .Take(MAX_ACTIVE_CHATTER_HISTORY)
+                .ToList();
     }
 
 }

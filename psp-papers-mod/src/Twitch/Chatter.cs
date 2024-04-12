@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using psp_papers_mod.Patches;
+using System.Threading.Tasks;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Client.Models;
 using StampApprovalKind = data.StampApprovalKind;
@@ -135,6 +136,11 @@ namespace psp_papers_mod.Twitch {
             if (this.TwitchStaff) weight *= Cfg.TwitchStaffWeightMultiplier.Value;
 
             return (int) System.Math.Round(weight);
+        }
+
+        public async Task JuicerCheck() {
+            bool isJuicer = await IVR.CheckSubscribed(this.Username, "xqc");
+            this.Juicer = isJuicer;
         }
 
         public void Deny(int seconds = 60) {
