@@ -24,6 +24,8 @@ namespace psp_papers_mod.Twitch {
         public bool Streamer { get; }
         public bool Juicer { get; private set; }
 
+        private bool JuicerChecked = false;
+
         public int RecentChats { get; set; } = 0;
         public int SemiRecentChats { get; set; } = 0;
 
@@ -139,8 +141,11 @@ namespace psp_papers_mod.Twitch {
         }
 
         public async Task JuicerCheck() {
+            if (this.JuicerChecked) return;
+
             bool isJuicer = await IVR.CheckSubscribed(this.Username, "xqc");
             this.Juicer = isJuicer;
+            this.JuicerChecked = true;
         }
 
         public void Deny(int seconds = 60) {
