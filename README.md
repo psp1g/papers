@@ -45,12 +45,11 @@ they will no longer be eligible to be the active chatter again during the sessio
 ## Development Set-up
 
 - Install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) and [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- Install the mod at least once with the [installer](https://github.com/psp1g/papers/releases)
-  - (Or you can manually install bepinex and compile the mod yourself)
-
-Change the `PapersPleaseDir` MSBuild property (if needed) when building to point to the directory of the game
+- Install the mod at least once with the [installer](https://github.com/psp1g/papers/releases) to generate referenced assemblies
+  - (Or you can manually install [BepInEx 6](https://builds.bepinex.dev/projects/bepinex_be), and launch the game once to generate assemblies)
+- Change the `<PapersPleaseDir>` MSBuild property in `psp-papers-mod.csproj` (if needed) when building to point to the directory of the game
 installation **without** trailing slashes.
-
-The default is `C:\Program Files (x86)\Steam\steamapps\common\PapersPlease`.
-
-Without this you won't be able to compile properly
+  - The default is `C:\Program Files (x86)\Steam\steamapps\common\PapersPlease`.
+- Update NuGet packages: `dotnet restore`
+- Build the solution, the output of the mod and dependency assemblies will be in `psp-papers-mod/bin/Debug/net6.0`
+- Move all .dll files in that folder to `PapersPlease\BepInEx\plugins`

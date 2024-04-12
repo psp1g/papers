@@ -1,15 +1,14 @@
 using data;
 using HarmonyLib;
-using Il2CppSystem;
-using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Twitch;
+using psp_papers_mod.MonoBehaviour;
 
 namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(TravelerName))]
 public class TravelerNamePatch {
 
-    private static int i = 0;
+    private static int i;
 
     [HarmonyPrefix]
     [HarmonyPatch("randomize")]
@@ -37,15 +36,21 @@ public class TravelerNamePatch {
 
         chatter.JuicerCheck()
             .SuccessWithUnityThread(() => {
-                // todo; Add correct juicer ticket
-                Console.Out.WriteLine("XD IS JUICER : " + chatter.Juicer);
-                BoothEnvPatch.AddPaper(CustomPapers.PassedJuicerCheck);
+                BoothEnvPatch.AddPaper(
+                    !chatter.Juicer ?
+                        CustomPapers.PassedJuicerCheck :
+                        CustomPapers.FailedJuicerCheck.Random()
+                );
             });
 
         PapersPSP.Log.LogInfo($"Selecting user: ${chatter.First} ${chatter.Last}");
 
         __result = new TravelerName(__instance.nameCycler, __instance.male, chatter.First, chatter.Last);
         return false;
+    }
+
+    internal static void Reset() {
+        i = 0;
     }
 
 }

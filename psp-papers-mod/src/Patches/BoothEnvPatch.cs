@@ -6,7 +6,8 @@ using play.day;
 namespace psp_papers_mod.Patches;
 
 public static class CustomPapers {
-    public static string PassedJuicerCheck = "EntryPermit";
+    public static string PassedJuicerCheck = "JuicerCheckPassed";
+    public static string[] FailedJuicerCheck = ["JuicerCheckFailed1", "JuicerCheckFailed2", "JuicerCheckFailed3"];
 }
 
 [HarmonyPatch(typeof(BoothEnv))]
