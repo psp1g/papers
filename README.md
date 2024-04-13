@@ -42,6 +42,19 @@ they will no longer be eligible to be the active chatter again during the sessio
   ```
 - Done!
 
+## Credits
+
+![pspL](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_b04ede1f936346c18d0338e840af1a35/default/dark/1.0)
+![pspL](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_b04ede1f936346c18d0338e840af1a35/default/dark/1.0)
+![pspL](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_b04ede1f936346c18d0338e840af1a35/default/dark/1.0)
+![pspHappy](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_426169649bee4355944f946c1d27ea4e/default/dark/1.0)
+![pspHappy](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_426169649bee4355944f946c1d27ea4e/default/dark/1.0)
+
+- [LittleBigBug](https://github.com/LittleBigBug) - Mod author
+- [creepycode](https://github.com/ByteZ1337) - Ideas, Lots of reverse engineering help, Author of [art.dat decrypt/patcher tool](https://github.com/psp1g/papers-tools-rs)
+- [ftk789](https://twitch.tv/ftk789) - Ideas, Coding/Audio help, Custom art assets
+- [pigswitched](https://twitch.tv/pigswitched) - Custom art assets
+
 ## Development Set-up
 
 - Install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) and [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
