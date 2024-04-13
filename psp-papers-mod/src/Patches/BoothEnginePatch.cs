@@ -1,6 +1,7 @@
 using data;
 using HarmonyLib;
 using play.day;
+using play.day.booth;
 using psp_papers_mod.Twitch;
 
 namespace psp_papers_mod.Patches;
@@ -8,13 +9,13 @@ namespace psp_papers_mod.Patches;
 [HarmonyPatch(typeof(BoothEngine))]
 public class BoothEnginePatch {
 
-    private static BoothEngine instance;
-    private static StampApprovalKind lastStamp = null;
+    public static BoothEngine BoothEngine;
+    private static StampApprovalKind lastStamp;
 
     [HarmonyPostfix]
     [HarmonyPatch("start")]
     private static void StartPostfix(BoothEngine __instance) {
-        BoothEnginePatch.instance = __instance;
+        BoothEnginePatch.BoothEngine = __instance;
     }
 
     [HarmonyPrefix]
@@ -55,7 +56,7 @@ public class BoothEnginePatch {
     }
 
     public static void Speak(string text, bool inspector = false) {
-        BoothEnginePatch.instance.speak($"__override__{text}", inspector);
+        BoothEnginePatch.BoothEngine.speak($"__override__{text}", inspector);
     }
 
     // Timeout active user in chat on denied stamp
@@ -65,8 +66,9 @@ public class BoothEnginePatch {
         lastStamp = approvalType;
     }
 
-    public static void Stamp(StampApprovalKind kind) {
-
+    public static void GivePaperNow(string paperId, int ct = 1) {
+        if (ct < 1) return;
+        for (int i = 0; i < ct; i++) BoothEngine.debugAddPaper($"{paperId}");
     }
 
 }

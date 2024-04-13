@@ -1,3 +1,4 @@
+using psp_papers_mod.MonoBehaviour;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -62,6 +63,13 @@ public class TwitchIntegration {
         this.client.OnMessageReceived += this.OnMessage;
         this.client.OnUserBanned += this.OnUserBanned;
         this.client.OnUserTimedout += this.OnUserTimedOut;
+
+        this.client.OnNewSubscriber += this.OnNewSub;
+        this.client.OnReSubscriber += this.OnReSub;
+        this.client.OnGiftedSubscription += this.OnGiftSub;
+        this.client.OnPrimePaidSubscriber += this.OnPrimeSub;
+        this.client.OnCommunitySubscription += this.OnCommunitySub;
+        this.client.OnContinuedGiftedSubscription += this.OnContinueGiftedSub;
     }
     ~TwitchIntegration() {
         this.client.Disconnect();
@@ -115,12 +123,16 @@ public class TwitchIntegration {
 
         // todo; check in a game
         // User is the "active chatter" and their messages should appear as the traveler's
-        if (chatter.IsActiveChatter)
+        if (chatter.IsActiveChatter) {
             BoothEnginePatch.Speak(e.ChatMessage.Message);
+
+            if (e.ChatMessage.Bits > 0)
+                this.OnBribe(chatter.Username, e.ChatMessage.BitsInDollars);
+        }
     }
 
     /**
-     * Set chatter weight to 0 on bans or time outs
+     * Set chatter weight to 0 on bans or timeouts
      */
     private void HandleUserBan(string username) {
         this.FrequentChatters
@@ -131,12 +143,38 @@ public class TwitchIntegration {
     private void OnUserBanned(object sender, OnUserBannedArgs e) { this.HandleUserBan(e.UserBan.Username); }
     private void OnUserTimedOut(object sender, OnUserTimedoutArgs e) { this.HandleUserBan(e.UserTimeout.Username); }
 
-    public static bool Connected() {
+    // Any twitch donation event thats >$3, give money in the game
+    private void OnBribe(string username, double dollars = 5d) {
+        if (ActiveChatter.Username != username && dollars >= 3) return;
+
+        int roundedDollars = (int)System.Math.Round(Math.max(dollars, 5));
+        int twenties = (int)System.Math.Floor(roundedDollars / 20d);
+        int dollarsLeft = roundedDollars - (twenties * 20);
+
+        int tens = (int)System.Math.Floor(dollarsLeft / 10d);
+        dollarsLeft -= tens * 10;
+
+        int fives = (int)System.Math.Floor(dollarsLeft / 5d);
+
+        UnityThreadInvoker.Invoke(() => {
+            BoothEnginePatch.GivePaperNow("Money5", fives);
+            BoothEnginePatch.GivePaperNow("Money10", tens);
+            BoothEnginePatch.GivePaperNow("Money20", twenties);
+        });
+    }
+    private void OnNewSub(object sender, OnNewSubscriberArgs e) { this.OnBribe(e.Subscriber.Login); }
+    private void OnReSub(object sender, OnReSubscriberArgs e) { this.OnBribe(e.ReSubscriber.Login); }
+    private void OnGiftSub(object sender, OnGiftedSubscriptionArgs e) { this.OnBribe(e.GiftedSubscription.Login); }
+    private void OnPrimeSub(object sender, OnPrimePaidSubscriberArgs e) { this.OnBribe(e.PrimePaidSubscriber.Login); }
+    private void OnCommunitySub(object sender, OnCommunitySubscriptionArgs e) { this.OnBribe(e.GiftedSubscription.Login, e.GiftedSubscription.MsgParamMassGiftCount * 5); }
+    private void OnContinueGiftedSub(object sender, OnContinuedGiftedSubscriptionArgs e) { this.OnBribe(e.ContinuedGiftedSubscription.Login); }
+
+    public static bool IsConnected() {
         return PapersPSP.Twitch.client.IsInitialized && PapersPSP.Twitch.client.IsConnected;
     }
 
     public static void Message(string message) {
-        if (!TwitchIntegration.Connected()) return;
+        if (!TwitchIntegration.IsConnected()) return;
         PapersPSP.Twitch.client.SendMessage(Cfg.Channel.Value, message);
     }
 
@@ -146,7 +184,7 @@ public class TwitchIntegration {
 
         chatter.HasBeenActiveChatter = true;
 
-        TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter! Show me your papers! sus RightHand");
+        //TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter! Show me your papers! sus RightHand");
 
         // Cap history to max
         if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)

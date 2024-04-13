@@ -32,8 +32,9 @@ public class BoothEnvPatch {
         return !BlockPaperIDs.Contains(paperId) || moddedPaper;
     }
 
-    public static void AddPaper(string paperId) {
-        BoothEnvPatch.BoothEnv.addPaper($"modded-{paperId}");
+    public static void AddPaper(string paperId, int ct = 1) {
+        if (ct < 1) return;
+        for (int i = 0; i < ct; i++) BoothEnv.addPaper($"modded-{paperId}");
     }
 
 }
