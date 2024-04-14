@@ -1,5 +1,9 @@
 using data;
 using HarmonyLib;
+using Il2CppSystem;
+using play.day;
+using play.day.booth;
+using play.day.border;
 using psp_papers_mod.Twitch;
 using psp_papers_mod.MonoBehaviour;
 
@@ -21,9 +25,17 @@ public class TravelerNamePatch {
 
         // Give weapon keys
         if (i++ == 0) {
-            // BorderPatch.Border.set_snipingEnabled(true);
-            // BorderPatch.Border.killRifleButton.set_active(true);
-            // BorderPatch.Border.tranqRifleButton.set_active(true);
+            BorderPatch.Border.killRifleButton.set_numBullets(999);
+            BorderPatch.Border.killRifleButton.set_state(State.DOCKED);
+            BorderPatch.Border.tranqRifleButton.set_numBullets(999);
+            BorderPatch.Border.tranqRifleButton.set_state(State.DOCKED);
+
+            // new KeyDesk___hx_ctor_play_day_booth_KeyDesk_143__Fun(false, BorderPatch.Border.booth.keyDesk)
+            //     .__hx_invoke0_o();
+
+            BorderPatch.Border.sendRunner();
+            new Border_set_snipingEnabled_718__Fun(true, BorderPatch.Border).__hx_invoke0_o();
+
             BoothEnvPatch.AddPaper(BorderPatch.Border.killRifleButton.keyDeskItemId);
             BoothEnvPatch.AddPaper(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
         }

@@ -19,11 +19,6 @@ public class EntPatch {
             BorderPatch.Border = border;
             return;
         }
-
-        DeskItem deskItem = ent.TryCast<DeskItem>();
-        if (deskItem != null) {
-            Console.Out.WriteLine("DESKITEM ADDED: " + deskItem.id + " " + deskItem.visible);
-        }
     }
 
 }
