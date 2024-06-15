@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<papers>
+
+	<paper id="JuicerCheckPassed" outer="JuicerCheckPassedOuter.png" reveal="fromslot" oddshape="true">
+		<page image="JuicerCheckPassedInner.png"/>
+	</paper>
+
+	<paper id="JuicerCheckFailed1" outer="JuicerCheckFailedOuter1.png" reveal="fromslot" oddshape="true">
+		<page image="JuicerCheckFailedInner1.png"/>
+	</paper>
+
+	<paper id="JuicerCheckFailed2" outer="JuicerCheckFailedOuter2.png" reveal="fromslot" oddshape="true">
+		<page image="JuicerCheckFailedInner2.png"/>
+	</paper>
+
+	<paper id="JuicerCheckFailed3" outer="JuicerCheckFailedOuter3.png" reveal="fromslot" oddshape="true">
+		<page image="JuicerCheckFailedInner3.png"/>
+	</paper>
+
+</papers>
