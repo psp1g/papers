@@ -24,7 +24,7 @@ public partial class Installing : UserControl {
     private const string dotNetInstallScript =
         "https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1";
 
-    private const string dotNetPathPattern = @"Adding to current process PATH: ""(.+)""\.$";
+    private const string dotNetPathPattern = """Adding to current process PATH: "(.+)"\.""";
 
     private const int totalSteps = 1100;
 
@@ -106,7 +106,7 @@ public partial class Installing : UserControl {
 
         if (!this.update) {
             this.Log($"Downloading BepInEx 6 BE - {BepInEx}");
-            this.Log($"Downloading .NET 6 SDK Install Script - {dotNetInstallScript}");
+            this.Log($"Downloading .NET 8 SDK Install Script - {dotNetInstallScript}");
 
             tasks.AddRange([
                 Program.client.DownloadFileAsync(BepInEx, Path.Combine(Program.PapersDir, "bepinex.zip"), true)
@@ -151,12 +151,12 @@ public partial class Installing : UserControl {
     }
 
     private void DotNetInstall() {
-        this.Log("Checking .NET 6 SDK installation");
+        this.Log("Checking .NET 8 SDK installation");
 
-        ProcessStartInfo startInfo = new ProcessStartInfo {
+        ProcessStartInfo startInfo = new() {
             FileName = "powershell.exe",
             Arguments =
-                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 6.0.1xx\"",
+                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 8.0\"",
 
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -204,7 +204,7 @@ public partial class Installing : UserControl {
         this.Log("Installing C# nuget dependencies");
 
         string projPath = Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "psp-papers-mod.csproj");
-        ProcessStartInfo startInfo = new ProcessStartInfo {
+        ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(this.dotNetDir, "dotnet.exe"),
             Arguments = $"restore \"{projPath}\"",
 
@@ -214,7 +214,7 @@ public partial class Installing : UserControl {
             CreateNoWindow = true
         };
 
-        Process netProc = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
+        Process netProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
 
         netProc.Exited += this.OnRestoreFinish;
         netProc.OutputDataReceived += this.LogProcOutput;
@@ -240,7 +240,8 @@ public partial class Installing : UserControl {
         Process netProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
 
         netProc.Exited += this.OnCompileFinish;
-        netProc.OutputDataReceived += this.NetProcOutput;
+        netProc.OutputDataReceived += this.CompileProcOutput;
+        netProc.ErrorDataReceived += this.ErrorOutput;
 
         netProc.Start();
         netProc.BeginOutputReadLine();
@@ -333,6 +334,16 @@ public partial class Installing : UserControl {
         if (match.Success) this.dotNetDir = match.Groups[1].Value;
 
         this.Log($"{e.Data}");
+    }
+
+    private void CompileProcOutput(object sender, DataReceivedEventArgs e) {
+        if (e?.Data == null) return;
+        this.Log($"{e.Data}");
+    }
+
+    private void ErrorOutput(object sender, DataReceivedEventArgs e) {
+        if (e?.Data == null) return;
+        this.Log($"ERROR: {e.Data}");
     }
 
     private void cont_Click(object sender, EventArgs e) {
