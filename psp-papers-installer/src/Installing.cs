@@ -252,7 +252,7 @@ public partial class Installing : UserControl {
 
         // Copy built plugin DLLs into plugins folder
         string[] paths = Directory.GetFiles(
-            Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "bin", "Debug", "net6.0"),
+            Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "bin", "Debug", "net8.0"),
             "*.dll"
         );
         foreach (string path in paths) {
