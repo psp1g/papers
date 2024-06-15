@@ -24,13 +24,16 @@ public partial class Installing : UserControl {
     private const string dotNetInstallScript =
         "https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1";
 
+    private const string PapersTools =
+        "https://github.com/psp1g/papers-tools-rs/releases/latest/download/PapersTools-win-x64.exe";
+
     private const string dotNetPathPattern = """Adding to current process PATH: "(.+)"\.""";
 
     private const int totalSteps = 1100;
 
     private string dotNetDir = "";
 
-    private bool[] dlSteps = [false, false, false];
+    private bool[] dlSteps = [false, false, false, false];
 
     private bool extract;
 
@@ -38,6 +41,10 @@ public partial class Installing : UserControl {
 
     public Installing() {
         this.InitializeComponent();
+        this.log.TextChanged += (sender, args) => {
+            this.log.SelectionStart = this.log.Text.Length;
+            this.log.ScrollToCaret();
+        };
 
         if (Program.AlreadyInstalled()) {
             this.update = true;
@@ -78,6 +85,7 @@ public partial class Installing : UserControl {
         // Remove old mod files
         if (this.update) {
             File.Delete(Path.Combine(Program.PapersDir, "psp-paper-mod.zip"));
+            File.Delete(Path.Combine(Program.PapersDir, "papers-tools.exe"));
 
             if (Directory.Exists(Path.Combine(Program.PapersDir, "papers-main")))
                 Directory.Delete(Path.Combine(Program.PapersDir, "papers-main"), true);
@@ -100,6 +108,8 @@ public partial class Installing : UserControl {
         List<Task> tasks = [
             Program.client.DownloadFileAsync(Git, Path.Combine(Program.PapersDir, "psp-paper-mod.zip"), true)
                 .ContinueWith(_ => this.DownloadProgress(ref this.dlSteps[0])),
+            Program.client.DownloadFileAsync(PapersTools, Path.Combine(Program.PapersDir, "papers-tools.exe"), true)
+                .ContinueWith(_ => this.DownloadProgress(ref this.dlSteps[3])),
         ];
 
         this.Log($"Downloading PSP Papers Mod @{Program.latestVersion} - {Git}");
@@ -157,7 +167,6 @@ public partial class Installing : UserControl {
             FileName = "powershell.exe",
             Arguments =
                 $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 8.0\"",
-
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -166,12 +175,39 @@ public partial class Installing : UserControl {
 
         Process netProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
 
-        netProc.Exited += this.onNetFinish;
+        netProc.Exited += this.OnNetFinish;
         netProc.OutputDataReceived += this.NetProcOutput;
 
         netProc.Start();
         netProc.BeginOutputReadLine();
     }
+
+    private void PatchAssets() {
+        this.Log("Patching game assets..");
+
+        string patchDir = Path.Combine(Program.PapersDir, "papers-main", "asset_patches");
+        ProcessStartInfo startInfo = new() {
+            FileName = Path.Combine(Program.PapersDir, "papers-tools.exe"),
+            Arguments = $"-g \"{Program.PapersDir}\" patch -p \"{patchDir}\"",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+
+        Process patchProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
+
+        patchProc.OutputDataReceived += this.LogProcOutput;
+        patchProc.Exited += (_, _) => {
+            this.SetProgress(1100);
+            this.cont.Invoke(new Action(() => this.cont.Enabled = true));
+            this.Log("\n\n~~~~~~~~~~~\nFinished!");
+        };
+
+        patchProc.Start();
+        patchProc.BeginOutputReadLine();
+    }
+
 
     private void Run() {
         this.Log("Running the game with BepInEx for the first time (Generating hollowed assemblies)");
@@ -207,7 +243,6 @@ public partial class Installing : UserControl {
         ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(this.dotNetDir, "dotnet.exe"),
             Arguments = $"restore \"{projPath}\"",
-
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -230,7 +265,6 @@ public partial class Installing : UserControl {
         ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(this.dotNetDir, "dotnet.exe"),
             Arguments = $"msbuild \"{projPath}\" -p:PapersPleaseDir=\"{Program.PapersDir}\"",
-
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -262,15 +296,6 @@ public partial class Installing : UserControl {
 
         this.SetProgress(950);
 
-        if (Directory.Exists(Path.Combine(Program.PapersDir, "img_patch")))
-            Directory.Delete(Path.Combine(Program.PapersDir, "img_patch"), true);
-
-        // Finally, move the image patch folder to the root directory
-        Directory.Move(
-            Path.Combine(Program.PapersDir, "papers-main", "img_patch"),
-            Path.Combine(Program.PapersDir, "img_patch")
-        );
-
         if (!this.update) {
             this.SetProgress(1000);
 
@@ -295,17 +320,16 @@ public partial class Installing : UserControl {
 
             if (File.Exists(locInstallerPath)) File.Delete(locInstallerPath);
 
-            FileInfo installerInfo = new FileInfo(installerLocation);
+            FileInfo installerInfo = new(installerLocation);
             installerInfo.CopyTo(locInstallerPath);
         }
 
-        this.SetProgress(1100);
+        this.SetProgress(1075);
 
-        this.cont.Invoke(new Action(() => this.cont.Enabled = true));
-        this.Log("\n\n~~~~~~~~~~~\nFinished!");
+        this.PatchAssets();
     }
 
-    private void onNetFinish(object sender, EventArgs e) {
+    private void OnNetFinish(object sender, EventArgs e) {
         this.SetProgress(600);
 
         // Skip first BepInEx run step on update
