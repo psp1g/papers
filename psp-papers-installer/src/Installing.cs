@@ -16,7 +16,7 @@ namespace psp_papers_installer;
 // Just wanted it to work without anything fancy
 // Its already a windows form app (cope)
 public partial class Installing : UserControl {
-    private const string Git = "https://github.com/psp1g/papers/archive/refs/heads/main.zip";
+    private const string Git = $"https://github.com/psp1g/papers/archive/refs/heads/{Program.Branch}.zip";
 
     private const string BepInEx =
         "https://builds.bepinex.dev/projects/bepinex_be/688/BepInEx-Unity.IL2CPP-win-x64-6.0.0-be.688%2B4901521.zip";
@@ -87,8 +87,8 @@ public partial class Installing : UserControl {
             File.Delete(Path.Combine(Program.PapersDir, "psp-paper-mod.zip"));
             File.Delete(Path.Combine(Program.PapersDir, "papers-tools.exe"));
 
-            if (Directory.Exists(Path.Combine(Program.PapersDir, "papers-main")))
-                Directory.Delete(Path.Combine(Program.PapersDir, "papers-main"), true);
+            if (Directory.Exists(Path.Combine(Program.PapersDir, Program.GitFolderName)))
+                Directory.Delete(Path.Combine(Program.PapersDir, Program.GitFolderName), true);
 
             if (Directory.Exists(Path.Combine(Program.PapersDir, "BepInEx", "plugins"))) {
                 Directory.Delete(Path.Combine(Program.PapersDir, "BepInEx", "plugins"), true);
@@ -183,9 +183,16 @@ public partial class Installing : UserControl {
     }
 
     private void PatchAssets() {
+        string patchDir = Path.Combine(Program.PapersDir, Program.GitFolderName, "asset_patches");
+
+        if (!Directory.Exists(patchDir)) {
+            this.Log("No game assets found to patch.");
+            this.Finish();
+            return;
+        }
+
         this.Log("Patching game assets..");
 
-        string patchDir = Path.Combine(Program.PapersDir, "papers-main", "asset_patches");
         ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(Program.PapersDir, "papers-tools.exe"),
             Arguments = $"-g \"{Program.PapersDir}\" patch -p \"{patchDir}\"",
@@ -198,11 +205,7 @@ public partial class Installing : UserControl {
         Process patchProc = new() { StartInfo = startInfo, EnableRaisingEvents = true };
 
         patchProc.OutputDataReceived += this.LogProcOutput;
-        patchProc.Exited += (_, _) => {
-            this.SetProgress(1100);
-            this.cont.Invoke(new Action(() => this.cont.Enabled = true));
-            this.Log("\n\n~~~~~~~~~~~\nFinished!");
-        };
+        patchProc.Exited += (_, _) => this.Finish();
 
         patchProc.Start();
         patchProc.BeginOutputReadLine();
@@ -239,7 +242,7 @@ public partial class Installing : UserControl {
     private void Restore() {
         this.Log("Installing C# nuget dependencies");
 
-        string projPath = Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "psp-papers-mod.csproj");
+        string projPath = Path.Combine(Program.PapersDir, Program.GitFolderName, "psp-papers-mod", "psp-papers-mod.csproj");
         ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(this.dotNetDir, "dotnet.exe"),
             Arguments = $"restore \"{projPath}\"",
@@ -261,7 +264,7 @@ public partial class Installing : UserControl {
     private void Compile() {
         this.Log("Compiling psp-papers-mod.csproj");
 
-        string projPath = Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "psp-papers-mod.csproj");
+        string projPath = Path.Combine(Program.PapersDir, Program.GitFolderName, "psp-papers-mod", "psp-papers-mod.csproj");
         ProcessStartInfo startInfo = new() {
             FileName = Path.Combine(this.dotNetDir, "dotnet.exe"),
             Arguments = $"msbuild \"{projPath}\" -p:PapersPleaseDir=\"{Program.PapersDir}\"",
@@ -286,7 +289,7 @@ public partial class Installing : UserControl {
 
         // Copy built plugin DLLs into plugins folder
         string[] paths = Directory.GetFiles(
-            Path.Combine(Program.PapersDir, "papers-main", "psp-papers-mod", "bin", "Debug", "net8.0"),
+            Path.Combine(Program.PapersDir, Program.GitFolderName, "psp-papers-mod", "bin", "Debug", "net8.0"),
             "*.dll"
         );
         foreach (string path in paths) {
@@ -324,11 +327,27 @@ public partial class Installing : UserControl {
             installerInfo.CopyTo(locInstallerPath);
         }
 
+        string gitVersionPath = Path.Combine(Program.PapersDir, Program.GitFolderName, "version");
+        if (File.Exists(gitVersionPath)) {
+            string versionPath = Path.Combine(Program.PapersDir, "psp-mod-version");
+            
+            if (File.Exists(versionPath)) File.Delete(versionPath);
+
+            FileInfo versionInfo = new(gitVersionPath);
+            versionInfo.CopyTo(versionPath);
+        }
+
         this.SetProgress(1075);
 
         this.PatchAssets();
     }
 
+    private void Finish() {
+        this.SetProgress(1100);
+        this.cont.Invoke(new Action(() => this.cont.Enabled = true));
+        this.Log("\n\n~~~~~~~~~~~\nFinished!");
+    }
+    
     private void OnNetFinish(object sender, EventArgs e) {
         this.SetProgress(600);
 

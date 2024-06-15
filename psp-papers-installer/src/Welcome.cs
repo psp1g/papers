@@ -8,7 +8,7 @@ namespace psp_papers_installer;
 public partial class Welcome : UserControl  {
 
     private const string UsualPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PapersPlease";
-    private const string RemoteVersion = "https://raw.githubusercontent.com/psp1g/papers/main/version";
+    private const string RemoteVersion = $"https://raw.githubusercontent.com/psp1g/papers/{Program.Branch}/version";
 
     private bool upToDate;
     private bool clickedOnce;
@@ -29,10 +29,12 @@ public partial class Welcome : UserControl  {
 
                     string version = await res.Result.Content.ReadAsStringAsync();
 
-                    this.latestVersion.Text = version;
+                    this.latestVersion.Text = Program.Branch == "main" ? version : $"{version} ({Program.Branch})";
                     Program.latestVersion = version;
 
-                    this.checkBox3.Text = $@"PSP Papers Mod - Latest @{version}";
+                    string latestText = Program.Branch == "main" ? "Latest" : Program.Branch;
+
+                    this.checkBox3.Text = $@"PSP Papers Mod - {latestText} @{version}";
 
                     this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
                     this.papersPath_TextChanged(null, null);
