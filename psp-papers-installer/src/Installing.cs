@@ -113,6 +113,7 @@ public partial class Installing : UserControl {
         ];
 
         this.Log($"Downloading PSP Papers Mod @{Program.latestVersion} - {Git}");
+        this.Log($"Downloading PSP Papers Patcher Tool {PapersTools}");
 
         if (!this.update) {
             this.Log($"Downloading BepInEx 6 BE - {BepInEx}");

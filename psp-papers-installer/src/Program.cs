@@ -17,7 +17,7 @@ static class Program {
 
     internal static string SteamLocation { get; private set; }
     
-    internal const string Branch = "asset-patching";
+    internal const string Branch = "main";
     internal const string GitFolderName = $"papers-{Branch}"; 
 
     /// <summary>
