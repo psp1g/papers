@@ -1,0 +1,17 @@
+[
+  {
+    "objectName": "border-gunshot",
+    "patchedPath": "audio/awp.fsb",
+    "loadType": 0,
+    "channels": 2,
+    "frequency": 48000,
+    "bitsPerSample": 16,
+    "length": 4.642667,
+    "isTrackerFormat": false,
+    "subsoundIndex": 0,
+    "preloadAudioData": false,
+    "loadInBackground": false,
+    "legacy3d": true,
+    "compressionFormat": "adpcm"
+  }
+]
