@@ -1,0 +1,142 @@
++ Design, Code, Art, Music, Sound
+	Lucas Pope
+
+[OFFSCREEN]
+
++ Special Thanks
+	My Family
+	Haxe & OpenFL Teams
+	Rami Ismail
+	Lee Williams
+	Hansen Chew
+	Josué Monchan
+	James Gray
+	Testronic
+
++ Mod Developed By
+	LittleBigBug
+	creepycode
+	ftk789
+	pigswitched
+
++ Developed with Haxe & Unity
+	[IMAGE] CreditsHaxe.png
+
++ Italian Localization
+	/ Team GLOC
+		Alain Dellepiane
+		Elisa Di Fiore
+		Matteo Scarabelli
+		Paolo Ceccotti
+
++ Spanish Localization
+	Josué Monchan
+	Ramón Méndez
+
++ French Localization
+	Words of Magic
+
++ German Localization
+	Rolf Klischewski
+
++ Portuguese (BR) Localization
+	/ Team Jogabilida.de
+		André Campos
+		Ricardo Dias
+		Eduardo Fonseca
+		Bruno Izidro
+
++ Russian Localization
+	/ Lazy Games
+		Natalia Dubrovskaya
+		Vyacheslav Belyaev
+		Olga Tsykalova
+
++ Japanese Localization
+	/ PLAYISM
+		Shunji Mizutani
+		Josh Weatherford
+		Gen Yoshimasu
+	/ 3909
+		Keiko Pope
+
++ Polish Localization
+	/ GameSub.pl
+		Jan Marcinkowski
+		Tomek Mucha
+		Kamil Kukla
+		vhs
+		Mariusz Rewiński
+		cienislaw
+
++ Ukrainian Localization
+	Skovoroda l10n
+
++ Korean Localization
+	/ BADA GAMES
+		Bada Im
+		Hyungseok Cho
+
++ Turkish Localization
+	Bared Çil
+
++ Czech Localization
+	Tomas2886
+	Datastor
+	/ Spyker Team
+		Jarda_H
+		DaNko
+
+? have-lang-id + Indonesian Localization
+	Papin Faizal
+
+? have-lang-eu + Basque Localization
+	Ibai Oihanguren Sala
+			
++ Fonts derived from
+	- 04b03 - 04
+	- 53Veda - Akashic Design
+	- 5Mikropix - Winter Design Studio
+	- Atari Small - Gurkan Sengun
+	- Bangalore - Yuji Adachi
+	- BM Germar - BitmapMania
+	- BM Mini - BitmapMania
+	- Chixa Demibold - Kreative Korporation
+	- EncientGermanGothic - Yurchenko Bazhen
+	- MiniKylie - deadbodies.us
+	- Misaki Gothic - Little Limit
+	- Motorola Screentype - R P N
+	- Naga10 - Sadakazu Nagao
+	- Nokia Cellphone FC - Zeh Fernando
+	- PixelPlay - Aleksander Shevchuk
+	- PlainBlack - Paul Lloyd
+	- Proggy Tiny - Tristan Grimmer
+	- Propaganda - Apostrophic Labs
+	- Raleway - The League of Moveable Type
+	- Resource - Danny Phantom
+	- Righty Uses Left Hand - Ebba
+	- SD Auto Pilot - Sam Derrick
+	- Shinonome - Yasuyuki Furukawa
+	- dalmoori - RanolP
+	- Galmuri - Minseo Lee
+
+
++ Sound effects sourced from
+	[IMAGE] CreditsFreesound.png
+	- kevinkace, Velvorn, han1, eg7783, dobroide, davidou, thefsoundman, Timbre, Tomlija, stevebob69, keweldog, alienistcog, swidmark, CosmicEmbers, 1pjladd2, THE_bizniss, Glaneur de sons, MrAuralization, conleec, Borys_Kozielski, cmusounddesign, Klerrp, bennychico11, Omar Alvarado, lucktheone, Halleck, guitarguy1985, urupin, Dan Oberbauer, 123jorre456, T.E.C. Studios, nickrave, audible-edge, aaronsawyer1, delphidebrain, mugurm, thesoundfxguru, adcbicycle, MentalSanityOff, swelk, stijn, jppi_Stu, sidadrumbum, Erdie, j1987, qubodup, shaynecantly, poolotronix, ra_gun, pscsound, fastson, Henaway, ludvique
+
+[SPACE]
+[SPACE]
+
+[IMAGE] CreditsCopyright.png
+- Copyright 2013-2022, 3909 LLC
+- All Rights Reserved
+
+[SPACE]
+[SPACE]
+[SPACE]
+[SPACE]
+[SPACE]
+[SPACE]
+
+$ Glory to Sususterja

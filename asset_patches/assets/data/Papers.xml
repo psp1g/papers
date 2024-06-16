@@ -17,4 +17,372 @@
 		<page image="JuicerCheckFailedInner3.png"/>
 	</paper>
 
+	<!-- Rules -->
+	<paper id="Rules" outer="RulesOuter.png" font="regular" textcolor="0x574848" dock="true">
+		<page id="home" image="RulesInnerHome.png" backcolor="0xe4e6bd">
+			<mark image="RulesTocDot.png" link="basic" />
+			<mark text="Basic Rules" link="basic" section="table_of_contents" />
+			<mark image="RulesTocDot.png" link="map" />
+			<mark text="Regional Map" link="map" />
+			<mark image="RulesTocDot.png" link="booth" />
+			<mark text="Booth Info" link="booth" />
+			<mark image="RulesTocDot.png" link="docs" />
+			<mark text="Documents" link="docs" />
+			<mark image="RulesTocDot.png" link="confiscation" />
+			<mark text="Confiscation" link="confiscation" />
+
+			<mark image="RulesGoHomeBase.png" pos="219 1" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesR.png" pos="237 8" link="basic" />
+			<mark image="RulesTabMapR.png" pos="238 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="basic" image="RulesInnerBasic.png" wrap="90">
+			<mark text="$Rule0" />
+			<mark text="$Rule1" />
+			<mark text="$Rule2" />
+			<mark text="$Rule3" />
+			<mark text="$Rule4" />
+
+			<mark text="$Rule5" side="1" />
+			<mark text="$Rule6" side="1" />
+			<mark text="$Rule7" side="1" />
+			<mark text="$Rule8" side="1" />
+			<mark text="$Rule9" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesR.png" pos="236 8" />
+			<mark image="RulesTabMapR.png" pos="237 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="map" image="RulesInnerMap.png" backcolor="0xe4e6bd">
+			<mark text="Obristan" link="region-ob" align="right" section="map_regions" />
+			<mark text="Antegria" link="region-an" align="center" />
+			<mark text="Republia" link="region-re" align="center" />
+			<mark text="United" link="region-un" />
+			<mark text="Federation" link="region-un" />
+			<mark text="Impor" link="region-im" align="right" />
+			<mark text="Kolechia" side="1" link="region-ko" />
+			<mark text="Sususterja" side="1" link="region-ar" align="right" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="2 8" link="basic" />
+			<mark image="RulesTabMapR.png" pos="236 42" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-an" image="RulesInnerRegion.png">
+			<mark text="ANTEGRIA" font="title_thick" align="center" section="region_pages" />
+			<mark image="$DiploSealsAntegria" />
+
+			<mark image="$Antegria-Passport0" scale="0.5" side="1" />
+			<mark text="$Antegria-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="1 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="2 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-ar" image="RulesInnerRegionArstotzka.png">
+			<mark text="SUSUSTERJA" font="title_thick" align="center" />
+			<mark text="$Arstotzka-Districts" wrap="75" />
+
+			<mark image="$Arstotzka-Passport0" scale="0.5" side="1" />
+			<mark text="$Arstotzka-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="1 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-im" image="RulesInnerRegion.png">
+			<mark text="IMPOR" font="title_thick" align="center" />
+			<mark image="$DiploSealsImpor" />
+
+			<mark image="$Impor-Passport0" scale="0.5" side="1" />
+			<mark text="$Impor-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-ko" image="RulesInnerRegion.png">
+			<mark text="KOLECHIA" font="title_thick" align="center" />
+			<mark image="$DiploSealsKolechia" />
+
+			<mark image="$Kolechia-Passport0" scale="0.5" side="1" />
+			<mark text="$Kolechia-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-ob" image="RulesInnerRegion.png">
+			<mark text="OBRISTAN" font="title_thick" align="center" />
+			<mark image="$DiploSealsObristan" />
+
+			<mark image="$Obristan-Passport0" scale="0.5" side="1" />
+			<mark text="$Obristan-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-re" image="RulesInnerRegion.png">
+			<mark text="REPUBLIA" font="title_thick" align="center" />
+			<mark image="$DiploSealsRepublia" />
+
+			<mark image="$Republia-Passport0" scale="0.5" side="1" />
+			<mark text="$Republia-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-un" image="RulesInnerRegion.png">
+			<mark text="UNITED FED." font="title_thick" align="center" />
+			<mark image="$DiploSealsUnitedFed" />
+
+			<mark image="$UnitedFed-Passport0" scale="0.5" side="1" />
+			<mark text="$UnitedFed-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="237 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="booth" image="RulesInnerBooth.png" image_portrait_wide="RulesInnerBooth2.png" image_portrait_thin="RulesInnerBooth3.png" backcolor="0xe4e6bd">
+			<mark image="$Upgrade0" />
+			<mark image="$Upgrade1" />
+			<mark image="$Upgrade2" />
+			<mark image="$Upgrade3" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="237 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="docs" image="RulesInnerDocs.png" backcolor="0xe4e6bd">
+			<mark text="Id Card (Native)" link="idcard" section="doc_listing" />
+			<mark text="Entry Permit" link="entrypermit" flow="down" flowpad="6" />
+			<mark text="Id Supplement" link="idsupplement" flow="down" flowpad="6" />
+			<mark text="Access Permit" link="accesspermit" flow="down" flowpad="6" />
+			<mark text="Work Pass" link="workpermit" flow="down" flowpad="6" />
+			<mark text="Diplomatic Auth." link="diplomaticauth" flow="down" flowpad="6" />
+			<mark text="Grant of Asylum" link="asylumgrant" flow="down" flowpad="6" />
+			<mark text="Vaccine Cert." link="vaccinecert" flow="down" flowpad="6" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="236 86" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="idcard" image="RulesInnerIdCard.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:75x76" proxy="RuleNeedIdCard" section="" />
+			<mark text="$Arstotzka-Districts" wrap="75" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="2 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="entrypermit" image="RulesInnerEntryPermit.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:77x102" proxy="RuleNeedEntryPermit" />
+			<mark image="$SealsMoa" side="1" />
+			<mark image="$SealRequired" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="1 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="idsupplement" image="RulesInnerIdSupplement.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:79x101" proxy="RuleNeedIdSupplement" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="2 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="accesspermit" image="RulesInnerAccessPermit.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:76x100" proxy="RuleNeedAccessPermit" />
+			<mark image="$SealsMoa" side="1" />
+			<mark image="$SealRequired" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="1 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="workpermit" image="RulesInnerWorkPermit.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:77x106" proxy="RuleNeedWorkPermit" />
+			<mark image="$SealsMol" side="1" />
+			<mark image="$SealRequired" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="1 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="diplomaticauth" image="RulesInnerDiplomaticAuth.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:78x103" proxy="RuleNeedDiplomaticAuth" />
+			<mark image="$DiploAccess" side="1" />
+			<mark image="$SealRequired" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="1 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="asylumgrant" image="RulesInnerAsylumGrant.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:82x95" proxy="RuleNeedAsylumGrant" />
+			<mark image="$SealsMoa" side="1" />
+			<mark image="$SealRequired" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="0 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="237 120" link="confiscation" />
+		</page>
+
+		<page id="vaccinecert" image="RulesInnerVaccineCert.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:72x82" proxy="RuleNeedVaccineCert" />
+			<mark image="BLANK:83x48" proxy="RuleNeedVaccineCert" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="0 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="237 120" link="confiscation" />
+		</page>
+
+		<page id="confiscation" image="RulesInnerConfiscation.png">
+			<mark text="$Confiscation" side="1" align="center" wrap="70" font="regular_short" inspectable="false" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="0 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="236 120" />
+		</page>
+
+		<page id="last" image="RulesInnerLast.png" backcolor="0xe4e6bd">
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="0 86" link="docs" />
+			<mark image="RulesTabConfL.png" pos="2 120" link="confiscation" />
+		</page>
+	</paper>
+
 </papers>
