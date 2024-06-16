@@ -9,6 +9,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
 using TwitchLib.Api;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
+using TwitchLib.Client.Enums;
 
 namespace psp_papers_mod.Twitch;
 
@@ -147,7 +148,7 @@ public class TwitchIntegration {
     private void OnBribe(string username, double dollars = 5d) {
         if (ActiveChatter.Username != username && dollars >= 3) return;
 
-        int roundedDollars = (int)System.Math.Round(Math.max(dollars, 5));
+        int roundedDollars = (int)System.Math.Round(System.Math.Max(dollars, 5));
         int twenties = (int)System.Math.Floor(roundedDollars / 20d);
         int dollarsLeft = roundedDollars - (twenties * 20);
 
@@ -162,11 +163,20 @@ public class TwitchIntegration {
             BoothEnginePatch.GivePaperNow("Money20", twenties);
         });
     }
-    private void OnNewSub(object sender, OnNewSubscriberArgs e) { this.OnBribe(e.Subscriber.Login); }
-    private void OnReSub(object sender, OnReSubscriberArgs e) { this.OnBribe(e.ReSubscriber.Login); }
-    private void OnGiftSub(object sender, OnGiftedSubscriptionArgs e) { this.OnBribe(e.GiftedSubscription.Login); }
+
+    private void OnSubBribe(string username, SubscriptionPlan plan, int multiple = 1) {
+        double dollars = plan switch {
+            SubscriptionPlan.Tier2 => 10d,
+            SubscriptionPlan.Tier3 => 25d,
+            _ => 5d,
+        };
+        this.OnBribe(username, dollars * multiple);
+    }
+    private void OnNewSub(object sender, OnNewSubscriberArgs e) { this.OnSubBribe(e.Subscriber.Login, e.Subscriber.SubscriptionPlan); }
+    private void OnReSub(object sender, OnReSubscriberArgs e) { this.OnSubBribe(e.ReSubscriber.Login, e.ReSubscriber.SubscriptionPlan); }
+    private void OnGiftSub(object sender, OnGiftedSubscriptionArgs e) { this.OnSubBribe(e.GiftedSubscription.Login, e.GiftedSubscription.MsgParamSubPlan); }
     private void OnPrimeSub(object sender, OnPrimePaidSubscriberArgs e) { this.OnBribe(e.PrimePaidSubscriber.Login); }
-    private void OnCommunitySub(object sender, OnCommunitySubscriptionArgs e) { this.OnBribe(e.GiftedSubscription.Login, e.GiftedSubscription.MsgParamMassGiftCount * 5); }
+    private void OnCommunitySub(object sender, OnCommunitySubscriptionArgs e) { this.OnSubBribe(e.GiftedSubscription.Login, e.GiftedSubscription.MsgParamSubPlan, e.GiftedSubscription.MsgParamMassGiftCount); }
     private void OnContinueGiftedSub(object sender, OnContinuedGiftedSubscriptionArgs e) { this.OnBribe(e.ContinuedGiftedSubscription.Login); }
 
     public static bool IsConnected() {
