@@ -8,7 +8,7 @@ namespace psp_papers_installer;
 public partial class Welcome : UserControl  {
 
     private const string UsualPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\PapersPlease";
-    private const string RemoteVersion = "https://raw.githubusercontent.com/psp1g/papers/main/version";
+    private const string RemoteVersion = $"https://raw.githubusercontent.com/psp1g/papers/{Program.Branch}/version";
 
     private bool upToDate;
     private bool clickedOnce;
@@ -22,24 +22,29 @@ public partial class Welcome : UserControl  {
             Program.client.GetAsync(RemoteVersion)
                 .ContinueWith(async res => {
                     if (!res.IsCompletedSuccessfully) {
-                        this.latestVersion.Text = @"??";
-                        Console.Error.WriteLine("Failed to get latest version!");
+                        this.latestVersion.Invoke(() => this.latestVersion.Text = @"??");
+                        Program.Console.Error("Failed to get latest version!");
                         return;
                     }
 
                     string version = await res.Result.Content.ReadAsStringAsync();
+                    Program.Console.WriteLine($"{version}");
 
-                    this.latestVersion.Text = version;
-                    Program.latestVersion = version;
+                    string latestText = Program.Branch == "main" ? "Latest" : Program.Branch;
+                    
+                    this.latestVersion.Invoke(() => {
+                        this.latestVersion.Text = Program.Branch == "main" ? version : $"{version} ({Program.Branch})";
+                        Program.latestVersion = version;
 
-                    this.checkBox3.Text = $@"PSP Papers Mod - Latest @{version}";
+                        this.checkBox3.Text = $@"PSP Papers Mod - {latestText} @{version}";
 
-                    this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
-                    this.papersPath_TextChanged(null, null);
+                        this.upToDate = this.latestVersion.Text.Trim() == this.currentVersion.Text.Trim();
+                        this.papersPath_TextChanged(null, null);
+                    });
                 });
         } catch (Exception e) {
             this.latestVersion.Text = @"??";
-            Console.Error.WriteLine($"{e.Message}\n{e.StackTrace}");
+            Program.Console.Error($"{e.Message}\n{e.StackTrace}");
         }
 
         string exePath = Path.Combine(UsualPath, "PapersPlease.exe");

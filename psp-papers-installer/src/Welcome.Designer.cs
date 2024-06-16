@@ -132,7 +132,7 @@ namespace psp_papers_installer {
             netsdk.Name = "netsdk";
             netsdk.Size = new System.Drawing.Size(336, 24);
             netsdk.TabIndex = 1;
-            netsdk.Text = ".NET 6 Core SDK";
+            netsdk.Text = ".NET 8 Core SDK";
             netsdk.UseVisualStyleBackColor = true;
             // 
             // papersPath
@@ -210,7 +210,7 @@ namespace psp_papers_installer {
             currentVersion.Name = "currentVersion";
             currentVersion.Size = new System.Drawing.Size(48, 19);
             currentVersion.TabIndex = 14;
-            currentVersion.Text = "1.1.1";
+            currentVersion.Text = "x.x.x";
             currentVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // latestVersion
@@ -220,7 +220,7 @@ namespace psp_papers_installer {
             latestVersion.Name = "latestVersion";
             latestVersion.Size = new System.Drawing.Size(48, 19);
             latestVersion.TabIndex = 15;
-            latestVersion.Text = "1.1.1";
+            latestVersion.Text = "x.x.x";
             latestVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cont

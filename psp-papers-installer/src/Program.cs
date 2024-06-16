@@ -13,9 +13,13 @@ static class Program {
     internal static string PapersDir;
     internal static string latestVersion;
 
+    internal static readonly PConsole Console = new();
     internal static readonly HttpClient client = new();
 
     internal static string SteamLocation { get; private set; }
+    
+    internal const string Branch = "main";
+    internal const string GitFolderName = $"papers-{Branch}"; 
 
     /// <summary>
     /// The main entry point for the application.
@@ -50,11 +54,11 @@ static class Program {
     }
 
     internal static bool AlreadyInstalled(string path) {
-        return File.Exists(Path.Combine(path, "papers-main", "version"));
+        return File.Exists(Path.Combine(path, "psp-mod-version"));
     }
 
     internal static string InstalledVersion(string path) {
-        string versionPath = Path.Combine(path, "papers-main", "version");
+        string versionPath = Path.Combine(path, "psp-mod-version");
         return File.Exists(versionPath) ? File.ReadAllText(versionPath) : "None";
     }
 

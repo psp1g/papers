@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+    <item id="created_by"><t>created by Lucas Pope. Modded by LittleBigBug/creepycode</t></item>
+    
+    <item id="border_announce0"><t>BUH</t></item>
+    <item id="border_announce1"><t>HAVE YOUR DOCUMENTS READY</t></item>
+    <item id="border_announce2"><t>ARSTOTZKA WELCOMES YOU</t></item>
+    
+    <item id="border_guardout"><t>GAGAGA</t></item>
+    
+    <item id="menu_back"><t>BACK</t></item>
+    <item id="confirm_ok"><t>OKAK</t></item>
+    <item id="menu_endless"><t>TWITCH CHAT MODE</t></item>
+
+    <item id="menu_paused"><t>CHAT TYPE ONGANG</t></item>
+    
+    <item id="stamp_approved"><t>APPROVED</t></item>
+    <item id="stamp_denied"><t>BANNED</t></item>
+    <item id="booth_dragdocs"><t>DRAG DOCUMENTS HERE</t></item>
+    
+    <item id="bulletin_default"><t>Sususterja
+        Ministry of Admission
+        Official Bulletin
+
+        Inspector,
+
+        $content
+
+        Glory to Sususterja.</t></item>
+    <item id="bulletin_notice"><t>Sususterja
+        Ministry of Admission
+        Official Bulletin
+
+        NOTICE:
+
+        $content
+
+        Glory to Sususterja.</t></item>
+    <item id="bulletin_endless"><t>Sususterja
+        Ministry of Admission
+        Official Bulletin
+
+        NOTICE:
+        
+        Forsen
+
+        Glory to Sususterja.</t></item>
+</data>
