@@ -11,7 +11,6 @@ namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(TravelerName))]
 public class TravelerNamePatch {
-
     private static int i;
 
     [HarmonyPrefix]
@@ -25,16 +24,15 @@ public class TravelerNamePatch {
 
         // Give weapon keys
         if (i++ == 0) {
+            BorderPatch.Border.day.featureFlags |= 1 << Feature.SNIPING._hx_index;
+            BorderPatch.Border.set_snipingEnabled(true);
             BorderPatch.Border.killRifleButton.set_numBullets(999);
-            BorderPatch.Border.killRifleButton.set_state(State.DOCKED);
-            BorderPatch.Border.tranqRifleButton.set_numBullets(999);
-            BorderPatch.Border.tranqRifleButton.set_state(State.DOCKED);
+            BorderPatch.Border.tranqRifleButton.set_state(State.OFF);
 
             // new KeyDesk___hx_ctor_play_day_booth_KeyDesk_143__Fun(false, BorderPatch.Border.booth.keyDesk)
             //     .__hx_invoke0_o();
 
             BorderPatch.Border.sendRunner();
-            new Border_set_snipingEnabled_718__Fun(true, BorderPatch.Border).__hx_invoke0_o();
 
             BoothEnvPatch.AddPaper(BorderPatch.Border.killRifleButton.keyDeskItemId);
             BoothEnvPatch.AddPaper(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
@@ -49,9 +47,7 @@ public class TravelerNamePatch {
         chatter.JuicerCheck()
             .SuccessWithUnityThread(() => {
                 BoothEnvPatch.AddPaper(
-                    !chatter.Juicer ?
-                        CustomPapers.PassedJuicerCheck :
-                        CustomPapers.FailedJuicerCheck.Random()
+                    !chatter.Juicer ? CustomPapers.PassedJuicerCheck : CustomPapers.FailedJuicerCheck.Random()
                 );
             });
 
@@ -64,5 +60,4 @@ public class TravelerNamePatch {
     internal static void Reset() {
         i = 0;
     }
-
 }
