@@ -210,7 +210,7 @@ namespace psp_papers_installer {
             currentVersion.Name = "currentVersion";
             currentVersion.Size = new System.Drawing.Size(48, 19);
             currentVersion.TabIndex = 14;
-            currentVersion.Text = "1.1.1";
+            currentVersion.Text = "x.x.x";
             currentVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // latestVersion
@@ -220,7 +220,7 @@ namespace psp_papers_installer {
             latestVersion.Name = "latestVersion";
             latestVersion.Size = new System.Drawing.Size(48, 19);
             latestVersion.TabIndex = 15;
-            latestVersion.Text = "1.1.1";
+            latestVersion.Text = "x.x.x";
             latestVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cont

@@ -13,6 +13,7 @@ static class Program {
     internal static string PapersDir;
     internal static string latestVersion;
 
+    internal static readonly PConsole Console = new();
     internal static readonly HttpClient client = new();
 
     internal static string SteamLocation { get; private set; }
