@@ -12,13 +12,13 @@ namespace psp_papers_mod.Twitch {
             foreach (KeyValuePair<string, Chatter> chatter in this) chatter.Value.FlushExpired(now);
         }
 
-        public Chatter SelectRandomActiveChatter() {
+        public Chatter GetRandomChatter(bool attacker = false) {
             if (this.Count == 0) return null;
 
             List<int> weights = this
                 .Select(data => {
                     Chatter chatter = data.Value;
-                    return chatter.GetWeight();
+                    return chatter.GetWeight(attacker);
                 })
                 .ToList();
 
@@ -34,7 +34,6 @@ namespace psp_papers_mod.Twitch {
             foreach (KeyValuePair<string, Chatter> o in this) {
                 if (cumulativeWeights[i++] < random) continue;
                 Chatter chatter = o.Value;
-                TwitchIntegration.SetActiveChatter(chatter);
                 return chatter;
             }
 

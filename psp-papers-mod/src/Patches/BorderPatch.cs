@@ -1,16 +1,13 @@
 using HarmonyLib;
 using play.day.border;
+using psp_papers_mod.Twitch;
 
 namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(Border))]
 public static class BorderPatch {
-    public static Border Border;
 
-    //     BorderPatch.Border.set_snipingEnabled(true); // Not needed?
-    //     BorderPatch.Border.sendRunner(); // Works, but turns the endless game into story mode
-    //     Console.Out.WriteLine("DESK ITEM ID " + BorderPatch.Border.killRifleButton.keyDeskItemId);
-    //     AutoStepTraveler.Give(BorderPatch.Border.killRifleButton.keyDeskItemId); // Doesnt work
+    public static Border Border;
 
     [HarmonyPrefix]
     [HarmonyPatch("panic")]
@@ -24,4 +21,10 @@ public static class BorderPatch {
         return false;
     }
 
+    public static void SendChatterRunner() {
+        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+        TwitchIntegration.SetActiveAttacker(chatter);
+        Border.sendRunner();
+    }
+    
 }

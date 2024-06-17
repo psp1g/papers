@@ -32,7 +32,10 @@ namespace psp_papers_mod.Twitch {
 
         public bool IsActiveChatter => TwitchIntegration.ActiveChatter?.Username == this.Username;
         public bool WasDenied { get; set; }
+        public bool WasApproved { get; set; }
         public bool HasBeenActiveChatter { get; set; }
+        
+        public bool HasBeenAttacker { get; set; }
 
         public bool WasRecentlyActiveChatter =>
             TwitchIntegration.RecentActiveChatters.Exists(c => c.Username == this.Username);
@@ -117,19 +120,29 @@ namespace psp_papers_mod.Twitch {
             if (newExpiresSemi != null) this.SemiRecentChatExpires = newExpiresSemi;
         }
 
-        public int GetWeight() {
-            // Users who were banned while they are an active chatter have no chance of becoming the active chatter again
-            if (this.BannedWhileTalking) return 0;
+        public int GetWeight(bool attacker = false) {
+            bool disableSelectingApproved =
+                attacker ? Cfg.AttacksDisableSelectingApproved.Value : Cfg.DisableSelectingApproved.Value;
+
+            // If configured, Users who were banned while they are an active chatter have no chance of becoming the active chatter again
+            // And, chatters who were attackers aren't selected because they were shot/exploded
+            if ((this.BannedWhileTalking && Cfg.AlwaysPreventBannedWhileTalking.Value) ||
+                (this.HasBeenAttacker && Cfg.AttacksNeverSelectedAfter.Value) ||
+                (this.WasApproved && disableSelectingApproved))
+                return 0;
 
             double weight =
                 (this.RecentChats * TwitchIntegration.CHATS_WEIGHT_MODIFIER) +
                 (this.SemiRecentChats * TwitchIntegration.OLDER_CHATS_WEIGHT_MODIFIER);
 
-            // Weight penalty if the user was previously already denied
-            if (this.WasDenied) weight *= TwitchIntegration.DENIED_WEIGHT_MODIFIER;
+            // Weight multiplier if the user was previously already denied
+            if (this.WasDenied) {
+                if (attacker) weight *= Cfg.AttacksPreviouslyDeniedMultiplier.Value;
+                else weight *= TwitchIntegration.DENIED_WEIGHT_MODIFIER;
+            }
 
             // Weight penalty for being a recent active chatter
-            if (this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition >= 0)
+            if (!attacker && this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition >= 0)
                 weight *= (float)this.RecentlyActiveChatterPosition / TwitchIntegration.MAX_ACTIVE_CHATTER_HISTORY;
 
             // Chat role modifiers
@@ -149,6 +162,10 @@ namespace psp_papers_mod.Twitch {
             this.JuicerChecked = true;
         }
 
+        public void Approve() {
+            this.WasApproved = true;
+        }
+        
         public void Deny(int seconds = 60) {
             TwitchIntegration.ActiveChatter = null;
             this.Timeout(seconds, "Denied Entry");
@@ -190,8 +207,13 @@ namespace psp_papers_mod.Twitch {
             this.Reset();
         }
 
-        public void Reset() {
-            this.WasDenied = false;
+        public void Reset(bool gameEnd = false) {
+            if (gameEnd) {
+                this.WasDenied = false;
+                this.WasApproved = false;
+                this.HasBeenAttacker = false;
+            }
+
             this.RecentChats = 0;
             this.SemiRecentChats = 0;
             this.RecentChatExpires.Clear();

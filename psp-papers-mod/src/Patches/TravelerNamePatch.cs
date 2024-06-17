@@ -17,12 +17,14 @@ public class TravelerNamePatch {
     [HarmonyPatch("randomize")]
     private static bool RandomizePrefix(TravelerName __instance, ref TravelerName __result) {
         PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
-        Chatter chatter = PapersPSP.Twitch.FrequentChatters.SelectRandomActiveChatter();
+        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+        
+        TwitchIntegration.SetActiveChatter(chatter);
 
         // Allow detaining anytime
         BorderPatch.Border.booth.detainButton.set_dropped(true);
 
-        // Give weapon keys
+        // Enable sniping & give weapon keys
         if (i++ == 0) {
             BorderPatch.Border.day.featureFlags |= 1 << Feature.SNIPING._hx_index;
             BorderPatch.Border.set_snipingEnabled(true);
@@ -32,10 +34,8 @@ public class TravelerNamePatch {
             // new KeyDesk___hx_ctor_play_day_booth_KeyDesk_143__Fun(false, BorderPatch.Border.booth.keyDesk)
             //     .__hx_invoke0_o();
 
-            BorderPatch.Border.sendRunner();
-
-            BoothEnvPatch.AddPaper(BorderPatch.Border.killRifleButton.keyDeskItemId);
-            BoothEnvPatch.AddPaper(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
+            BoothEnginePatch.GivePaperNow(BorderPatch.Border.killRifleButton.keyDeskItemId);
+            BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
         }
 
         // if (i > 1) {

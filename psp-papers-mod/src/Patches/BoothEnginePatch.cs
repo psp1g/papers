@@ -29,6 +29,8 @@ public class BoothEnginePatch {
 
             if (lastStamp == StampApprovalKind.DENIED)
                 TwitchIntegration.ActiveChatter.Deny(TwitchIntegration.ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS);
+            else if (lastStamp == StampApprovalKind.APPROVED)
+                TwitchIntegration.ActiveChatter.Approve();
 
             lastStamp = null;
         }

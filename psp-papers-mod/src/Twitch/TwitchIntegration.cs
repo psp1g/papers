@@ -34,6 +34,8 @@ public class TwitchIntegration {
     public ChatterCollection FrequentChatters { get; }
 
     public static Chatter ActiveChatter { get; set; }
+    
+    public static Chatter ActiveAttacker { get; set; }
 
     public static List<Chatter> RecentActiveChatters { get; private set; } = new();
 
@@ -227,6 +229,11 @@ public class TwitchIntegration {
             RecentActiveChatters = RecentActiveChatters
                 .Take(MAX_ACTIVE_CHATTER_HISTORY)
                 .ToList();
+    }
+
+    public static void SetActiveAttacker(Chatter chatter) {
+        ActiveAttacker = chatter;
+        chatter.HasBeenAttacker = true;
     }
 
 }
