@@ -22,7 +22,7 @@ public static class BorderPatch {
     }
 
     public static void SendChatterRunner() {
-        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter(true);
         TwitchIntegration.SetActiveAttacker(chatter);
         Border.sendRunner();
     }
