@@ -26,7 +26,7 @@ public class UnityTaskAction {
 
 }
 
-class UnityTaskActionQueue : Queue<UnityTaskAction>;
+internal class UnityTaskActionQueue : Queue<UnityTaskAction>;
 
 public class UnityThreadInvoker : UnityEngine.MonoBehaviour {
 

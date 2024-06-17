@@ -117,7 +117,7 @@ public partial class Installing : UserControl {
 
         if (!this.update) {
             this.Log($"Downloading BepInEx 6 BE - {BepInEx}");
-            this.Log($"Downloading .NET 8 SDK Install Script - {dotNetInstallScript}");
+            this.Log($"Downloading .NET 6 SDK Install Script - {dotNetInstallScript}");
 
             tasks.AddRange([
                 Program.client.DownloadFileAsync(BepInEx, Path.Combine(Program.PapersDir, "bepinex.zip"), true)
@@ -162,12 +162,12 @@ public partial class Installing : UserControl {
     }
 
     private void DotNetInstall() {
-        this.Log("Checking .NET 8 SDK installation");
+        this.Log("Checking .NET 6 SDK installation");
 
         ProcessStartInfo startInfo = new() {
             FileName = "powershell.exe",
             Arguments =
-                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 8.0\"",
+                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 6.0\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -290,7 +290,7 @@ public partial class Installing : UserControl {
 
         // Copy built plugin DLLs into plugins folder
         string[] paths = Directory.GetFiles(
-            Path.Combine(Program.PapersDir, Program.GitFolderName, "psp-papers-mod", "bin", "Debug", "net8.0"),
+            Path.Combine(Program.PapersDir, Program.GitFolderName, "psp-papers-mod", "bin", "Debug", "net6.0"),
             "*.dll"
         );
         foreach (string path in paths) {
