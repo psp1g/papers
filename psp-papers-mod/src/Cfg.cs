@@ -9,6 +9,7 @@ public static class Cfg {
     internal static ConfigEntry<string> BotName { get; private set; }
     internal static ConfigEntry<string> AccessToken { get; private set; }
     internal static ConfigEntry<string> ClientID { get; private set; }
+    internal static ConfigEntry<bool> UseLocalAuthServer { get; private set; }
 
     internal static ConfigEntry<bool> AlwaysPreventSameActiveChatter { get; private set; }
 
@@ -28,7 +29,7 @@ public static class Cfg {
         BotName = mod.Config.Bind(
             "Twitch.Bot",
             "Username",
-            "ai1g",
+            "",
             "Username of the bot to sign into"
         );
 
@@ -44,6 +45,13 @@ public static class Cfg {
             "ClientID",
             "",
             "Twitch API client ID"
+        );
+        
+        UseLocalAuthServer = mod.Config.Bind(
+            "Twitch.Bot",
+            "UseLocalAuthServer",
+            false,
+            "Only use this if you know what you are doing. Requests a twitch auth token from a local auth server. Requires botUsername"
         );
 
         AlwaysPreventSameActiveChatter = mod.Config.Bind(

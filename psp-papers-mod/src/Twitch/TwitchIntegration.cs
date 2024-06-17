@@ -1,14 +1,22 @@
-using psp_papers_mod.MonoBehaviour;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using psp_papers_mod.Patches;
+using psp_papers_mod.MonoBehaviour;
+
+using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+
+using Newtonsoft.Json;
+
+using TwitchLib.Api;
+using TwitchLib.Api.Helix.Models.Users.GetUsers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
-using TwitchLib.Api;
-using TwitchLib.Api.Helix.Models.Users.GetUsers;
 
 namespace psp_papers_mod.Twitch;
 
@@ -35,19 +43,26 @@ public class TwitchIntegration {
     internal TwitchAPI api;
     internal TwitchClient client;
 
+    private bool triedReAuth = false;
+
     public TwitchIntegration() {
         this.FrequentChatters = new ChatterCollection();
 
+        Task<LocalAuthResponse> authTask = LocalAuthResponse.Fetch();
+        authTask.Wait();
+
+        LocalAuthResponse authResponse = authTask.Result;
+        
         this.api = new TwitchAPI {
             Settings = {
-                ClientId = Cfg.ClientID.Value,
-                AccessToken = Cfg.AccessToken.Value
+                ClientId = authResponse.ClientId,
+                AccessToken = authResponse.Token,
             }
         };
 
         PapersPSP.Log.LogInfo($"Connecting to {Cfg.Channel.Value} with bot {Cfg.BotName.Value}...");
 
-        ConnectionCredentials credentials = new(Cfg.BotName.Value, Cfg.AccessToken.Value);
+        ConnectionCredentials credentials = new(Cfg.BotName.Value, authResponse.Token);
 
         this.client = new TwitchClient(
             protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
@@ -63,6 +78,7 @@ public class TwitchIntegration {
         this.client.OnMessageReceived += this.OnMessage;
         this.client.OnUserBanned += this.OnUserBanned;
         this.client.OnUserTimedout += this.OnUserTimedOut;
+        this.client.OnNoPermissionError += this.OnAuthError;
 
         this.client.OnNewSubscriber += this.OnNewSub;
         this.client.OnReSubscriber += this.OnReSub;
@@ -95,6 +111,26 @@ public class TwitchIntegration {
         this.client.Connect();
     }
 
+    private async Task ReAuthenticate() {
+        LocalAuthResponse authResponse = await LocalAuthResponse.Fetch();
+        ConnectionCredentials credentials = new(Cfg.BotName.Value, authResponse.Token);
+
+        this.api.Settings.AccessToken = authResponse.Token;
+
+        this.client.SetConnectionCredentials(credentials);
+        this.client.Reconnect();
+    }
+    
+    private void OnAuthError(object sender, EventArgs e) {
+        if (this.triedReAuth) {
+            PapersPSP.Log.LogError($"Re-Authentication with twitch has failed!");
+            return;
+        }
+
+        PapersPSP.Log.LogWarning($"Authentication error with twitch. Attempting to re-authenticate");
+        this.ReAuthenticate();
+    }
+
     private void OnError(object sender, OnErrorEventArgs e) {
         PapersPSP.Log.LogError($"There was an error with twitch chat! Err: {e.Exception.Message}");
     }
@@ -109,7 +145,7 @@ public class TwitchIntegration {
 
     private void OnJoined(object sender, OnJoinedChannelArgs e) {
         PapersPSP.Log.LogInfo($"Connected to IRC Channel {Cfg.Channel.Value}");
-        //this.client.SendMessage(PapersPSP.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
+        this.client.SendMessage(Cfg.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
     }
 
     private void OnMessage(object sender, OnMessageReceivedArgs e) {
@@ -184,13 +220,59 @@ public class TwitchIntegration {
 
         chatter.HasBeenActiveChatter = true;
 
-        //TwitchIntegration.Message($"@{chatter.Username}, You're currently the active chatter! Show me your papers! sus RightHand");
+        //TwitchIntegration.Message($"@{chatter.Username}, catAsk You're currently the active chatter!");
 
         // Cap history to max
         if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)
             RecentActiveChatters = RecentActiveChatters
                 .Take(MAX_ACTIVE_CHATTER_HISTORY)
                 .ToList();
+    }
+
+}
+
+internal class LocalAuthResponse {
+
+    [JsonProperty("clientId")]
+    public string ClientId { get; set; }
+    
+    [JsonProperty("token")]
+    public string Token { get; set; }
+    
+    [JsonProperty("expires")]
+    public DateTime? Expires { get; set; }
+
+    private static LocalAuthResponse DefaultAuthResponse() =>
+        new() {
+            Expires = null,
+            Token = Cfg.BotName.Value,
+            ClientId = Cfg.ClientID.Value,
+        };
+
+    internal static async Task<LocalAuthResponse> Fetch() {
+        if (!Cfg.UseLocalAuthServer.Value) return DefaultAuthResponse();
+
+        using HttpClient client = new();
+
+        HttpResponseMessage response =
+            await client.PostAsJsonAsync(
+                "http://localhost:56709/api/token", 
+                new { botUsername = Cfg.BotName.Value, forceRefresh = true, }
+            );
+        Stream stream = await response.Content.ReadAsStreamAsync();
+
+        using StreamReader streamReader = new(stream);
+        await using JsonTextReader jsonReader = new(streamReader);
+
+        JsonSerializer jsonSerializer = new();
+
+        try {
+            return jsonSerializer.Deserialize<LocalAuthResponse>(jsonReader);
+        } catch (JsonReaderException) {
+            PapersPSP.Log.LogWarning($"There was an error with local auth JSON response!");
+        }
+
+        return DefaultAuthResponse();
     }
 
 }
