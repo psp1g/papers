@@ -1,8 +1,6 @@
 using data;
 using HarmonyLib;
-using Il2CppSystem;
 using play.day;
-using play.day.booth;
 using play.day.border;
 using psp_papers_mod.Twitch;
 using psp_papers_mod.MonoBehaviour;
@@ -40,7 +38,7 @@ public class TravelerNamePatch {
         }
 
         if (i > 1) {
-            BorderPatch.Border.sendRunner();
+            BorderPatch.SendChatterRunner();
         }
 
         if (chatter == null) return true;

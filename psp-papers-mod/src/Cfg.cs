@@ -22,7 +22,12 @@ public static class Cfg {
 
     internal static ConfigEntry<double> AttacksPreviouslyDeniedMultiplier { get; private set; }
     internal static ConfigEntry<bool> AttacksDisableSelectingApproved { get; private set; }
-    internal static ConfigEntry<bool> AttacksNeverSelectedAfter { get; private set; }
+    internal static ConfigEntry<bool> DeathsNeverSelectedAfter { get; private set; }
+    
+    internal static ConfigEntry<int> DenyTimeoutSeconds { get; private set; }
+    internal static ConfigEntry<int> ShotTimeoutSeconds { get; private set; }
+    internal static ConfigEntry<int> DetainedTimeoutSeconds { get; private set; }
+    internal static ConfigEntry<int> TimeoutDelayMs { get; private set; }
     
     public static void StartBindings(PapersPSP mod) {
         Channel = mod.Config.Bind(
@@ -75,7 +80,7 @@ public static class Cfg {
         );
 
         DisableSelectingApproved = mod.Config.Bind(
-            "Twitch.ChatterSelection.Attacks",
+            "Twitch.ChatterSelection",
             "DisableSelectingApproved",
             true,
             "Disable selecting chatters who have already been approved to go through the border to be the active chatter again"
@@ -122,12 +127,40 @@ public static class Cfg {
             true,
             "Disable selecting chatters who have already been approved to go through the border for attacks"
         );
-        
-        AttacksNeverSelectedAfter = mod.Config.Bind(
+
+        DeathsNeverSelectedAfter = mod.Config.Bind(
             "Twitch.ChatterSelection.Attacks",
-            "NeverSelectedAfter",
+            "DeathsNeverSelectedAfter",
             true,
-            "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have provoked an attack until a new game starts."
+            "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have provoked an attack OR shot for any reason until a new game starts."
+        );
+        
+        DenyTimeoutSeconds = mod.Config.Bind(
+            "Twitch.ChatterSelection.Timeouts",
+            "DenyTimeoutSeconds",
+            120,
+            "Time in seconds that a chatter should be timed out for being denied"
+        );
+        
+        DetainedTimeoutSeconds = mod.Config.Bind(
+            "Twitch.ChatterSelection.Timeouts",
+            "DetainedTimeoutSeconds",
+            300,
+            "Time in seconds that a chatter should be timed out for being detained"
+        );
+        
+        ShotTimeoutSeconds = mod.Config.Bind(
+            "Twitch.ChatterSelection.Timeouts",
+            "ShotTimeoutSeconds",
+            600,
+            "Time in seconds that a chatter should be timed out for being shot"
+        );
+        
+        TimeoutDelayMs = mod.Config.Bind(
+            "Twitch.ChatterSelection.Timeouts",
+            "TimeoutDelayMilliseconds",
+            1000,
+            "Time in milliseconds that the bot should wait before timing out a user for any reason (compensate for stream delay)"
         );
     }
 

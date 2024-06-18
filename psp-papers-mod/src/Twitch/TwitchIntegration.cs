@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
-
+using play.day.border;
 using TwitchLib.Api;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
 using TwitchLib.Client;
@@ -26,7 +26,6 @@ public class TwitchIntegration {
     public const int MAX_ACTIVE_CHATTER_HISTORY = 20;
     public const int MAX_CHATTER_FREQ_CHATS = 20;
     public const int MAX_CHATTER_OLDER_CHATS = 30;
-    public const int ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS = 120;
     public const float CHATS_WEIGHT_MODIFIER = 1.25f;
     public const float OLDER_CHATS_WEIGHT_MODIFIER = 0.5f;
     public const float DENIED_WEIGHT_MODIFIER = 0.8f;
@@ -36,8 +35,10 @@ public class TwitchIntegration {
     public static Chatter ActiveChatter { get; set; }
     
     public static Chatter ActiveAttacker { get; set; }
+    
+    public static Person ActiveAttackerPerson { get; set; }
 
-    public static List<Chatter> RecentActiveChatters { get; private set; } = new();
+    public static List<Chatter> RecentActiveChatters { get; private set; } = [];
 
     public string BotID { get; private set; } = "";
     public string BroadcasterID { get; private set; } = "";
@@ -167,6 +168,15 @@ public class TwitchIntegration {
             if (e.ChatMessage.Bits > 0)
                 this.OnBribe(chatter.Username, e.ChatMessage.BitsInDollars);
         }
+
+        // User is the "active attacker" and their messages should pop up as the attacker's
+        if (chatter.IsActiveAttacker) {
+            if (ActiveAttackerPerson != null) {
+                BorderPatch.Border.bomberSpeechBubble.pos = ActiveAttackerPerson.pos;
+                BorderPatch.Border.bomberSpeechBubble.dottedLine.visible = false;
+            }
+            BorderPatch.Border.bomberSpeechBubble.showText(e.ChatMessage.Message, 0);
+        }
     }
 
     /**
@@ -233,6 +243,7 @@ public class TwitchIntegration {
 
     public static void SetActiveAttacker(Chatter chatter) {
         ActiveAttacker = chatter;
+        ActiveAttackerPerson = null;
         chatter.HasBeenAttacker = true;
     }
 
