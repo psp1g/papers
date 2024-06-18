@@ -18,8 +18,9 @@ public class TravelerNamePatch {
     private static bool RandomizePrefix(TravelerName __instance, ref TravelerName __result) {
         PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
         Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
-        
-        TwitchIntegration.SetActiveChatter(chatter);
+
+        if (chatter != null)
+            TwitchIntegration.SetActiveChatter(chatter);
 
         // Allow detaining anytime
         BorderPatch.Border.booth.detainButton.set_dropped(true);
@@ -38,9 +39,9 @@ public class TravelerNamePatch {
             BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
         }
 
-        // if (i > 1) {
-        //     BorderPatch.Border.sendRunner();
-        // }
+        if (i > 1) {
+            BorderPatch.Border.sendRunner();
+        }
 
         if (chatter == null) return true;
 
