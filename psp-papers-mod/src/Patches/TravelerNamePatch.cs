@@ -1,5 +1,7 @@
 using data;
 using HarmonyLib;
+using play.day;
+using play.day.border;
 using psp_papers_mod.Twitch;
 using psp_papers_mod.MonoBehaviour;
 
@@ -8,38 +10,41 @@ namespace psp_papers_mod.Patches;
 [HarmonyPatch(typeof(TravelerName))]
 public class TravelerNamePatch {
 
-    private static int i;
+    internal static int TotalTravellers;
 
     [HarmonyPrefix]
     [HarmonyPatch("randomize")]
     private static bool RandomizePrefix(TravelerName __instance, ref TravelerName __result) {
+        AttackHandler.AttackIfPossible();
+
+        AttackHandler.TravelerCtSinceLast++;
+
         PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
-        Chatter chatter = PapersPSP.Twitch.FrequentChatters.SelectRandomActiveChatter();
+        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+
+        if (chatter != null)
+            TwitchIntegration.SetActiveChatter(chatter);
 
         // Allow detaining anytime
         BorderPatch.Border.booth.detainButton.set_dropped(true);
 
-        // Give weapon keys
-        if (i++ == 0) {
-            // BorderPatch.Border.set_snipingEnabled(true);
-            // BorderPatch.Border.killRifleButton.set_active(true);
-            // BorderPatch.Border.tranqRifleButton.set_active(true);
-            BoothEnvPatch.AddPaper(BorderPatch.Border.killRifleButton.keyDeskItemId);
-            BoothEnvPatch.AddPaper(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
-        }
+        // Enable sniping & give weapon keys
+        if (TotalTravellers++ == 0) {
+            BorderPatch.Border.day.featureFlags |= 1 << Feature.SNIPING._hx_index;
+            BorderPatch.Border.set_snipingEnabled(true);
+            BorderPatch.Border.killRifleButton.set_numBullets(999);
+            BorderPatch.Border.tranqRifleButton.set_state(State.OFF);
 
-        // if (i > 1) {
-        //     BorderPatch.Border.sendRunner();
-        // }
+            BoothEnginePatch.GivePaperNow(BorderPatch.Border.killRifleButton.keyDeskItemId);
+            BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
+        }
 
         if (chatter == null) return true;
 
         chatter.JuicerCheck()
             .SuccessWithUnityThread(() => {
                 BoothEnvPatch.AddPaper(
-                    !chatter.Juicer ?
-                        CustomPapers.PassedJuicerCheck :
-                        CustomPapers.FailedJuicerCheck.Random()
+                    !chatter.Juicer ? CustomPapers.PassedJuicerCheck : CustomPapers.FailedJuicerCheck.Random()
                 );
             });
 
@@ -50,7 +55,6 @@ public class TravelerNamePatch {
     }
 
     internal static void Reset() {
-        i = 0;
+        TotalTravellers = 0;
     }
-
 }

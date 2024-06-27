@@ -1,7 +1,6 @@
 using data;
 using HarmonyLib;
 using play.day;
-using play.day.booth;
 using psp_papers_mod.Twitch;
 
 namespace psp_papers_mod.Patches;
@@ -28,7 +27,9 @@ public class BoothEnginePatch {
             }
 
             if (lastStamp == StampApprovalKind.DENIED)
-                TwitchIntegration.ActiveChatter.Deny(TwitchIntegration.ACTIVE_CHATTER_DENY_TIMEOUT_SECONDS);
+                TwitchIntegration.ActiveChatter.Deny();
+            else if (lastStamp == StampApprovalKind.APPROVED)
+                TwitchIntegration.ActiveChatter.Approve();
 
             lastStamp = null;
         }

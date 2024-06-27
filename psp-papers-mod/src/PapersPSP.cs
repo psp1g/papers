@@ -12,7 +12,7 @@ using Il2CppInterop.Runtime.Injection;
 
 namespace psp_papers_mod;
 
-[BepInPlugin("wtf.psp.papers", "PSP PAPERS", "1.0.3")]
+[BepInPlugin("wtf.psp.papers", "PSP PAPERS", "1.1.0")]
 [BepInProcess("PapersPlease.exe")]
 public class PapersPSP : BasePlugin {
 

@@ -1,3 +1,4 @@
+using play.day.booth;
 using psp_papers_mod.MonoBehaviour;
 using System;
 using System.Linq;
@@ -6,7 +7,6 @@ using psp_papers_mod.Patches;
 using System.Threading.Tasks;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Client.Models;
-using StampApprovalKind = data.StampApprovalKind;
 
 namespace psp_papers_mod.Twitch {
 
@@ -30,9 +30,14 @@ namespace psp_papers_mod.Twitch {
         public int RecentChats { get; set; } = 0;
         public int SemiRecentChats { get; set; } = 0;
 
-        public bool IsActiveChatter => TwitchIntegration.ActiveChatter?.Username == this.Username;
+        public bool IsActiveChatter => TwitchIntegration.ActiveChatter == this;
+        public bool IsActiveAttacker => TwitchIntegration.ActiveAttacker == this;
         public bool WasDenied { get; set; }
+        public bool WasApproved { get; set; }
         public bool HasBeenActiveChatter { get; set; }
+        
+        public bool HasBeenAttacker { get; set; }
+        public bool Died { get; set; }
 
         public bool WasRecentlyActiveChatter =>
             TwitchIntegration.RecentActiveChatters.Exists(c => c.Username == this.Username);
@@ -43,8 +48,8 @@ namespace psp_papers_mod.Twitch {
         private bool JustDenied { get; set; }
         private bool BannedWhileTalking { get; set; }
 
-        private List<double> RecentChatExpires = new List<double>();
-        private List<double> SemiRecentChatExpires = new List<double>();
+        private List<double> RecentChatExpires = [];
+        private List<double> SemiRecentChatExpires = [];
 
         public Chatter(ChatMessage chatMessage) {
             this.UserID = chatMessage.UserId;
@@ -117,19 +122,37 @@ namespace psp_papers_mod.Twitch {
             if (newExpiresSemi != null) this.SemiRecentChatExpires = newExpiresSemi;
         }
 
-        public int GetWeight() {
-            // Users who were banned while they are an active chatter have no chance of becoming the active chatter again
-            if (this.BannedWhileTalking) return 0;
+        public int GetWeight(bool attacker = false) {
+            bool disableSelectingApproved =
+                attacker ? Cfg.AttacksDisableSelectingApproved.Value : Cfg.DisableSelectingApproved.Value;
+
+            if (
+                // If configured, users have no chance of becoming the active chatter again:
+                // - Chatters who were banned while they are an active chatter
+                // - Chatters who were attackers/shot aren't selected because they were shot/exploded
+                // - Chatters who were approved and in the country already
+                (this.BannedWhileTalking && Cfg.AlwaysPreventBannedWhileTalking.Value) ||
+                ((this.HasBeenAttacker || this.Died) && Cfg.DeathsNeverSelectedAfter.Value) ||
+                (this.WasApproved && disableSelectingApproved) ||
+
+                // The active chatter can't be the attacker and vice versa
+                (attacker && TwitchIntegration.ActiveChatter == this) ||
+                (!attacker && TwitchIntegration.ActiveAttacker == this)
+            )
+                return 0;
 
             double weight =
                 (this.RecentChats * TwitchIntegration.CHATS_WEIGHT_MODIFIER) +
                 (this.SemiRecentChats * TwitchIntegration.OLDER_CHATS_WEIGHT_MODIFIER);
 
-            // Weight penalty if the user was previously already denied
-            if (this.WasDenied) weight *= TwitchIntegration.DENIED_WEIGHT_MODIFIER;
+            // Weight multiplier if the user was previously already denied
+            if (this.WasDenied) {
+                if (attacker) weight *= Cfg.AttacksPreviouslyDeniedMultiplier.Value;
+                else weight *= TwitchIntegration.DENIED_WEIGHT_MODIFIER;
+            }
 
             // Weight penalty for being a recent active chatter
-            if (this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition >= 0)
+            if (!attacker && this.WasRecentlyActiveChatter && this.RecentlyActiveChatterPosition >= 0)
                 weight *= (float)this.RecentlyActiveChatterPosition / TwitchIntegration.MAX_ACTIVE_CHATTER_HISTORY;
 
             // Chat role modifiers
@@ -149,28 +172,63 @@ namespace psp_papers_mod.Twitch {
             this.JuicerChecked = true;
         }
 
-        public void Deny(int seconds = 60) {
+        public void Approve() {
+            this.WasApproved = true;
+            AttackHandler.ConsecutiveDenials = 0;
+        }
+
+        public void Deny() {
+            AttackHandler.ConsecutiveDenials++;
             TwitchIntegration.ActiveChatter = null;
-            this.Timeout(seconds, "Denied Entry");
+
+            if (Cfg.DenyTimeoutSeconds.Value > 0)
+                this.Timeout(Cfg.DenyTimeoutSeconds.Value, "Denied Entry");
 
             this.WasDenied = true;
-            this.JustDenied = true;
             this.Reset();
+        }
+
+        public void Detain() {
+            TwitchIntegration.ActiveChatter = null;
+            if (Cfg.DetainedTimeoutSeconds.Value > 0)
+                this.Timeout(Cfg.DetainedTimeoutSeconds.Value, "Detained");
+        }
+
+        public void Shot() {
+            this.Died = true;
+
+            if (TwitchIntegration.ActiveAttacker == this) {
+                TwitchIntegration.ActiveAttacker = null;
+                TwitchIntegration.ActiveAttackerPerson = null;
+            }
+
+            if (Cfg.ShotTimeoutSeconds.Value > 0)
+                this.Timeout(Cfg.ShotTimeoutSeconds.Value, "Shot");
         }
 
         public async void Timeout(int seconds, string reason = "") {
             PapersPSP.Log.LogInfo($"Timing out user {this.Username}");
+
+            if (Cfg.TimeoutDelayMs.Value > 0)
+                await Task.Delay(Cfg.TimeoutDelayMs.Value);
+
             BanUserRequest banRequest = new() {
                 Reason = reason,
                 Duration = seconds,
                 UserId = this.UserID,
             };
 
-            await PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
-                PapersPSP.Twitch.BroadcasterID,
-                PapersPSP.Twitch.BotID,
-                banRequest
-            );
+            this.JustDenied = true;
+
+            try {
+                await PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
+                    PapersPSP.Twitch.BroadcasterID,
+                    PapersPSP.Twitch.BotID,
+                    banRequest
+                );
+            } catch (Exception e) {
+                PapersPSP.Log.LogError("Failed to send twitch ban! " + e.Message);
+            }
         }
 
         public void OnTimedOut() {
@@ -190,8 +248,14 @@ namespace psp_papers_mod.Twitch {
             this.Reset();
         }
 
-        public void Reset() {
-            this.WasDenied = false;
+        public void Reset(bool gameEnd = false) {
+            if (gameEnd) {
+                this.Died = false;
+                this.WasDenied = false;
+                this.WasApproved = false;
+                this.HasBeenAttacker = false;
+            }
+
             this.RecentChats = 0;
             this.SemiRecentChats = 0;
             this.RecentChatExpires.Clear();
