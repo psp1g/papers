@@ -2,7 +2,9 @@ using app.vis;
 using System;
 using HarmonyLib;
 using play.day.border;
+using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Twitch;
+using Object = Il2CppSystem.Object;
 
 namespace psp_papers_mod.Patches;
 
@@ -25,7 +27,9 @@ public static class BorderPatch {
 
     public static void SendChatterRunner() {
         Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter(true);
-        TwitchIntegration.SetActiveAttacker(chatter);
+        if (chatter != null) TwitchIntegration.SetActiveAttacker(chatter);
+        // todo; Fix delays triggering end of game (?)
+        //UnityThreadInvoker.Invoke(() => Border.sendRunner());
         Border.sendRunner();
     }
 

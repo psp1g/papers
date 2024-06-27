@@ -1,3 +1,4 @@
+using play.day.booth;
 using psp_papers_mod.MonoBehaviour;
 using System;
 using System.Linq;
@@ -173,9 +174,11 @@ namespace psp_papers_mod.Twitch {
 
         public void Approve() {
             this.WasApproved = true;
+            AttackHandler.ConsecutiveDenials = 0;
         }
 
         public void Deny() {
+            AttackHandler.ConsecutiveDenials++;
             TwitchIntegration.ActiveChatter = null;
 
             if (Cfg.DenyTimeoutSeconds.Value > 0)
@@ -217,11 +220,15 @@ namespace psp_papers_mod.Twitch {
 
             this.JustDenied = true;
 
-            await PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
-                PapersPSP.Twitch.BroadcasterID,
-                PapersPSP.Twitch.BotID,
-                banRequest
-            );
+            try {
+                await PapersPSP.Twitch.api.Helix.Moderation.BanUserAsync(
+                    PapersPSP.Twitch.BroadcasterID,
+                    PapersPSP.Twitch.BotID,
+                    banRequest
+                );
+            } catch (Exception e) {
+                PapersPSP.Log.LogError("Failed to send twitch ban! " + e.Message);
+            }
         }
 
         public void OnTimedOut() {

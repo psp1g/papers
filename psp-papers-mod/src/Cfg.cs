@@ -23,6 +23,13 @@ public static class Cfg {
     internal static ConfigEntry<double> AttacksPreviouslyDeniedMultiplier { get; private set; }
     internal static ConfigEntry<bool> AttacksDisableSelectingApproved { get; private set; }
     internal static ConfigEntry<bool> DeathsNeverSelectedAfter { get; private set; }
+
+    internal static ConfigEntry<int> MinMsDelayBeforeAttack { get; private set; }
+    internal static ConfigEntry<int> MaxMsDelayBeforeAttack { get; private set; }
+    internal static ConfigEntry<int> MinTravelersBeforeAttack { get; private set; }
+    internal static ConfigEntry<double> AttackChance { get; private set; }
+    internal static ConfigEntry<double> IncreaseChancePerTravelerSinceLastAttack { get; private set; }
+    internal static ConfigEntry<double> AttackChanceModifierConsecutiveDenial { get; private set; }
     
     internal static ConfigEntry<int> DenyTimeoutSeconds { get; private set; }
     internal static ConfigEntry<int> ShotTimeoutSeconds { get; private set; }
@@ -113,14 +120,14 @@ public static class Cfg {
             1.0d,
             "A Twitch Staff's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
-        
+
         AttacksPreviouslyDeniedMultiplier = mod.Config.Bind(
             "Twitch.ChatterSelection.Attacks",
             "PreviouslyDeniedMultiplier",
             2.0d,
             "A person's weight (chance), if they were previously denied at the border, to be selected as an attacker is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
-        
+
         AttacksDisableSelectingApproved = mod.Config.Bind(
             "Twitch.ChatterSelection.Attacks",
             "DisableSelectingApproved",
@@ -133,6 +140,48 @@ public static class Cfg {
             "DeathsNeverSelectedAfter",
             true,
             "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have provoked an attack OR shot for any reason until a new game starts."
+        );
+
+        MinMsDelayBeforeAttack = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks",
+            "MinDelayBeforeAttack",
+            1500,
+            "Minimum delay in milliseconds to send an attacker"
+        );
+
+        MaxMsDelayBeforeAttack = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks",
+            "MaxDelayBeforeAttack",
+            8000,
+            "Maximum delay in milliseconds to send an attacker"
+        );
+
+        MinTravelersBeforeAttack = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks",
+            "MinTravelersBeforeAttack",
+            3,
+            "The amount of travelers that must pass in the booth before attacks can start happening"
+        );
+        
+        AttackChance = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance",
+            "AttackChance",
+            5d,
+            "Each time a new traveler appears, this is the % chance that there will be an attack"
+        );
+        
+        IncreaseChancePerTravelerSinceLastAttack = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance",
+            "IncreaseChancePerTravelerSinceLastAttack",
+            1d,
+            "Every time a traveler passes since last attack, the AttackChance is increased by this amount. total% = AttackChance + this * travelersSinceLastAttack"
+        );
+
+        AttackChanceModifierConsecutiveDenial = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance",
+            "ModifierConsecutiveDenial",
+            1.2d,
+            "Every time a traveler is denied, the AttackChance is multiplied by this amount. An attack resets consecutive denials. total% = IncreasedAttackChance * this ^ consecutiveDenials"
         );
         
         DenyTimeoutSeconds = mod.Config.Bind(
