@@ -4,18 +4,26 @@ using HarmonyLib;
 
 namespace psp_papers_mod.Patches {
 
-    [HarmonyPatch(typeof(GameTransition))]
+    [HarmonyPatch(typeof(Game))]
     public class GameTransitionPatch {
 
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(GameTransition), "call")]
-        public static void Prefix(GameTransitionKind gameTransitionKind) {
-            Console.Out.WriteLine("KIND: " + gameTransitionKind.toString());
+        [HarmonyPatch(typeof(Game), "applyScreenChange")]
+        public static void Prefix(ScreenChange screenChange) {
 
-            if (gameTransitionKind.ToString().Contains("FADE_TO_ENDLESS_DAY"))
-                TravelerNamePatch.Reset();
+            Console.Out.WriteLine("Name: " + screenChange.screenName);
+            // screenChange.screenName is the name of the current screen.
+            // title, news, endless, day, night, ......
+            if (screenChange.screenName == "news") {
+                screenChange.gameTransitionKind = GameTransitionKind.NONE;
+                screenChange.screenName = "day";
+                Console.Out.WriteLine("Changed to : " + screenChange.screenName);
+                //TravelerNamePatch.Reset(); " OLD METHOD TO NOT MAKE TRAVELERS PANIC AND FADE INTO END-SCREEN "
+            }
+            
         }
-
     }
 
+    
+    
 }

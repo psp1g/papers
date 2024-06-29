@@ -12,17 +12,25 @@ namespace psp_papers_mod.Patches;
 public static class BorderPatch {
 
     public static Border Border;
+    public static bool threwGrenade = false;
 
     [HarmonyPrefix]
     [HarmonyPatch("panic")]
     private static bool AvoidPanic() {
-        return false;
+        return threwGrenade;
     }
 
     [HarmonyPrefix]
     [HarmonyPatch("panicLeavingPersonRight")]
     private static bool AvoidSinglePanic() {
         return false;
+    }
+    
+    
+    [HarmonyPrefix]
+    [HarmonyPatch("throwGrenade")]
+    public static void ThrowGrenade() {
+    threwGrenade = true;
     }
 
     public static void SendChatterRunner() {

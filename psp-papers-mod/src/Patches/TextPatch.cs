@@ -1,7 +1,9 @@
+using app.vis;
 using System.Text.RegularExpressions;
 using HarmonyLib;
 using Il2CppSystem;
 using play.ui;
+using psp_papers_mod.Twitch;
 
 namespace psp_papers_mod.Patches;
 
@@ -12,6 +14,7 @@ public static class TextPatch {
     }
 
 }
+
 
 [HarmonyPatch(typeof(RevealTextEnt))]
 public class RevealTextPatch {
@@ -31,6 +34,14 @@ public class SpeechBubblePatch {
     [HarmonyPatch("showText", typeof(string), typeof(Object))]
     private static void SetTextPrefix(ref string text) {
         text = TextPatch.Process(text);
+    }
+
+}
+
+public class MenuTextPatch {
+
+    public static void SetTextPrefix(string v) {
+        // v = TextPatch.Process(v);
     }
 
 }

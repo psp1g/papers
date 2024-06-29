@@ -12,7 +12,7 @@
             https://nuget.samboy.dev/v3/index.json
         </RestoreAdditionalProjectSources>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<PapersPleaseDir>G:\SteamLibrary\steamapps\common\PapersPlease</PapersPleaseDir>
+		<PapersPleaseDir>C:\Program Files (x86)\Steam\steamapps\common\PapersPlease</PapersPleaseDir>
     </PropertyGroup>
 
     <ItemGroup>
