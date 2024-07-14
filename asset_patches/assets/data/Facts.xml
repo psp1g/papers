@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<facts>
+	<nations id="override">
+		<nation name="Belarus" cities="Minsk;Barysaw;Salihorsk" citizen="Belarusian"/>
+		<nation name="Estonia" cities="Tallinn;Tartu;Narva" citizen="Estonian"/>
+		<nation name="Finland" cities="Helsinki;Tampere;Turku" citizen="Finn"/>
+		<nation name="Latvia" cities="Riga;Daugavpils;Ventspils" citizen="Latvian"/>
+		<nation name="Lithuania" cities="Vilnius;Kaunas;Klaipeda" citizen="Lithuanian"/>
+		<nation name="Poland" cities="Warsaw;Krakow;Lublin" citizen="Pole"/>
+		<nation name="Sususterja" cities="Jelgava;Bugtown;Klaraj" citizen="Sususterja"/>
+	</nations>
+
+	<purposes>
+		<purpose val="native" nations="Sususterja"/>
+		<purpose val="visit" chance="2.5" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
+		<purpose val="transit" chance="2" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
+		<purpose val="work" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
+		<purpose val="immigrate" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
+		<purpose val="diplomat" chance="0.5" rule="RuleNeedDiplomaticAuth" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
+		<purpose val="asylum" chance="0.5" rule="RuleNeedAsylumGrant" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
+	</purposes>
+
+	<districts id="override">
+		<district val="Nowogrodka"/>
+		<district val="Wielislawka"/>
+		<district val="Zalesin"/>
+		<district val="Kruszyn"/>
+		<district val="Lukowica"/>
+		<district val="Brzezianka"/>
+		<district val="Miloborow"/>
+		<district val="Miroszewice"/>
+	</districts>
+
+	<locs id="override">
+		<!-- misc -->
+		<loc id="cite" val="$paper: Invalid $fact" section="misc"/>
+		<loc id="missing" val="Missing $paper"/>
+		<loc id="district" val="$0 DISTRICT"/>
+
+		<!-- plaques -->
+		<loc id="Presence" val="Presence" section="plaques"/>
+		<loc id="Sufficience" val="Sufficience"/>
+		<loc id="Excellence" val="Excellence"/>
+
+		<!-- nations -->
+		<loc id="Belarus" val="Belarus"/>
+		<loc id="Estonia" val="Estonia"/>
+		<loc id="Finland" val="Finland"/>
+		<loc id="Latvia" val="Latvia"/>
+		<loc id="Lithuania" val="Lithuania"/>
+		<loc id="Poland" val="Poland"/>
+		<loc id="Sususterja" val="Sususterja"/>
+
+		<!-- cities -->
+		<loc id="Minsk" val="Minsk"/>
+		<loc id="Barysaw" val="Barysaw"/>
+		<loc id="Salihorsk" val="Salihorsk"/>
+		<loc id="Tallinn" val="Tallinn"/>
+		<loc id="Tartu" val="Tartu"/>
+		<loc id="Narva" val="Narva"/>
+		<loc id="Helsinki" val="Helsinki"/>
+		<loc id="Tampere" val="Tampere"/>
+		<loc id="Turku" val="Turku"/>
+		<loc id="Riga" val="Riga"/>
+		<loc id="Daugavpils" val="Daugavpils"/>
+		<loc id="Ventspils" val="Ventspils"/>
+		<loc id="Vilnius" val="Vilnius"/>
+		<loc id="Kaunas" val="Kaunas"/>
+		<loc id="Klaipeda" val="Klaipeda"/>
+		<loc id="Warsaw" val="Warsaw"/>
+		<loc id="Krakow" val="Krakow"/>
+		<loc id="Lublin" val="Lublin"/>
+		<loc id="Warsaw" val="Warsaw"/>
+		<loc id="Krakow" val="Krakow"/>
+		<loc id="Lublin" val="Lublin"/>
+		<loc id="Jelgava" val="Jelgava"/>
+		<loc id="Bugtown" val="Bugtown"/>
+		<loc id="Klaraj" val="Klaraj"/>
+
+		<!-- papers -->;;
+		<loc id="Passport" val="Passport" section="papers"/>
+		<loc id="EntryTicket" val="Entry Ticket"/>
+		<loc id="EntryPermit" val="Entry Permit"/>
+		<loc id="WorkPermit" val="Work Pass"/>
+		<loc id="IdCard" val="Id Card"/>
+		<loc id="IdSupplement" val="Id Supplement"/>
+		<loc id="AccessPermit" val="Access Permit"/>
+		<loc id="DiplomaticAuth" val="Diplomatic Auth"/>
+		<loc id="AsylumGrant" val="Asylum Grant"/>
+		<loc id="VaccineCert" val="Vaccine Cert"/>
+		<loc id="IdentityRecord" val="Identity Record"/>
+		<loc id="Fingerprints" val="Fingerprints"/>
+
+		<!-- facts -->
+		<loc id="Name" val="Name" section="facts"/>
+		<loc id="IdNumber" val="Id Number"/>
+		<loc id="ExpirationDate" val="Expiration Date"/>
+		<loc id="IssuingCity" val="Issuing City"/>
+		<loc id="BirthDate" val="Birth Date"/>
+		<loc id="Alias" val="Alias"/>
+		<loc id="Fingerprints" val="Fingerprints"/>
+		<loc id="Height" val="Height"/>
+		<loc id="Weight" val="Weight"/>
+		<loc id="Description" val="Description"/>
+		<loc id="Thumbprint" val="Thumbprint"/>
+		<loc id="UseDate" val="Date"/>
+		<loc id="Purpose" val="Purpose"/>
+		<loc id="Duration" val="Duration"/>
+		<loc id="Face" val="Face"/>
+		<loc id="District" val="District"/>
+		<loc id="Gender" val="Gender"/>
+		<loc id="WorkEndDate" val="Work End Date"/>
+
+		<!-- districts -->
+		<loc id="Nowogrodka" val="Nowogrodka" section="districts"/>
+		<loc id="Wielislawka" val="Wielislawka"/>
+		<loc id="Zalesin" val="Zalesin"/>
+		<loc id="Kruszyn" val="Kruszyn"/>
+		<loc id="Lukowica" val="Lukowica"/>
+		<loc id="Brzezianka" val="Brzezianka"/>
+		<loc id="Miloborow" val="Miloborow"/>
+		<loc id="Miroszewice" val="Miroszewice"/>
+
+		<!-- jobs -->
+		<loc id="dentistry" val="DENTISTRY" section="jobs"/>
+		<loc id="health-care" val="HEALTH-CARE"/>
+		<loc id="general-labor" val="GENERAL-LABOR"/>
+		<loc id="engineering" val="ENGINEERING"/>
+		<loc id="sports" val="SPORTS"/>
+		<loc id="architecture" val="ARCHITECTURE"/>
+		<loc id="food-service" val="FOOD-SERVICE"/>
+		<loc id="aviation" val="AVIATION"/>
+		<loc id="accounting" val="ACCOUNTING"/>
+		<loc id="fishing" val="FISHING"/>
+		<loc id="drafting" val="DRAFTING"/>
+		<loc id="research" val="RESEARCH"/>
+		<loc id="fine-arts" val="FINE-ARTS"/>
+		<loc id="agriculture" val="AGRICULTURE"/>
+		<loc id="manufacturing" val="MANUFACTURING"/>
+		<loc id="construction" val="CONSTRUCTION"/>
+		<loc id="surveying" val="SURVEYING"/>
+		<loc id="statistics" val="STATISTICS"/>
+
+		<!-- vaccines -->
+		<loc id="POLIO" val="POLIO" section="vaccines"/>
+		<loc id="HPV" val="HPV"/>
+		<loc id="COWPOX" val="COWPOX"/>
+		<loc id="TETANUS" val="TETANUS"/>
+		<loc id="YEL.FEV." val="YEL.FEV."/>
+		<loc id="CHOLERA" val="CHOLERA"/>
+		<loc id="RUBELLA" val="RUBELLA"/>
+		<loc id="HEP-B" val="HEP-B"/>
+		<loc id="MEASLES" val="MEASLES"/>
+		<loc id="TUBERC." val="TUBERC."/>
+
+		<!-- durations -->
+		<loc id="2 DAYS" val="2 DAYS" section="durations"/>
+		<loc id="14 DAYS" val="14 DAYS"/>
+		<loc id="1 MONTH" val="1 MONTH"/>
+		<loc id="2 MONTHS" val="2 MONTHS"/>
+		<loc id="3 MONTHS" val="3 MONTHS"/>
+		<loc id="6 MONTHS" val="6 MONTHS"/>
+		<loc id="1 YEAR" val="1 YEAR"/>
+		<loc id="FOREVER" val="FOREVER"/>
+
+		<!-- purposes -->
+		<loc id="visit" val="visit" section="purposes"/>
+		<loc id="transit" val="transit"/>
+		<loc id="work" val="work"/>
+		<loc id="immigrate" val="immigrate"/>
+
+	</locs>
+
+	<paper id="Rules" stay="day">
+		<fact id="RuleNeedPassport" val="Entrant must have a passport"/>
+		<fact id="RuleNeedEntryPermit" val="Foreigners require an entry permit"/>
+		<fact id="RuleNeedEntryTicket" val="Foreigners require an entry ticket"/>
+		<fact id="RuleNeedCurrentDocs" val="All documents must be current"/>
+		<fact id="RuleNeedWorkPermit" val="Workers must have a work pass"/>
+		<fact id="RuleNeedIdCard" val="Citizens must have an id card"/>
+		<fact id="RuleNeedIdSupplement" val="Foreigners require an id supplement"/>
+		<fact id="RuleNoContraband" val="No weapons or contraband"/>
+		<fact id="RuleSearchKolechia" val="All Kolechians must be searched"/>
+		<fact id="RuleNeedDiplomaticAuth" val="Diplomats require authorization"/>
+		<fact id="RuleNeedVaccineCert" val="Entrant must have polio vaccine cert"/>
+		<fact id="RuleNeedAsylumGrant" val="Asylum seekers must have a grant"/>
+		<fact id="RuleNeedAccessPermit" val="Foreigners require an access permit"/>
+
+		<fact id="[NATIONS]-Passport0" val="PassportOuter[NATIONS].png"/>
+		<fact id="[NATIONS]-IssuingCities" val="[ISSUINGCITIES]"/>
+
+		<fact id="Sususterja-Districts" val="[DISTRICTS]"/>
+
+		<fact id="IssuingCity" val="RuleIssuingCity.png"/>
+		<fact id="DiploAccess" val="RuleDiploAccess.png"/>
+
+		<fact id="SealsMoa" val=""/>
+		<fact id="SealsMol" val=""/>
+
+		<fact id="SealRequired" val="RuleSealRequired.png"/>
+		<fact id="SealRequired-EntryPermit"/>
+		<fact id="SealRequired-WorkPermit"/>
+		<fact id="SealRequired-AccessPermit"/>
+		<fact id="SealRequired-AsylumGrant"/>
+		<fact id="SealRequired-DiplomaticAuth"/>
+		
+		<fact id="DiploSealsBelarus" val="DiploSealsBelarus.png"/>
+		<fact id="DiploSealsEstonia" val="DiploSealsEstonia.png"/>
+		<fact id="DiploSealsFinland" val="DiploSealsFinland.png"/>
+		<fact id="DiploSealsLatvia" val="DiploSealsLatvia.png"/>
+		<fact id="DiploSealsLithuania" val="DiploSealsLithuania.png"/>
+		<fact id="DiploSealsPoland" val="DiploSealsPoland.png"/>
+	</paper>
+
+	<rulebook id="override">
+		<page id="home"/>
+		<page id="basic"/>
+		<page id="map"/>
+		<page id="region-by"/>
+		<page id="region-ee"/>
+		<page id="region-fi"/>
+		<page id="region-lv"/>
+		<page id="region-lt"/>
+		<page id="region-pl"/>
+		<page id="region-su"/>
+		<page id="booth"/>
+		<page id="docs" rule="RuleNeedIdCard"/>		
+		<page id="entrypermit" rule="RuleNeedEntryPermit"/>
+		<page id="idcard" rule="RuleNeedIdCard"/>
+		<page id="idsupplement" rule="RuleNeedIdSupplement"/>
+		<page id="workpermit" rule="RuleNeedWorkPermit"/>
+		<page id="diplomaticauth" rule="RuleNeedDiplomaticAuth"/>
+		<page id="accesspermit" rule="RuleNeedAccessPermit"/>
+		<page id="asylumgrant" rule="RuleNeedAsylumGrant"/>
+		<page id="vaccinecert" rule="RuleNeedVaccineCert"/>
+		<page id="confiscation" confiscation="DistrictAltan"/>
+		<page id="confiscation" confiscation="Native"/>
+		<page id="last"/>
+	</rulebook>
+
+</facts>
