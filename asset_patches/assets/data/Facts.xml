@@ -77,7 +77,7 @@
 		<loc id="Bugtown" val="Bugtown"/>
 		<loc id="Klaraj" val="Klaraj"/>
 
-		<!-- papers -->;;
+		<!-- papers -->
 		<loc id="Passport" val="Passport" section="papers"/>
 		<loc id="EntryTicket" val="Entry Ticket"/>
 		<loc id="EntryPermit" val="Entry Permit"/>
