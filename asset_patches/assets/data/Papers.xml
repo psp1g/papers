@@ -210,7 +210,7 @@
 		</page>
 
 		<page id="region-se" image="RulesInnerRegion.png">
-			<mark text="Sweden" font="title_thick" align="center" section="region_pages" />
+			<mark text="SWEDEN" font="title_thick" align="center" section="region_pages" />
 			<mark image="$DiploSealsSweden" />
 
 			<mark image="$Sweden-Passport0" scale="0.5" side="1" />
