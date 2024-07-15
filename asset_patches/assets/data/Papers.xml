@@ -87,7 +87,7 @@
 			<mark text="BELARUS" font="title_thick" align="center" section="region_pages" />
 			<mark image="$DiploSealsBelarus" />
 
-			<mark image="$Belarus-Passport0" scale="0.5" side="1" />
+			<mark image="$Belarus-Small-Passport0" side="1" />
 			<mark text="$Belarus-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -102,10 +102,10 @@
 		</page>
 
 		<page id="region-ee" image="RulesInnerRegion.png">
-			<mark text="ESTONIA" font="title_thick" align="center" section="region_pages" />
+			<mark text="ESTONIA" font="title_thick" align="center"/>
 			<mark image="$DiploSealsEstonia" />
 
-			<mark image="$Estonia-Passport0" scale="0.5" side="1" />
+			<mark image="$Estonia-Small-Passport0" side="1" />
 			<mark text="$Estonia-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -120,10 +120,10 @@
 		</page>
 
 		<page id="region-fi" image="RulesInnerRegion.png">
-			<mark text="FINLAND" font="title_thick" align="center" section="region_pages" />
+			<mark text="FINLAND" font="title_thick" align="center"/>
 			<mark image="$DiploSealsFinland" />
 
-			<mark image="$Finland-Passport0" scale="0.5" side="1" />
+			<mark image="$Finland-Small-Passport0" side="1" />
 			<mark text="$Finland-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -138,10 +138,10 @@
 		</page>
 
 		<page id="region-lv" image="RulesInnerRegion.png">
-			<mark text="LATVIA" font="title_thick" align="center" section="region_pages" />
+			<mark text="LATVIA" font="title_thick" align="center"/>
 			<mark image="$DiploSealsLatvia" />
 
-			<mark image="$Latvia-Passport0" scale="0.5" side="1" />
+			<mark image="$Latvia-Small-Passport0" side="1" />
 			<mark text="$Latvia-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -156,10 +156,10 @@
 		</page>
 
 		<page id="region-lt" image="RulesInnerRegion.png">
-			<mark text="LITHUANIA" font="title_thick" align="center" section="region_pages" />
+			<mark text="LITHUANIA" font="title_thick" align="center"/>
 			<mark image="$DiploSealsLithuania" />
 
-			<mark image="$Lithuania-Passport0" scale="0.5" side="1" />
+			<mark image="$Lithuania-Small-Passport0" side="1" />
 			<mark text="$Lithuania-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -174,10 +174,10 @@
 		</page>
 
 		<page id="region-pl" image="RulesInnerRegion.png">
-			<mark text="POLAND" font="title_thick" align="center" section="region_pages" />
+			<mark text="POLAND" font="title_thick" align="center"/>
 			<mark image="$DiploSealsPoland" />
 
-			<mark image="$Poland-Passport0" scale="0.5" side="1" />
+			<mark image="$Poland-Small-Passport0" side="1" />
 			<mark text="$Poland-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -195,7 +195,7 @@
 			<mark text="SUSUSTERJA" font="title_thick" align="center" />
 			<mark text="$Sususterja-Districts" wrap="75" />
 
-			<mark image="$Sususterja-Passport0" scale="0.5" side="1" />
+			<mark image="$Sususterja-Small-Passport0" side="1" />
 			<mark text="$Sususterja-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
@@ -210,10 +210,10 @@
 		</page>
 
 		<page id="region-se" image="RulesInnerRegion.png">
-			<mark text="SWEDEN" font="title_thick" align="center" section="region_pages" />
+			<mark text="SWEDEN" font="title_thick" align="center"/>
 			<mark image="$DiploSealsSweden" />
 
-			<mark image="$Sweden-Passport0" scale="0.5" side="1" />
+			<mark image="$Sweden-Small-Passport0" side="1" />
 			<mark text="$Sweden-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 

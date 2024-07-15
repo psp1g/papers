@@ -192,6 +192,8 @@
 		<fact id="RuleNeedAccessPermit" val="Foreigners require an access permit"/>
 
 		<fact id="[NATIONS]-Passport0" val="PassportOuter[NATIONS].png"/>
+		<fact id="[NATIONS]-Small-Passport0" val="PassportOuter[NATIONS]Small.png"/>
+
 		<fact id="[NATIONS]-IssuingCities" val="[ISSUINGCITIES]"/>
 
 		<fact id="Sususterja-Districts" val="[DISTRICTS]"/>
