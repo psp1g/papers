@@ -8,16 +8,17 @@
 		<nation name="Lithuania" cities="Vilnius;Kaunas;Klaipeda" citizen="Lithuanian"/>
 		<nation name="Poland" cities="Warsaw;Krakow;Lublin" citizen="Pole"/>
 		<nation name="Sususterja" cities="Jelgava;Bugtown;Klaraj" citizen="Sususterja"/>
+		<nation name="Sweden" cities="Stockholm;Gothenburg;Uppsala" citizen="Swede"/>
 	</nations>
 
 	<purposes>
 		<purpose val="native" nations="Sususterja"/>
-		<purpose val="visit" chance="2.5" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
-		<purpose val="transit" chance="2" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
-		<purpose val="work" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland"/>
-		<purpose val="immigrate" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
-		<purpose val="diplomat" chance="0.5" rule="RuleNeedDiplomaticAuth" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
-		<purpose val="asylum" chance="0.5" rule="RuleNeedAsylumGrant" nations="Belarus Estonia Finland Latvia Lithuania Poland" chooseforinvalid="false"/>
+		<purpose val="visit" chance="2.5" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden"/>
+		<purpose val="transit" chance="2" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden"/>
+		<purpose val="work" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden"/>
+		<purpose val="immigrate" chance="1" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden" chooseforinvalid="false"/>
+		<purpose val="diplomat" chance="0.5" rule="RuleNeedDiplomaticAuth" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden" chooseforinvalid="false"/>
+		<purpose val="asylum" chance="0.5" rule="RuleNeedAsylumGrant" nations="Belarus Estonia Finland Latvia Lithuania Poland Sweden" chooseforinvalid="false"/>
 	</purposes>
 
 	<districts id="override">
@@ -43,16 +44,17 @@
 		<loc id="Excellence" val="Excellence"/>
 
 		<!-- nations -->
-		<loc id="Belarus" val="Belarus"/>
+		<loc id="Belarus" val="Belarus" section="nations"/>
 		<loc id="Estonia" val="Estonia"/>
 		<loc id="Finland" val="Finland"/>
 		<loc id="Latvia" val="Latvia"/>
 		<loc id="Lithuania" val="Lithuania"/>
 		<loc id="Poland" val="Poland"/>
 		<loc id="Sususterja" val="Sususterja"/>
+		<loc id="Sweden" val="Sweden"/>
 
 		<!-- cities -->
-		<loc id="Minsk" val="Minsk"/>
+		<loc id="Minsk" val="Minsk" section="cities"/>
 		<loc id="Barysaw" val="Barysaw"/>
 		<loc id="Salihorsk" val="Salihorsk"/>
 		<loc id="Tallinn" val="Tallinn"/>
@@ -76,6 +78,9 @@
 		<loc id="Jelgava" val="Jelgava"/>
 		<loc id="Bugtown" val="Bugtown"/>
 		<loc id="Klaraj" val="Klaraj"/>
+		<loc id="Stockholm" val="Stockholm"/>
+		<loc id="Gothenburg" val="Gothenburg"/>
+		<loc id="Uppsala" val="Uppsala"/>
 
 		<!-- papers -->
 		<loc id="Passport" val="Passport" section="papers"/>
@@ -210,6 +215,7 @@
 		<fact id="DiploSealsLatvia" val="DiploSealsLatvia.png"/>
 		<fact id="DiploSealsLithuania" val="DiploSealsLithuania.png"/>
 		<fact id="DiploSealsPoland" val="DiploSealsPoland.png"/>
+		<fact id="DiploSealsSweden" val="DiploSealsSweden.png"/>
 	</paper>
 
 	<rulebook id="override">
@@ -223,6 +229,7 @@
 		<page id="region-lt"/>
 		<page id="region-pl"/>
 		<page id="region-su"/>
+		<page id="region-se"/>
 		<page id="booth"/>
 		<page id="docs" rule="RuleNeedIdCard"/>		
 		<page id="entrypermit" rule="RuleNeedEntryPermit"/>

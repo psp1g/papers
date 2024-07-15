@@ -65,6 +65,7 @@
 
 		<page id="map" image="RulesInnerMap.png" backcolor="0xe4e6bd">
 			<mark text="Finland" link="region-fi" section="map_regions" />
+			<mark text="Sweden" link="region-se" />
 			<mark text="Estonia" link="region-ee" align="right" />
 			<mark text="Latvia" link="region-lv" align="right" />		
 			<mark text="Sususterja" link="region-su" align="right"/>
@@ -196,6 +197,24 @@
 
 			<mark image="$Sususterja-Passport0" scale="0.5" side="1" />
 			<mark text="$Sususterja-IssuingCities" side="1" wrap="86" />
+			<mark image="$IssuingCity" side="1" />
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="1 42" link="map" />
+			<mark image="RulesTabDocsR.png" pos="238 86" link="docs" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="region-se" image="RulesInnerRegion.png">
+			<mark text="Sweden" font="title_thick" align="center" section="region_pages" />
+			<mark image="$DiploSealsSweden" />
+
+			<mark image="$Sweden-Passport0" scale="0.5" side="1" />
+			<mark text="$Sweden-IssuingCities" side="1" wrap="86" />
 			<mark image="$IssuingCity" side="1" />
 
 			<mark image="RulesGoHome.png" link="home" pos="11 1" />
@@ -465,6 +484,18 @@
 			<mark text="$IssuingCity" />
 			<mark text="$ExpirationDate" format="120 720" />
 			<mark text="$IdNumber" />
+		</page>
+	</paper>
+
+	<paper id="Passport" nation="Sweden" outer="PassportOuterSweden.png" font="regular" textcolor="0x574848" fromtraveler="true" stampable="true" canconfiscate="true" visacenter="65 39">
+		<page image="PassportInnerSweden.png">
+			<mark text="$Name" />
+			<mark image="$Face" scale="0.5" />
+			<mark text="$BirthDate" />
+			<mark text="$Gender" />		
+			<mark text="$IssuingCity" />
+			<mark text="$ExpirationDate" format="120 720" />
+			<mark text="$IdNumber" align="right" />
 		</page>
 	</paper>
 
