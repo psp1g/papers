@@ -36,7 +36,7 @@ public class TravelerNamePatch {
             BorderPatch.Border.tranqRifleButton.set_state(State.OFF);
 
             BoothEnginePatch.GivePaperNow(BorderPatch.Border.killRifleButton.keyDeskItemId);
-            BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
+            //BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
         }
 
         if (chatter == null) return true;
