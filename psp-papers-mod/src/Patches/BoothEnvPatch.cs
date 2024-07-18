@@ -28,7 +28,10 @@ public class BoothEnvPatch {
     static bool AddPaperPrefix(ref string paperId) {
         bool moddedPaper = paperId.StartsWith("modded-");
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
-        return !BlockPaperIDs.Contains(paperId) || moddedPaper;
+
+        bool allowed = !BlockPaperIDs.Contains(paperId) || moddedPaper;
+        PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No") + " Blocked: " + (!allowed ? "Yes" : "No"));
+        return allowed;
     }
 
     public static void AddPaper(string paperId, int ct = 1) {
