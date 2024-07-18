@@ -22,7 +22,8 @@ public static class Cfg {
 
     internal static ConfigEntry<double> AttacksPreviouslyDeniedMultiplier { get; private set; }
     internal static ConfigEntry<bool> AttacksDisableSelectingApproved { get; private set; }
-    internal static ConfigEntry<bool> DeathsNeverSelectedAfter { get; private set; }
+    internal static ConfigEntry<bool> DisableSelectingDead { get; private set; }
+    internal static ConfigEntry<bool> DisableSelectingDetainees { get; private set; }
 
     internal static ConfigEntry<int> MinMsDelayBeforeAttack { get; private set; }
     internal static ConfigEntry<int> MaxMsDelayBeforeAttack { get; private set; }
@@ -93,6 +94,20 @@ public static class Cfg {
             "Disable selecting chatters who have already been approved to go through the border to be the active chatter again"
         );
 
+        DisableSelectingDead = mod.Config.Bind(
+            "Twitch.ChatterSelection",
+            "DisableSelectingDead",
+            true,
+            "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have provoked an attack OR are shot for any reason until a new game starts."
+        );
+        
+        DisableSelectingDetainees = mod.Config.Bind(
+            "Twitch.ChatterSelection",
+            "DisableSelectingDetainees",
+            true,
+            "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have been detained until a new game starts."
+        );
+
         VIPWeightMultiplier = mod.Config.Bind(
             "Twitch.ChatterSelection",
             "VIPWeightMultiplier",
@@ -133,13 +148,6 @@ public static class Cfg {
             "DisableSelectingApproved",
             true,
             "Disable selecting chatters who have already been approved to go through the border for attacks"
-        );
-
-        DeathsNeverSelectedAfter = mod.Config.Bind(
-            "Twitch.ChatterSelection.Attacks",
-            "DeathsNeverSelectedAfter",
-            true,
-            "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have provoked an attack OR shot for any reason until a new game starts."
         );
 
         MinMsDelayBeforeAttack = mod.Config.Bind(

@@ -2,9 +2,7 @@ using app.vis;
 using System;
 using HarmonyLib;
 using play.day.border;
-using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Twitch;
-using Object = Il2CppSystem.Object;
 
 namespace psp_papers_mod.Patches;
 
@@ -50,6 +48,13 @@ public static class BorderPatch {
         if (!__result) return;
 
         Console.Out.WriteLine("SNIPED " + person.id + " SHOTANIM: " + shotAnim);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch("booth_onDetaineeLeaves", typeof(bool))]
+    private static void OnDetain(bool resisting) {
+        if (TwitchIntegration.ActiveChatter == null) return;
+        TwitchIntegration.ActiveChatter.Detain();
     }
     
 }
