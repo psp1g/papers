@@ -18,130 +18,48 @@
     <item id="stamp_denied"><t>BANNED</t></item>
     <item id="booth_dragdocs"><t>DRAG DOCUMENTS HERE</t></item>
 
-    <item id="family_son_budget">
-<t>RAFAEL</t>
-</item>
-<item id="family_wife_budget">
-<t>DEME</t>
-</item>
-<item id="family_niece_budget">
-<t>RAFAELLA</t>
-</item>
-<item id="family_uncle_budget">
-<t>OHNEPIXEL</t>
-</item>
-<item id="family_mil_budget">
-<t>MIL</t>
-</item>
-<item id="family_son_status">
-<t>Rafael</t>
-</item>
-<item id="family_wife_status">
-<t>Deme</t>
-</item>
-<item id="family_niece_status">
-<t>Rafaella</t>
-</item>
-<item id="family_uncle_status">
-<t>OhnePixel</t>
-</item>
-<item id="family_mil_status">
-<t>ArrowCS</t>
-</item>
-<item id="family_son_message">
-<t>rafael</t>
-</item>
-<item id="family_wife_message">
-<t>deme</t>
-</item>
-<item id="family_niece_message">
-<t>rafaella</t>
-</item>
-<item id="family_uncle_message">
-<t>ohnepixel</t>
-</item>
-<item id="family_mil_message">
-<t>ohnepixel</t>
-</item>
+    <item id="family_son_budget"><t>RAFAEL</t></item>
+    <item id="family_wife_budget"><t>DEME</t></item>
+    <item id="family_niece_budget"><t>RAFAELLA</t></item>
+    <item id="family_uncle_budget"><t>OHNEPIXEL</t></item>
+    <item id="family_mil_budget"><t>MIL</t></item>
+    <item id="family_son_status"><t>Rafael</t></item>
+    <item id="family_wife_status"><t>Deme</t></item>
+    <item id="family_niece_status"><t>Rafaella</t></item>
+    <item id="family_uncle_status"><t>OhnePixel</t></item>
+    <item id="family_mil_status"><t>ArrowCS</t></item>
+    <item id="family_son_message"><t>rafael</t></item>
+    <item id="family_wife_message"><t>deme</t></item>
+    <item id="family_niece_message"><t>rafaella</t></item>
+    <item id="family_uncle_message"><t>ohnepixel</t></item>
+    <item id="family_mil_message"><t>ohnepixel</t></item>
 
-<item id="family_verysick_1">
-<t>$0 will die without medicine.</t>
-</item>
-<item id="family_verysick_many">
-<t>Very sick family members will die without medicine.</t>
-</item>
-<item id="family_sick_1">
-<t>$0 is sick and needs medicine.</t>
-</item>
-<item id="family_sick_many">
-<t>Your family needs medicine.</t>
-</item>
-<item id="family_died_1">
-<t>$0 has died.</t>
-</item>
-<item id="family_died_2">
-<t>$0 and $1 have died.</t>
-</item>
-<item id="family_died_3">
-<t>$0, $1, and $2 have died.</t>
-</item>
-<item id="family_died_4">
-<t>$0, $1, $2, and $3 have died.</t>
-</item>
-<item id="family_died_5">
-<t>$0, $1, $2, $3, and $4 have died.</t>
-</item>
-<item id="family_escape_with_0">
-<t>You leave behind everything.</t>
-</item>
-<item id="family_escape_with_1">
-<t>You gather $0 to leave for Obristan.</t>
-</item>
-<item id="family_escape_with_2">
-<t>You gather $0 and $1 to leave for Obristan.</t>
-</item>
-<item id="family_escape_with_3">
-<t>You gather $0, $1, and $2 to leave for Obristan.</t>
-</item>
-<item id="family_escape_with_4">
-<t>You gather $0, $1, $2, and $3 to leave for Obristan.</t>
-</item>
-<item id="family_escape_with_5">
-<t>You gather $0, $1, $2, $3, and $4 to leave for Obristan.</t>
-</item>
-<item id="family_escape_without_1">
-<t>$0 prepares to return to Nirsk.</t>
-</item>
-<item id="family_escape_without_2">
-<t>$0 and $1 prepare to return to Nirsk.</t>
-</item>
-<item id="family_escape_without_3">
-<t>$0, $1, and $2 prepare to return to Nirsk.</t>
-</item>
-<item id="family_escape_without_4">
-<t>$0, $1, $2, and $3 prepare to return to Nirsk.</t>
-</item>
-<item id="family_escape_without_5">
-<t>$0, $1, $2, $3, and $4 prepare to return to Nirsk.</t>
-</item>
-<item id="family_flee_final_0">
-<t>Obristan Above All</t>
-</item>
-<item id="family_flee_final_1">
-<t>The safety of $0 is unknown.</t>
-</item>
-<item id="family_flee_final_2">
-<t>The safety of $0 and $1 is unknown.</t>
-</item>
-<item id="family_flee_final_3">
-<t>The safety of $0, $1, and $2 is unknown.</t>
-</item>
-<item id="family_flee_final_4">
-<t>The safety of $0, $1, $2, and $3 is unknown.</t>
-</item>
-<item id="family_flee_final_5">
-<t>The safety of $0, $1, $2, $3, and $4 is unknown.</t>
-</item>
+    <item id="family_verysick_1"><t>$0 will die without medicine.</t></item>
+    <item id="family_verysick_many"><t>Very sick family members will die without medicine.</t></item>
+    <item id="family_sick_1"><t>$0 is sick and needs medicine.</t></item>
+    <item id="family_sick_many"><t>Your family needs medicine.</t></item>
+    <item id="family_died_1"><t>$0 has died.</t></item>
+    <item id="family_died_2"><t>$0 and $1 have died.</t></item>
+    <item id="family_died_3"><t>$0, $1, and $2 have died.</t></item>
+    <item id="family_died_4"><t>$0, $1, $2, and $3 have died.</t></item>
+    <item id="family_died_5"><t>$0, $1, $2, $3, and $4 have died.</t></item>
+    <item id="family_escape_with_0"><t>You leave behind everything.</t></item>
+    <item id="family_escape_with_1"><t>You gather $0 to leave for Estonia.</t></item>
+    <item id="family_escape_with_2"><t>You gather $0 and $1 to leave for Estonia.</t></item>
+    <item id="family_escape_with_3"><t>You gather $0, $1, and $2 to leave for Estonia.</t></item>
+    <item id="family_escape_with_4"><t>You gather $0, $1, $2, and $3 to leave for Estonia.</t></item>
+    <item id="family_escape_with_5"><t>You gather $0, $1, $2, $3, and $4 to leave for Estonia.</t></item>
+    <item id="family_escape_without_1"><t>$0 prepares to return to Nirsk.</t></item>
+    <item id="family_escape_without_2"><t>$0 and $1 prepare to return to Nirsk.</t></item>
+    <item id="family_escape_without_3"><t>$0, $1, and $2 prepare to return to Nirsk.</t></item>
+    <item id="family_escape_without_4"><t>$0, $1, $2, and $3 prepare to return to Nirsk.</t></item>
+    <item id="family_escape_without_5"><t>$0, $1, $2, $3, and $4 prepare to return to Nirsk.</t></item>
+    <item id="family_flee_final_0"><t>Estonia Above All</t></item>
+    <item id="family_flee_final_1"><t>The safety of $0 is unknown.</t></item>
+    <item id="family_flee_final_2"><t>The safety of $0 and $1 is unknown.</t></item>
+    <item id="family_flee_final_3"><t>The safety of $0, $1, and $2 is unknown.</t></item>
+    <item id="family_flee_final_4"><t>The safety of $0, $1, $2, and $3 is unknown.</t></item>
+    <item id="family_flee_final_5"><t>The safety of $0, $1, $2, $3, and $4 is unknown.</t></item>
     
     <item id="bulletin_default"><t>Sususterja
         Ministry of Admission
