@@ -150,7 +150,7 @@ public class TwitchIntegration {
 
     private void OnJoined(object sender, OnJoinedChannelArgs e) {
         PapersPSP.Log.LogInfo($"Connected to IRC Channel {Cfg.Channel.Value}");
-        this.client.SendMessage(Cfg.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
+        //this.client.SendMessage(Cfg.Channel.Value, $"+gofish pspTWEAK {new Random().Next()}");
     }
 
     private void OnMessage(object sender, OnMessageReceivedArgs e) {
@@ -265,7 +265,7 @@ internal class LocalAuthResponse {
     private static LocalAuthResponse DefaultAuthResponse() =>
         new() {
             Expires = null,
-            Token = Cfg.BotName.Value,
+            Token = Cfg.AccessToken.Value,
             ClientId = Cfg.ClientID.Value,
         };
 

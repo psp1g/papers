@@ -1,0 +1,12 @@
+<endlesses id="override">
+
+	<style id="endurance" name="Twitch Mode" time="0" reportscoremax="true" button="EndlessStyleEndurance.png" 
+		icon="EndlessIconEndurance.png" 
+		leaderboard=""
+		desc="Free play with Twitch chatters. Penalties are ignored."
+		bulletin="ENDLESS - TWITCH MODE\n\nProcess chatters as you see fit. Penalties are ignored.">
+	</style>
+
+	<course id="course3" name="Course 3" day="3" button="EndlessCourse3.png" leaderboard=""/>
+
+</endlesses>

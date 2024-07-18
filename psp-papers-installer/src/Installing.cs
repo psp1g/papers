@@ -117,12 +117,12 @@ public partial class Installing : UserControl {
 
         if (!this.update) {
             this.Log($"Downloading BepInEx 6 BE - {BepInEx}");
-            this.Log($"Downloading .NET 6 SDK Install Script - {dotNetInstallScript}");
+            this.Log($"Downloading .NET 8 SDK Install Script - {dotNetInstallScript}");
 
             tasks.AddRange([
                 Program.client.DownloadFileAsync(BepInEx, Path.Combine(Program.PapersDir, "bepinex.zip"), true)
                     .ContinueWith(_ => this.DownloadProgress(ref this.dlSteps[1])),
-                Program.client.DownloadFileAsync(dotNetInstallScript, Path.Combine(Program.PapersDir, "dotnet6.ps1"), true)
+                Program.client.DownloadFileAsync(dotNetInstallScript, Path.Combine(Program.PapersDir, "dotnet-installer.ps1"), true)
                     .ContinueWith(_ => this.DownloadProgress(ref this.dlSteps[2])),
             ]);
         }
@@ -162,12 +162,15 @@ public partial class Installing : UserControl {
     }
 
     private void DotNetInstall() {
-        this.Log("Checking .NET 6 SDK installation");
+        this.Log("Checking .NET 8 SDK installation");
+
+        string script = Path.Combine(Program.PapersDir, "dotnet-installer.ps1");
+        this.dotNetDir = Path.Combine(Program.PapersDir, "dotnet8sdk");
 
         ProcessStartInfo startInfo = new() {
             FileName = "powershell.exe",
             Arguments =
-                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{Path.Combine(Program.PapersDir, "dotnet6.ps1")}' -Channel 6.0\"",
+                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{script}' -Channel 8.0 -InstallDir '{this.dotNetDir}'\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -374,9 +377,6 @@ public partial class Installing : UserControl {
 
     private void NetProcOutput(object sender, DataReceivedEventArgs e) {
         if (e?.Data == null) return;
-        Match match = Regex.Match(e.Data, dotNetPathPattern);
-        if (match.Success) this.dotNetDir = match.Groups[1].Value;
-
         this.Log($"{e.Data}");
     }
 
