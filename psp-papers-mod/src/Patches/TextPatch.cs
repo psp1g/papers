@@ -45,11 +45,3 @@ public class SpeechBubblePatch {
     }
 
 }
-
-public class MenuTextPatch {
-
-    public static void SetTextPrefix(string v) {
-        // v = TextPatch.Process(v);
-    }
-
-}
