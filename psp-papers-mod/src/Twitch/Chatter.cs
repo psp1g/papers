@@ -35,8 +35,8 @@ namespace psp_papers_mod.Twitch {
         public bool WasDenied { get; set; }
         public bool WasApproved { get; set; }
         public bool HasBeenActiveChatter { get; set; }
-        
         public bool HasBeenAttacker { get; set; }
+        public bool HasBeenDetained { get; set; }
         public bool Died { get; set; }
 
         public bool WasRecentlyActiveChatter =>
@@ -131,8 +131,10 @@ namespace psp_papers_mod.Twitch {
                 // - Chatters who were banned while they are an active chatter
                 // - Chatters who were attackers/shot aren't selected because they were shot/exploded
                 // - Chatters who were approved and in the country already
+                // - Chatters who were detained
                 (this.BannedWhileTalking && Cfg.AlwaysPreventBannedWhileTalking.Value) ||
-                ((this.HasBeenAttacker || this.Died) && Cfg.DeathsNeverSelectedAfter.Value) ||
+                ((this.HasBeenAttacker || this.Died) && Cfg.DisableSelectingDead.Value) ||
+                (this.HasBeenDetained && Cfg.DisableSelectingDetainees.Value) ||
                 (this.WasApproved && disableSelectingApproved) ||
 
                 // The active chatter can't be the attacker and vice versa
@@ -190,8 +192,11 @@ namespace psp_papers_mod.Twitch {
 
         public void Detain() {
             TwitchIntegration.ActiveChatter = null;
+
             if (Cfg.DetainedTimeoutSeconds.Value > 0)
                 this.Timeout(Cfg.DetainedTimeoutSeconds.Value, "Detained");
+
+            this.HasBeenDetained = true;
         }
 
         public void Shot() {
