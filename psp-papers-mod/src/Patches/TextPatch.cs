@@ -1,4 +1,3 @@
-using app.vis;
 using System.Text.RegularExpressions;
 using HarmonyLib;
 using Il2CppSystem;
@@ -11,6 +10,15 @@ public static class TextPatch {
 
     public static string Process(string text) {
         return Regex.Replace(text, "arstotzka", "SUSUSTERJA", RegexOptions.IgnoreCase);
+    }
+    
+    public static void SetMenuTextPrefix(ref string v) {
+        if (v is not "The day was cut short by a terrorist attack.") return;
+
+        Chatter attacker = TwitchIntegration.ActiveAttacker;
+        if (attacker == null) return;
+
+        v = v.Replace(".", " by " + attacker.Username + ".");
     }
 
 }

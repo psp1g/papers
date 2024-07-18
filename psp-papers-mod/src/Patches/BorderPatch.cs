@@ -12,12 +12,12 @@ namespace psp_papers_mod.Patches;
 public static class BorderPatch {
 
     public static Border Border;
-    public static bool threwGrenade = false;
+    public static bool ThrewGrenade;
 
     [HarmonyPrefix]
     [HarmonyPatch("panic")]
     private static bool AvoidPanic() {
-        return threwGrenade;
+        return ThrewGrenade;
     }
 
     [HarmonyPrefix]
@@ -30,7 +30,7 @@ public static class BorderPatch {
     [HarmonyPrefix]
     [HarmonyPatch("throwGrenade")]
     public static void ThrowGrenade() {
-    threwGrenade = true;
+        ThrewGrenade = true;
     }
 
     public static void SendChatterRunner() {

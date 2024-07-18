@@ -15,7 +15,7 @@ public class TravelerNamePatch {
     [HarmonyPrefix]
     [HarmonyPatch("randomize")]
     private static bool RandomizePrefix(TravelerName __instance, ref TravelerName __result) {
-        AttackHandler.Attack();
+        AttackHandler.AttackIfPossible();
 
         AttackHandler.TravelerCtSinceLast++;
 

@@ -13,7 +13,7 @@ public static class StaterPatch {
     private static bool PreventFade(string name, object instant) {
         Border border = BorderPatch.Border; 
         if (border is { day.endless: not null }) {
-            return name != "waiting-to-fade-to-night" || BorderPatch.threwGrenade;
+            return name != "waiting-to-fade-to-night" || BorderPatch.ThrewGrenade;
         }
 
         return true;
