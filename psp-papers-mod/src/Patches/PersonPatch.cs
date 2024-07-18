@@ -12,8 +12,6 @@ public class PersonPatch {
     [HarmonyPrefix]
     [HarmonyPatch("setAnim", typeof(Anim), typeof(Object))]
     private static void PersonSetAnim(Anim anim, Object movingHorizontal, Person __instance) {
-        PapersPSP.Log.LogDebug("ANIM ID: " + anim.id + " PERSON INST ID: " + __instance.id);
-
         if (__instance.id == "runner" && anim.id == "run" && TwitchIntegration.ActiveAttackerPerson == null)
             TwitchIntegration.ActiveAttackerPerson = __instance;
 
