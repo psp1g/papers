@@ -15,7 +15,7 @@ public class BoothEnvPatch {
 
     internal static BoothEnv BoothEnv;
 
-    private static readonly string[] BlockPaperIDs = ["EntryPermit", "IdSupplement", "IdCard", "DiplomaticAuth"];
+    private static readonly string[] BlockPaperIDs = ["EntryPermit", "WorkPermit", "IdSupplement", "IdCard", "DiplomaticAuth"];
 
     [HarmonyPostfix]
     [HarmonyPatch("__hx_ctor_play_day_BoothEnv", typeof(BoothEnv), typeof(BoothEnvRun), typeof(Day))]
