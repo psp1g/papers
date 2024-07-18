@@ -23,11 +23,13 @@ public class GameTransitionPatch {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameTransition), "call")]
     public static void Prefix(GameTransitionKind gameTransitionKind) {
-        if (!gameTransitionKind.ToString().Contains("MAKE_STASH_DAY")) return;
+        string transitionName = gameTransitionKind.ToString();
+        if (!transitionName.Contains("FADE_TO_ENDLESS_DAY") && !transitionName.Contains("ADVANCE_TO_NEXTDAY")) return;
         
         TravelerNamePatch.Reset();
         BorderPatch.ThrewGrenade = false;
         TwitchIntegration.ActiveAttacker = null;
         TwitchIntegration.ActiveAttackerPerson = null;
+        TwitchIntegration.ChattersPerPerson.Clear();
     }
 }

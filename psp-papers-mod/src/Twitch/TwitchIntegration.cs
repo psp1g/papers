@@ -39,6 +39,8 @@ public class TwitchIntegration {
     public static Person ActiveAttackerPerson { get; set; }
 
     public static List<Chatter> RecentActiveChatters { get; private set; } = [];
+    
+    public static LimitedSizeDictionary<long, Chatter> ChattersPerPerson { get; private set; } = new(20);
 
     public string BotID { get; private set; } = "";
     public string BroadcasterID { get; private set; } = "";
@@ -224,7 +226,7 @@ public class TwitchIntegration {
     }
 
     public static void Message(string message) {
-        if (!TwitchIntegration.IsConnected()) return;
+        if (!IsConnected()) return;
         PapersPSP.Twitch.client.SendMessage(Cfg.Channel.Value, message);
     }
 
@@ -234,7 +236,7 @@ public class TwitchIntegration {
 
         chatter.HasBeenActiveChatter = true;
 
-        //TwitchIntegration.Message($"@{chatter.Username}, catAsk You're currently the active chatter!");
+        Message($"@{chatter.Username}, You have been selected for entry into Sususterja flagSususterja . Please proceed to the booth.");
 
         // Cap history to max
         if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)
