@@ -8,7 +8,7 @@ namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(Person))]
 public class PersonPatch {
-    
+
     [HarmonyPrefix]
     [HarmonyPatch("setAnim", typeof(Anim), typeof(Object))]
     private static void PersonSetAnim(Anim anim, Object movingHorizontal, Person __instance) {
@@ -18,5 +18,5 @@ public class PersonPatch {
         if (!anim.death) return;
         if (__instance.id == "runner") TwitchIntegration.ActiveAttacker?.Shot();
     }
-    
+
 }
