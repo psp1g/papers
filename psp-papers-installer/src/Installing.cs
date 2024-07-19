@@ -236,10 +236,11 @@ public partial class Installing : UserControl {
             Thread.Sleep(500);
         }
 
-        Program.CloseGame();
         if (!File.Exists(hollowedPath)) return;
 
         this.Log("Success! Assembly-CSharp.dll found. Closing game");
+        Thread.Sleep(1500);
+        Program.CloseGame();
 
         this.SetProgress(700);
         this.Restore();
