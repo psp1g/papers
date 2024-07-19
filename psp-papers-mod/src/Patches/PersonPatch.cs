@@ -36,6 +36,7 @@ public class PersonPatch {
         if (chatter == null) return;
 
         TwitchIntegration.ChattersPerPerson.Add(__result.Pointer.ToInt64(), chatter);
-        TwitchIntegration.ActiveChatter = null;
+        // Only path that doesnt clear activechatter
+        if (pathId == "exit-right") TwitchIntegration.ActiveChatter = null;
     }
 }
