@@ -16,7 +16,10 @@ public class MenuPatch {
 
     [HarmonyPrefix]
     [HarmonyPatch("addPushButton", typeof(string), typeof(string), typeof(app.vis.Align))]
-    private static bool PreventStoryButton(string id, string text, app.vis.Align align) {
+    private static bool PreventStoryButton(string id, string text, app.vis.Align align, Menu __instance) {
+        //dumb hack
+        if (id == "story")
+            __instance.host.env.trunk.trunkEnv.settings.set_endlessUnlocked(true);
         return id != "story";
     }
 }
