@@ -132,7 +132,7 @@ namespace psp_papers_installer {
             netsdk.Name = "netsdk";
             netsdk.Size = new System.Drawing.Size(336, 24);
             netsdk.TabIndex = 1;
-            netsdk.Text = ".NET 6 Core SDK";
+            netsdk.Text = ".NET 8 Core SDK";
             netsdk.UseVisualStyleBackColor = true;
             // 
             // papersPath

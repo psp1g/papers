@@ -162,15 +162,15 @@ public partial class Installing : UserControl {
     }
 
     private void DotNetInstall() {
-        this.Log("Checking .NET 6 SDK installation");
+        this.Log("Checking .NET 8 SDK installation");
 
         string script = Path.Combine(Program.PapersDir, "dotnet-installer.ps1");
-        this.dotNetDir = Path.Combine(Program.PapersDir, "dotnet6sdk");
+        this.dotNetDir = Path.Combine(Program.PapersDir, "dotnet8sdk");
 
         ProcessStartInfo startInfo = new() {
             FileName = "powershell.exe",
             Arguments =
-                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{script}' -Channel 6.0 -InstallDir '{this.dotNetDir}'\"",
+                $"-ExecutionPolicy Bypass -WindowStyle hidden -NoLogo -command \"& '{script}' -Channel 8.0 -InstallDir '{this.dotNetDir}'\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -224,20 +224,22 @@ public partial class Installing : UserControl {
         gProc?.WaitForExit();
         this.SetProgress(650);
 
-        Thread.Sleep(1500);
-        this.Log("Closing game");
-        Program.CloseGame();
-
         string hollowedPath = Path.Combine(Program.PapersDir, "BepInEx", "interop", "Assembly-CSharp.dll");
 
-        if (!File.Exists(hollowedPath)) {
-            this.Log("The game didn't generate hollowed assemblies as expected!! Trying again..");
-            this.SetProgress(600);
-            this.Run();
-            return;
+        int i = 0;
+        while (!File.Exists(hollowedPath)) {
+            if (i > 1000) {
+                this.Log("The game didn't generate hollowed assemblies as expected!!");
+                break;
+            }
+            i++;
+            Thread.Sleep(500);
         }
 
-        this.Log("Success! Assembly-CSharp.dll found");
+        Program.CloseGame();
+        if (!File.Exists(hollowedPath)) return;
+
+        this.Log("Success! Assembly-CSharp.dll found. Closing game");
 
         this.SetProgress(700);
         this.Restore();
@@ -309,11 +311,25 @@ public partial class Installing : UserControl {
             this.Log("Generating default configurations..");
 
             // lol
+            Program.CloseGame();
             Program.RunGame();
-            Thread.Sleep(5000);
-            this.Log("Closing game");
+            
+            string cfgPath = Path.Combine(Program.PapersDir, "BepInEx", "config", "wtf.psp.papers.cfg");
+
+            int i = 0;
+            while (!File.Exists(cfgPath)) {
+                if (i > 1000) {
+                    this.Log("The game didn't generate the config as expected!! Did the mod fail to install?");
+                    break;
+                }
+                i++;
+                Thread.Sleep(500);
+            }
 
             Program.CloseGame();
+            if (!File.Exists(cfgPath)) return;
+
+            this.Log("Finished. Found generated config file. Closing game");
         }
 
         this.SetProgress(1050);
