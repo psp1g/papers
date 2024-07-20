@@ -58,8 +58,6 @@ public class TwitchIntegration {
 
         LocalAuthResponse authResponse = authTask.Result;
 
-        PapersPSP.Log.LogInfo(authResponse.ClientId);
-
         this.api = new TwitchAPI {
             Settings = {
                 ClientId = authResponse.ClientId,
