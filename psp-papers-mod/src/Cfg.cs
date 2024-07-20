@@ -37,6 +37,8 @@ public static class Cfg {
     internal static ConfigEntry<int> DetainedTimeoutSeconds { get; private set; }
     internal static ConfigEntry<int> TimeoutDelayMs { get; private set; }
     
+    internal static ConfigEntry<string> CommandPrefix { get; private set; }
+    
     public static void StartBindings(PapersPSP mod) {
         Channel = mod.Config.Bind(
             "Twitch",
@@ -218,6 +220,13 @@ public static class Cfg {
             "TimeoutDelayMilliseconds",
             1000,
             "Time in milliseconds that the bot should wait before timing out a user for any reason (compensate for stream delay)"
+        );
+
+        CommandPrefix = mod.Config.Bind(
+            "Twitch.Commands",
+            "Prefix",
+            "!",
+            "Prefix used for all chat commands"
         );
     }
 
