@@ -282,7 +282,7 @@ namespace psp_papers_mod.Twitch {
             // User was banned while talking, probably said something naughty on stream
             if (this.IsActiveChatter) {
                 this.BannedWhileTalking = true;
-                UnityThreadInvoker.Invoke(() => BoothEnginePatch.BoothEngine.day.addDetain());
+                UnityThreadInvoker.Invoke(BoothEnginePatch.ForceTravelerLeave);
             }
 
             // Reset recent chat stats so the chatter isn't selected as the active chatter while banned/timed out

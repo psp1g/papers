@@ -1,24 +1,16 @@
 using TwitchLib.Client.Models;
-using data;
-using Il2CppSystem;
 using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Patches;
-using psp_papers_mod.Utils;
 
 namespace psp_papers_mod.Twitch.Commands;
 
 public static class Commands {
+
     [ChatCommand("leave")]
     public static void LeaveCommand(Chatter sender, ChatMessage chatMessage, string[] _) {
         if (!sender.Moderator && !sender.Streamer && !sender.IsActiveChatter) return;
         // Force the active booth chatter to leave
-        UnityThreadInvoker.Invoke(() => {
-            if (BorderPatch.Border.booth.stater.curState.name != "working") return;
-            BoothEnginePatch.BoothEngine.applyOps(
-                Il2CppUtils.HaxeArrayOf(new Op_ENABLEBUTTON("Leave")),
-                true.ToIl2CppBoxed()
-            );
-        });
+        UnityThreadInvoker.Invoke(BoothEnginePatch.ForceTravelerLeave);
     }
 
     [ChatCommand("force")]
@@ -39,4 +31,5 @@ public static class Commands {
 
         TwitchIntegration.ForcedActiveQueue.Enqueue(forceChatter);
     }
+
 }
