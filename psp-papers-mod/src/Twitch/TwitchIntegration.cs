@@ -35,7 +35,7 @@ public class TwitchIntegration {
 
     public static Chatter ActiveChatter { get; set; }
 
-    public static Queue<Chatter> ForcedActiveQueue { get; set; }
+    public static Queue<Chatter> ForcedActiveQueue { get; set; } = [];
     
     public static Chatter ActiveAttacker { get; set; }
     
