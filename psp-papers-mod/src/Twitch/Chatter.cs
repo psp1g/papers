@@ -1,28 +1,31 @@
-using play.day.booth;
+using JetBrains.Annotations;
+using psp_papers_mod.Patches;
 using psp_papers_mod.MonoBehaviour;
+
 using System;
 using System.Linq;
-using System.Collections.Generic;
-using psp_papers_mod.Patches;
 using System.Threading.Tasks;
-using TwitchLib.Api.Helix.Models.Moderation.BanUser;
+using System.Collections.Generic;
+
 using TwitchLib.Client.Models;
+using TwitchLib.Api.Helix.Models.Moderation.BanUser;
+using TwitchLib.Api.Helix.Models.Users.GetUsers;
 
 namespace psp_papers_mod.Twitch {
 
     public class Chatter {
 
-        public string UserID { get; }
+        public string UserID { get; private set; }
 
-        public string Username { get; }
-        public string First { get; }
-        public string Last { get; }
+        public string Username { get; private set; }
+        public string First { get; private set; }
+        public string Last { get; private set; }
 
-        public bool VIP { get; }
-        public bool Moderator { get; }
-        public bool Subscriber { get; }
-        public bool TwitchStaff { get; }
-        public bool Streamer { get; }
+        public bool VIP { get; private set; }
+        public bool Moderator { get; private set; }
+        public bool Subscriber { get; private set; }
+        public bool TwitchStaff { get; private set; }
+        public bool Streamer { get; private set; }
         public bool Juicer { get; private set; }
 
         private bool JuicerChecked = false;
@@ -39,6 +42,8 @@ namespace psp_papers_mod.Twitch {
         public bool HasBeenDetained { get; set; }
         public bool Died { get; set; }
 
+        public bool GotDataFromChat { get; private set; }
+        
         public bool WasRecentlyActiveChatter =>
             TwitchIntegration.RecentActiveChatters.Exists(c => c.Username == this.Username);
 
@@ -52,15 +57,33 @@ namespace psp_papers_mod.Twitch {
         private List<double> SemiRecentChatExpires = [];
 
         public Chatter(ChatMessage chatMessage) {
-            this.UserID = chatMessage.UserId;
-            this.Username = chatMessage.Username;
+            this.SetDataFromMessage(chatMessage);
+            this.CreateName();
+        }
 
-            this.Moderator = chatMessage.IsModerator;
-            this.Subscriber = chatMessage.IsSubscriber;
-            this.Streamer = chatMessage.IsBroadcaster;
-            this.TwitchStaff = chatMessage.IsStaff;
-            this.VIP = chatMessage.IsVip;
+        private Chatter(string userId, string username) {
+            this.UserID = userId;
+            this.Username = username;
+            this.CreateName();
+        }
 
+        public static async Task<Chatter> FromUsername(string username) {
+            try {
+                // Check if the user exists while fetching their UserID
+                GetUsersResponse userResp =
+                    await PapersPSP.Twitch.api.Helix.Users
+                        .GetUsersAsync(null, [username]);
+                if (userResp.Users.Length < 1) return null;
+
+                User user = userResp.Users[0];
+                return new Chatter(user.Id, user.DisplayName);
+            } catch (Exception e) {
+                PapersPSP.Log.LogDebug($"Error fetching user `{username}`: " + e.Message);
+                return null;
+            }
+        }
+
+        private void CreateName() {
             // todo; maybe improve?
             // Find last uppercase letter in username
             int lastCapital = System.Array.FindLastIndex(this.Username.ToArray(), char.IsUpper);
@@ -72,7 +95,20 @@ namespace psp_papers_mod.Twitch {
             this.First = this.Username[..splitIndex];
             this.Last = this.Username[splitIndex..];
         }
+        
+        public void SetDataFromMessage(ChatMessage chatMessage) {
+            this.UserID = chatMessage.UserId;
+            this.Username = chatMessage.Username;
 
+            this.Moderator = chatMessage.IsModerator;
+            this.Subscriber = chatMessage.IsSubscriber;
+            this.Streamer = chatMessage.IsBroadcaster;
+            this.TwitchStaff = chatMessage.IsStaff;
+            this.VIP = chatMessage.IsVip;
+
+            this.GotDataFromChat = true;
+        }
+        
         public void Chatted() {
             // Not allowed to be an active chatter if: They were banned while talking or; They're the streamer
             if (this.BannedWhileTalking || this.Streamer) return;

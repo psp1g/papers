@@ -35,7 +35,7 @@ public class TwitchIntegration {
 
     public static Chatter ActiveChatter { get; set; }
 
-    public static Queue<Chatter> ForcedActiveQueue { get; set; } = [];
+    public static Queue<Chatter> ForcedActiveQueue { get; set; } = new();
     
     public static Chatter ActiveAttacker { get; set; }
     
@@ -166,6 +166,9 @@ public class TwitchIntegration {
 
         Chatter chatter = this.FrequentChatters[username];
         chatter.Chatted();
+
+        // If there's a command in the message, don't show anything
+        if (ChatCommand.ProcessCommand(chatter, e.ChatMessage)) return;
 
         // todo; check in a game
         // User is the "active chatter" and their messages should appear as the traveler's

@@ -1,17 +1,32 @@
+using TwitchLib.Client.Models;
+
 namespace psp_papers_mod.Twitch.Commands;
 
 public static class Commands {
 
     [ChatCommand("leave")]
-    public static void LeaveCommand(Chatter chatter, string[] _) {
-        if (!chatter.Moderator && !chatter.Streamer && !chatter.IsActiveChatter) return;
+    public static void LeaveCommand(Chatter sender, ChatMessage chatMessage, string[] _) {
+        if (!sender.Moderator && !sender.Streamer && !sender.IsActiveChatter) return;
         // Force the active booth chatter to leave
     }
 
     [ChatCommand("force")]
-    public static void ForceCommand(Chatter chatter, string[] args) {
-        if (!chatter.Moderator && !chatter.Streamer) return;
-        TwitchIntegration.ForcedActiveQueue.Enqueue(chatter);
+    public static async void ForceCommand(Chatter sender, ChatMessage chatMessage, string[] args) {
+        if (!sender.Moderator && !sender.Streamer) return;
+
+        Chatter forceChatter = sender;
+        
+        if (args.Length > 0) {
+            string chatterName = args[0].ToLower();
+            forceChatter = await PapersPSP.Twitch.FrequentChatters.FromUsername(chatterName);
+
+            if (forceChatter == null) {
+                chatMessage.Reply("I can't find a chatter by that username!");
+                return;
+            }
+        }
+        
+        TwitchIntegration.ForcedActiveQueue.Enqueue(forceChatter);
     }
 
 }
