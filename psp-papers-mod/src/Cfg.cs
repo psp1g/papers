@@ -31,15 +31,20 @@ public static class Cfg {
     internal static ConfigEntry<double> AttackChance { get; private set; }
     internal static ConfigEntry<double> IncreaseChancePerTravelerSinceLastAttack { get; private set; }
     internal static ConfigEntry<double> AttackChanceModifierConsecutiveDenial { get; private set; }
-    
+
+    internal static ConfigEntry<bool> WantAttackEnabled { get; private set; }
+    internal static ConfigEntry<double> WantAttackChanceModifier { get; private set; }
+    internal static ConfigEntry<int> WantAttackDurationMs { get; private set; }
+    internal static ConfigEntry<int> WantAttackCooldownMs { get; private set; }
+
     internal static ConfigEntry<int> DenyTimeoutSeconds { get; private set; }
     internal static ConfigEntry<int> ShotTimeoutSeconds { get; private set; }
     internal static ConfigEntry<int> DetainedTimeoutSeconds { get; private set; }
     internal static ConfigEntry<int> TimeoutDelayMs { get; private set; }
-    
+
     internal static ConfigEntry<string> CommandPrefix { get; private set; }
-    
-    public static void StartBindings(PapersPSP mod) {
+
+    internal static void StartBindings(PapersPSP mod) {
         Channel = mod.Config.Bind(
             "Twitch",
             "Channel",
@@ -47,6 +52,11 @@ public static class Cfg {
             "The chat channel to integrate with"
         );
 
+
+
+
+        // Bot Authentication
+        
         BotName = mod.Config.Bind(
             "Twitch.Bot",
             "Username",
@@ -75,6 +85,11 @@ public static class Cfg {
             "Only use this if you know what you are doing. Requests a twitch auth token from a local auth server. Requires botUsername"
         );
 
+
+
+
+        // Chatter selection rules
+        
         AlwaysPreventSameActiveChatter = mod.Config.Bind(
             "Twitch.ChatterSelection",
             "AlwaysPreventSameActiveChatter",
@@ -110,6 +125,11 @@ public static class Cfg {
             "Disable selecting chatters for ANYTHING (active chatting and attacks) if they have been detained until a new game starts."
         );
 
+
+
+
+        // Chatter selection modifiers
+        
         VIPWeightMultiplier = mod.Config.Bind(
             "Twitch.ChatterSelection",
             "VIPWeightMultiplier",
@@ -138,6 +158,11 @@ public static class Cfg {
             "A Twitch Staff's weight (chance) to be selected as an active chatter is multiplied by this number (0.5 = half of normal chance, 2 = double chance)"
         );
 
+
+
+
+        // Random Attack events
+        
         AttacksPreviouslyDeniedMultiplier = mod.Config.Bind(
             "Twitch.ChatterSelection.Attacks",
             "PreviouslyDeniedMultiplier",
@@ -172,6 +197,11 @@ public static class Cfg {
             3,
             "The amount of travelers that must pass in the booth before attacks can start happening"
         );
+
+
+
+
+        // Attack Chance
         
         AttackChance = mod.Config.Bind(
             "Twitch.ChatterSelection.Attacks.Chance",
@@ -193,6 +223,44 @@ public static class Cfg {
             1.2d,
             "Every time a traveler is denied, the AttackChance is multiplied by this amount. An attack resets consecutive denials. total% = IncreasedAttackChance * this ^ consecutiveDenials"
         );
+        
+        
+        
+        
+        // WantAttack
+        
+        WantAttackEnabled = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance.WantAttack",
+            "WantAttackEnabled",
+            true,
+            "If enabled, every time any chatter types !attack, it will slightly increase the chance of attack for a short time"
+        );
+
+        WantAttackChanceModifier = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance.WantAttack",
+            "WantAttackChanceModifier",
+            1.02d,
+            "Every time a chatter types !attack, the AttackChance is multiplied by this amount. An attack resets consecutive denials. total% = IncreasedAttackChance * this ^ numChattersWhoTyped!Attack"
+        );
+
+        WantAttackDurationMs = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance.WantAttack",
+            "WantAttackDurationMs",
+            60000,
+            "Every time any chatter types !attack, it will slightly increase the chance of attack for this amount of milliseconds"
+        );
+        
+        WantAttackCooldownMs = mod.Config.Bind(
+            "Twitch.ChatterSelection.Attacks.Chance.WantAttack",
+            "WantAttackCooldownMs",
+            180000,
+            "Every time a traveler types !attack, how long of a delay between those commands will it actually take effect?"
+        );
+        
+        
+        
+        
+        // Chatter timeout settings
         
         DenyTimeoutSeconds = mod.Config.Bind(
             "Twitch.ChatterSelection.Timeouts",
@@ -222,6 +290,11 @@ public static class Cfg {
             "Time in milliseconds that the bot should wait before timing out a user for any reason (compensate for stream delay)"
         );
 
+
+
+
+        // Command settings
+        
         CommandPrefix = mod.Config.Bind(
             "Twitch.Commands",
             "Prefix",

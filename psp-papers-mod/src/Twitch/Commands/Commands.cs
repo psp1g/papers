@@ -32,4 +32,20 @@ public static class Commands {
         TwitchIntegration.ForcedActiveQueue.Enqueue(forceChatter);
     }
 
+    [ChatCommand("attack")]
+    public static void Attack(Chatter sender, ChatMessage chatMessage, string[] args) {
+        sender.WantsAttack();
+    }
+
+    // todo; PAP-23
+    [ChatCommand("bomb")]
+    public static void Bomb(Chatter sender, ChatMessage chatMessage, string[] args) {
+        sender.WantsBomb = true;
+    }
+
+    [ChatCommand("nobomb")]
+    public static void NoBomb(Chatter sender, ChatMessage chatMessage, string[] args) {
+        sender.WantsBomb = false;
+    }
+
 }

@@ -41,6 +41,10 @@ namespace psp_papers_mod.Twitch {
         public bool HasBeenAttacker { get; set; }
         public bool HasBeenDetained { get; set; }
         public bool Died { get; set; }
+        
+        public bool WantsBomb { get; set; }
+
+        public double LastWantAttack { get; private set; }
 
         public bool GotDataFromChat { get; private set; }
         
@@ -245,6 +249,25 @@ namespace psp_papers_mod.Twitch {
 
             if (Cfg.ShotTimeoutSeconds.Value > 0)
                 this.Timeout(Cfg.ShotTimeoutSeconds.Value, "Shot");
+        }
+
+        public void WantsAttack() {
+            if (Cfg.WantAttackEnabled.Value == false) return;
+
+            double now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            double cooldownSec = Cfg.WantAttackCooldownMs.Value / 1000d;
+            double nextTimeAllowed = this.LastWantAttack + cooldownSec;
+
+            if (now < nextTimeAllowed) return;
+
+            this.LastWantAttack = now;
+            AttackHandler.ChatterWantAttackCt++;
+
+            Task.Delay(Cfg.WantAttackDurationMs.Value)
+                .ContinueWith(_ => {
+                    if (AttackHandler.ChatterWantAttackCt < 1) return;
+                    AttackHandler.ChatterWantAttackCt--;
+                });
         }
 
         public async void Timeout(int seconds, string reason = "") {
