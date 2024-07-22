@@ -1,6 +1,8 @@
 using data;
 using HarmonyLib;
+using Il2CppSystem;
 using play.day;
+using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Twitch;
 
 namespace psp_papers_mod.Patches;
@@ -57,7 +59,13 @@ public class BoothEnginePatch {
     }
 
     public static void Speak(string text, bool inspector = false) {
-        BoothEnginePatch.BoothEngine.speak($"__override__{text}", inspector);
+        UnityThreadInvoker.Invoke(() => {
+            string message = $"__override__{text}";
+            BoothEngine.speak(message, inspector);
+            if (!inspector) {
+                BoothEngine.opQue.push(new Op_SAY(message), new Boolean { m_value = true }.BoxIl2CppObject());
+            }
+        });
     }
 
     // Timeout active user in chat on denied stamp
