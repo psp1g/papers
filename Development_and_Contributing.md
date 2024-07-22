@@ -18,7 +18,7 @@ First, `git clone` the repository in a separate folder. Please make a fork (or m
 this repository to work on.
 
 The installer will also patch the game art assets with [papers-tools-rs](https://github.com/psp1g/papers-tools-rs) so you
-don't have to run any of that with the installer.
+don't have to run any of that manually.
 
 If you need to work with patching art assets, take a look at the
 [papers-tools-rs usage in the readme](https://github.com/psp1g/papers-tools-rs/blob/main/README.md).
@@ -56,7 +56,7 @@ Recently, it was ported to Unity. So now it is Haxe compiled to C#, then compile
 now that we have more symbol information and Unity modding platforms than the OpenFL versions.
 
 You can open `GameAssembly.dll` with Ghidra, and you can also run [Il2CppDumper](https://github.com/Perfare/Il2CppDumper)
-on the game. This will provide some Ghidra scripts to give map some function/class names in Ghidra.
+on the game. This will provide some Ghidra scripts to map some function/class names in Ghidra.
 
 You can also take a look at the hollowed assembly (no function code, but function/class names) by opening
 `PapersPlease/BepInEx/interop/Assembly-CSharp.dll`
@@ -65,6 +65,6 @@ You can also take a look at the hollowed assembly (no function code, but functio
 
 When making a pull request **make the base branch `dev`**.
 
-All code merges go into dev before testing and then merged into `main` along a manually-reviewed release.
+All code merges go into dev first and are later merged into `main` along a manually-reviewed release.
 
 Please use and follow the included code style configs.
