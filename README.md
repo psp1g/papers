@@ -6,41 +6,46 @@ of the game, made for [PSP1G](https://www.twitch.tv/psp1g)
 
 It integrates [Twitch](https://twitch.tv) chat with the game, and randomly selects a random chatter for each traveller.
 
-If they get denied at the border, they get banned in chat.
+If they get denied, shot, or detained at the border, they get banned in chat.
 
-### GLORY TO [SUSUSTERJA](https://sususterja.org)
+#### [GLORY TO SUSUSTERJA](https://sususterja.org)
 
-## Setup
+## [Mod Setup / Install](Setup.md)
 
-- Install latest Steam version of [_Papers, Please_](https://store.steampowered.com/app/239030/Papers_Please/)
-- Download and run the [**PSP Paper Mod Installer**](https://github.com/psp1g/papers/releases)
-- The installer will automatically pull and compile the latest version of the mod
-- Follow prompts and configure the twitch settings in the installer
-- **Done!**
+## Features
 
-### Notes
+- Automated installer/updater
+- Endless Chat Mode
+- Custom countries/passports
+  - Finland, Sweden, Estonia, Latvia, Lithuania, Belarus, Poland, and **Sususterja!**
+- Random Chatters assigned as the travelers
+  - Most active chatters are selected
+  - Chatters who have typed more recently/more often have higher chance to be selected
+  - Chatters who have been active chatters before have less chance of being active chatters again
+    - Chatters who are shot, detained, and approved are not selected again
+    - Chatters who were selected as attackers aren't selected again
+    - After a new game, the above is all reset
+    - Chatters who were banned while they were active chatters leave immediately and are never selected again (even after reset)
+  - Active chatters who sub/gift subs or donate through twitch (ie bits) actually bribe the streamer with in game money
+  - Active chatters or mods can run `!leave` to make the current chatter leave the booth
+  - Moderators/Streamer can call `!force <username>` to force queue the chatter to be the next active chatter
+  - Active chatters are checked if they are an xQc sub and shows appropriate
+    [forged](https://7tv.app/emotes/646244085070b2cda24f25aa)/[real](https://7tv.app/emotes/63de797c1d40a5212f9a5f9b)
+    juicer check ticket
+- Sniping and Detaining is always available
+  - Counter Strike AWP Dragon Lore texture
+- Denied, Shot, and Detained chatters are banned in chat
+- Attack events
+  - Attack chance changes dynamically based on consecutive denies or many chatters being shot/detained
+  - A chatter is randomly selected with the same rules as traveler (see above)
+  - Chatters can type `!attack` to temporarily slightly increase attack chance
+- Most options configurable
 
-- If a chatter is banned or timed out while they are the current chatter (ie. by a mod or nightbot for saying naughty things),
-they will no longer be eligible to be the active chatter again during the session
-- Chatters who were recently active chatters have a much lower chance of becoming an chatter again
-- Chatters who were denied entry have slightly lower chance of becoming an active chatter again
-- Chatters who type more frequently in chat have a higher chance of being selected as an active chatter
-- Chatters who do not type in chat will never be selected as the active chatter until they do
-- Moderators can optionally be "nerfed" since they can send messages more often (MODS FYOUcat)
+You can see [in-progress features and bug fixes here](https://github.com/psp1g/papers/issues).
 
-### Getting a Twitch API token:
-
-- Create an app on twitch: https://dev.twitch.tv/console/apps/
-- Specify `http://localhost:3000` as the OAuth Redirect URL
-- Log into your bot on twitch
-- Navigate to `https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=YOURCLIENTIDHERE&redirect_uri=http://localhost:3000&scope=chat:read+chat:edit+moderator:manage:banned_users+channel:manage:predictions&state=pspHappy123`
-- Copy the value of the `code` parameter
-- Make a POST request to get the oauth token:
-  ```sh
-  curl -X POST "https://id.twitch.tv/oauth2/token" -H "Content-Type: application/x-www-form-urlencoded" \
-    -d "client_id=<YOUR CLIENT ID>&client_secret=<YOUR CLIENT SECRET>&code=<CODE FROM PREV STEP>&grant_type=authorization_code&redirect_uri=http://localhost:3000"
-  ```
-- Done!
+If you have suggestions for new features or have bug reports, please
+[create one here](https://github.com/psp1g/papers/issues/new).
+(if one similar isn't already created)
 
 ## Credits
 
@@ -50,19 +55,9 @@ they will no longer be eligible to be the active chatter again during the sessio
 ![pspHappy](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_426169649bee4355944f946c1d27ea4e/default/dark/1.0)
 ![pspHappy](https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_426169649bee4355944f946c1d27ea4e/default/dark/1.0)
 
-- [LittleBigBug](https://github.com/LittleBigBug) - Mod author
-- [creepycode](https://github.com/ByteZ1337) - Ideas, Lots of reverse engineering help, Author of [art.dat decrypt/patcher tool](https://github.com/psp1g/papers-tools-rs)
-- [ftk789](https://twitch.tv/ftk789) - Ideas, Coding/Audio help, Custom art assets
-- [pigswitched](https://twitch.tv/pigswitched) - Custom art assets
+- **[LittleBigBug](https://github.com/LittleBigBug)** - Mod author
+- **[creepycode](https://github.com/ByteZ1337)** - Ideas, Lots of reverse engineering help, Author of the [art asset decrypt/patcher tool](https://github.com/psp1g/papers-tools-rs)
+- **[ftk789](https://twitch.tv/ftk789)** - Ideas, Coding/Audio help, Custom art assets
+- **[pigswitched](https://twitch.tv/pigswitched)** - Custom art assets
 
-## Development Set-up
-
-- Install [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) and [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- Install the mod at least once with the [installer](https://github.com/psp1g/papers/releases) to generate referenced assemblies
-  - (Or you can manually install [BepInEx 6](https://builds.bepinex.dev/projects/bepinex_be), and launch the game once to generate assemblies)
-- Change the `<PapersPleaseDir>` MSBuild property in `psp-papers-mod.csproj` (if needed) when building to point to the directory of the game
-installation **without** trailing slashes.
-  - The default is `C:\Program Files (x86)\Steam\steamapps\common\PapersPlease`.
-- Update NuGet packages: `dotnet restore`
-- Build the solution, the output of the mod and dependency assemblies will be in `psp-papers-mod/bin/Debug/net6.0`
-- Move all .dll files in that folder to `PapersPlease\BepInEx\plugins`
+## [Development Setup & Contributing](Development_and_Contributing.md)
