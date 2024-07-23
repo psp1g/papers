@@ -1,6 +1,6 @@
+using data;
 using System.Linq;
 using HarmonyLib;
-using Il2CppSystem;
 using play.day;
 
 namespace psp_papers_mod.Patches;
@@ -32,6 +32,25 @@ public class BoothEnvPatch {
         bool allowed = !BlockPaperIDs.Contains(paperId) || moddedPaper;
         PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No") + " Blocked: " + (!allowed ? "Yes" : "No"));
         return allowed;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch("applyOp")]
+    static bool ChangeTranscriptOps(ref Op op, ref ActionResult __result) {
+        Op_SAY sayOp = op.TryCast<Op_SAY>();
+        if (sayOp == null) return true;
+        if (!sayOp.speechId.StartsWith("__override__")) {
+            __result = ActionResult.NONE;
+            return false;
+        }
+
+        string text = sayOp.speechId["__override__".Length..];
+        if (text.Length > 70) {
+            text = text[..67] + "...";
+        }
+
+        sayOp.speechId = text;
+        return true;
     }
 
     public static void AddPaper(string paperId, int ct = 1) {
