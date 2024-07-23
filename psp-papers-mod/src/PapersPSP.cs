@@ -11,9 +11,12 @@ using System.Linq;
 
 namespace psp_papers_mod;
 
-[BepInPlugin("wtf.psp.papers", "PSP PAPERS", "1.1.0")]
+public static class ModInformation { internal const string Version = "1.2.2"; }
+
+[BepInPlugin("wtf.psp.papers", "PSP PAPERS", ModInformation.Version)]
 [BepInProcess("PapersPlease.exe")]
 public class PapersPSP : BasePlugin {
+
     internal static bool Initialized { get; private set; }
 
     internal static TwitchIntegration Twitch { get; private set; }
@@ -54,4 +57,5 @@ public class PapersPSP : BasePlugin {
         MethodInfo method = typeof(app.vis.Text).GetMethods().First(m => m.Name == "set_text" && m != propSetter);
         this.harmony.Patch(method, prefix: new HarmonyMethod(typeof(TextPatch).GetMethod("SetMenuTextPrefix")));
     }
+
 }
