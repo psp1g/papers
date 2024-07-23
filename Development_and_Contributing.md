@@ -15,7 +15,7 @@ the game generate hollowed assemblies that are needed for development.
 ### Development
 
 First, `git clone` the repository in a separate folder. Please make a fork (or make a branch if possible) of
-this repository to work on.
+this repository to work on based on the [dev](https://github.com/psp1g/papers/tree/dev) branch.
 
 The installer will also patch the game art assets with [papers-tools-rs](https://github.com/psp1g/papers-tools-rs) so you
 don't have to run any of that manually.
@@ -63,8 +63,9 @@ You can also take a look at the hollowed assembly (no function code, but functio
 
 # Contributing
 
-When making a pull request **make the base branch `dev`**.
+When making a pull request **ensure the base branch is [dev](https://github.com/psp1g/papers/tree/dev)**.
 
-All code merges go into dev first and are later merged into `main` along a manually-reviewed release.
+All code merges go into dev first and are later merged into [main](https://github.com/psp1g/papers/tree/main) along a
+manually-reviewed release.
 
 Please use and follow the included code style configs.
