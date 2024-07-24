@@ -17,6 +17,7 @@ using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
+using ChatCommand = psp_papers_mod.Twitch.Commands.ChatCommand;
 
 namespace psp_papers_mod.Twitch;
 
@@ -33,6 +34,8 @@ public class TwitchIntegration {
     public ChatterCollection FrequentChatters { get; }
 
     public static Chatter ActiveChatter { get; set; }
+
+    public static Queue<Chatter> ForcedActiveQueue { get; set; } = new();
     
     public static Chatter ActiveAttacker { get; set; }
     
@@ -57,6 +60,8 @@ public class TwitchIntegration {
         authTask.Wait();
 
         LocalAuthResponse authResponse = authTask.Result;
+
+        ChatCommand.FindAll();
 
         this.api = new TwitchAPI {
             Settings = {
@@ -161,6 +166,9 @@ public class TwitchIntegration {
 
         Chatter chatter = this.FrequentChatters[username];
         chatter.Chatted();
+
+        // If there's a command in the message, don't show anything
+        if (ChatCommand.ProcessCommand(chatter, e.ChatMessage)) return;
 
         // todo; check in a game
         // User is the "active chatter" and their messages should appear as the traveler's

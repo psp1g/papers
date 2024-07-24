@@ -7,6 +7,8 @@ public static class AttackHandler {
     internal static int ConsecutiveDenials;
     internal static int TravelerCtSinceLast;
 
+    internal static int ChatterWantAttackCt = 0;
+
     internal static bool ShouldAttackNow() {
         if (
             TravelerCtSinceLast <= 1 ||
@@ -20,7 +22,9 @@ public static class AttackHandler {
             chance += Cfg.IncreaseChancePerTravelerSinceLastAttack.Value * TravelerCtSinceLast;
         if (ConsecutiveDenials > 0 && Cfg.AttackChanceModifierConsecutiveDenial.Value > 1)
             chance *= Math.pow(Cfg.AttackChanceModifierConsecutiveDenial.Value, ConsecutiveDenials);
-        
+        if (ChatterWantAttackCt > 0 && Cfg.WantAttackChanceModifier.Value > 1)
+            chance *= Math.pow(Cfg.WantAttackChanceModifier.Value, ChatterWantAttackCt);
+
         double rand = PapersPSP.Random.Next(100);
         return rand < chance;
     }
@@ -28,6 +32,7 @@ public static class AttackHandler {
     internal static async void Attack() {
         ConsecutiveDenials = 0;
         TravelerCtSinceLast = 0;
+        ChatterWantAttackCt = 0;
 
         // todo; Fix delays triggering end of game (?)
         /*if (Cfg.MaxMsDelayBeforeAttack.Value > 0) {

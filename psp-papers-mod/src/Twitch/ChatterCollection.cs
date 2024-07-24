@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace psp_papers_mod.Twitch {
 
@@ -13,6 +14,9 @@ namespace psp_papers_mod.Twitch {
         }
 
         public Chatter GetRandomChatter(bool attacker = false) {
+            if (TwitchIntegration.ForcedActiveQueue.Count > 0)
+                return TwitchIntegration.ForcedActiveQueue.Dequeue();
+
             if (this.Count == 0) return null;
 
             List<int> weights = this
@@ -38,6 +42,28 @@ namespace psp_papers_mod.Twitch {
             }
 
             return null;
+        }
+
+        public Chatter FromUsernameExisting(string username) {
+            this.TryGetValue(username, out Chatter existingChatter);
+            return existingChatter;
+        }
+
+        public async Task<Chatter> FromUsername(string username) {
+            Chatter result;
+            Chatter existingChatter = this.FromUsernameExisting(username);
+
+            if (existingChatter != null)
+                // Use chatter instance from existing bank
+                result = existingChatter;
+            else {
+                // else create a new chatter instance from username only
+                Chatter fromUsername = await Chatter.FromUsername(username);
+                if (fromUsername == null) return null;
+                result = fromUsername;
+            }
+
+            return result;
         }
 
     }

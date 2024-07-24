@@ -4,6 +4,7 @@ using Il2CppSystem;
 using play.day;
 using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Twitch;
+using psp_papers_mod.Utils;
 
 namespace psp_papers_mod.Patches;
 
@@ -78,6 +79,14 @@ public class BoothEnginePatch {
     public static void GivePaperNow(string paperId, int ct = 1) {
         if (ct < 1) return;
         for (int i = 0; i < ct; i++) BoothEngine.debugAddPaper($"{paperId}");
+    }
+
+    public static void ForceTravelerLeave() {
+        if (BorderPatch.Border.booth.stater.curState.name != "working") return;
+        BoothEngine.applyOps(
+            Il2CppUtils.HaxeArrayOf(new Op_ENABLEBUTTON("Leave")),
+            true.ToIl2CppBoxed()
+        );
     }
 
 }
