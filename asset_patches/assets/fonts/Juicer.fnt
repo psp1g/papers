@@ -1,0 +1,21 @@
+<font>
+    <info size="10" face="Juicer"/>
+    <common lineHeight="10"/>
+    <pages>
+     <page id="0" file="Juicer.png"/>
+    </pages>
+    <chars count="95">
+     <char width="4" page="0" x="1" y="1" xoffset="0" chnl="0" letter="0" height="9" yoffset="9" xadvance="5" id="48"/>
+     <char width="3" page="0" x="6" y="1" xoffset="0" chnl="0" letter="1" height="9" yoffset="9" xadvance="4" id="49"/>
+     <char width="4" page="0" x="10" y="1" xoffset="0" chnl="0" letter="2" height="9" yoffset="9" xadvance="5" id="50"/>
+     <char width="4" page="0" x="15" y="1" xoffset="0" chnl="0" letter="3" height="9" yoffset="9" xadvance="5" id="51"/>
+     <char width="4" page="0" x="20" y="1" xoffset="0" chnl="0" letter="4" height="9" yoffset="9" xadvance="5" id="52"/>
+     <char width="4" page="0" x="25" y="1" xoffset="0" chnl="0" letter="5" height="9" yoffset="9" xadvance="5" id="53"/>
+     <char width="4" page="0" x="30" y="1" xoffset="0" chnl="0" letter="6" height="9" yoffset="9" xadvance="5" id="54"/>
+     <char width="3" page="0" x="35" y="1" xoffset="0" chnl="0" letter="7" height="9" yoffset="9" xadvance="4" id="55"/>
+     <char width="4" page="0" x="39" y="1" xoffset="0" chnl="0" letter="8" height="9" yoffset="9" xadvance="5" id="56"/>
+     <char width="4" page="0" x="44" y="1" xoffset="0" chnl="0" letter="9" height="9" yoffset="9" xadvance="5" id="57"/>
+    </chars>
+    <kernings count="0"/>
+   </font>
+   
