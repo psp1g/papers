@@ -1,11 +1,9 @@
 using app.vis;
-using BepInEx;
 using data;
 using HarmonyLib;
 using haxe.xml._Access;
 using play.day;
 using psp_papers_mod.Utils;
-using System;
 using Image = app.vis.Image;
 
 namespace psp_papers_mod.Patches;
@@ -38,6 +36,8 @@ public class PaperInnerVisualsPatch {
     [HarmonyPatch("__hx_ctor_play_day_PaperInnerVisuals")]
     private static void CtorPostfix(object[] __args) {
         Array visuals = (__args[0] as PaperInnerVisuals)!.visuals;
+        BoothEnv boothEnv = (__args[1] as BoothEnv)!;
+        PaperDef paperDef = (__args[2] as PaperDef)!;
         int length = visuals.length;
         for (int i = 0; i < length; i++) {
             Text text = visuals.__get(i).TryCast<Text>();
@@ -46,7 +46,14 @@ public class PaperInnerVisualsPatch {
             bool bottomToTop = text.text.StartsWith("__VERT_U__");
 
             PointData originalPos = new(text.get_x(), text.get_y());
-            text.set_text(text.text[10..]);
+
+            string newText = text.text[10..];
+            if (newText.StartsWith("$")) {
+                newText = boothEnv.getLocalizedText(paperDef.id, newText[1..]);
+            }
+            newText = newText.Replace("\\n", "\n");
+            
+            text.set_text(newText);
             text.set_y(0);
             text.set_x(0);
             text.visible = true;
