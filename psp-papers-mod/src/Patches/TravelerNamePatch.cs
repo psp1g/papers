@@ -28,6 +28,9 @@ public class TravelerNamePatch {
         // Allow detaining anytime
         BorderPatch.Border.booth.detainButton.set_dropped(true);
 
+        // Always display the reason (gagaga) stamp 
+        BorderPatch.Border.booth.stampBar.set_reasonStampEnabled(true);
+
         // Enable sniping & give weapon keys
         if (TotalTravellers++ == 0) {
             BorderPatch.Border.day.featureFlags |= 1 << Feature.SNIPING._hx_index;
