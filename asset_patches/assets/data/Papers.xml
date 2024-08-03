@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <papers>
 
-	<paper id="JuicerCheckPassed" outer="JuicerCheckPassedOuter.png" reveal="fromslot" oddshape="true">
-		<page image="JuicerCheckPassedInner.png"/>
+	<paper id="JuicerCheckPassed" outer="JuicerCheckPassedOuter.png" reveal="fromslot" textcolor="0x231918" oddshape="true">
+		<page image="JuicerCheckPassedInner.png" backcolor="0xe4b12c">
+			<mark image="BLANK:11x33" proxy="RuleNeedJuicerCheck" />
+			<mark image="BLANK:11x33" proxy="RuleNeedJuicerCheck" />
+			<mark text="742126" font="juicer" align="center" vertical="up" />
+			<mark text="123456" font="juicer" align="center" vertical="up" />
+		</page>
 	</paper>
 
 	<paper id="JuicerCheckFailed1" outer="JuicerCheckFailedOuter1.png" reveal="fromslot" oddshape="true">

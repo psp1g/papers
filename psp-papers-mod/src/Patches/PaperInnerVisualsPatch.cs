@@ -59,11 +59,11 @@ public class PaperInnerVisualsPatch {
             text.visible = true;
             text.generation += 1;
             text.buildTiles();
-            
+
             Image spriteImg = new(text.builtWidth + 1, text.builtHeight + 1, Alloc.NEW);
             text.renderToImage(spriteImg, new PointData(0, 0), PasteMode.OVERLAY);
             spriteImg = bottomToTop ? spriteImg.rotatedLeft90() : spriteImg.rotatedRight90();
-            
+
             Sprite sprite = new(new PartData(spriteImg, new Rect(
                 0.0.ToIl2CppBoxed(),
                 0.0.ToIl2CppBoxed(),
@@ -76,10 +76,12 @@ public class PaperInnerVisualsPatch {
                 pos = originalPos,
                 hostPos = text.hostPos
             };
-            
+
             if (text.align == Align.CENTER) {
                 sprite.set_x(sprite.get_x() + Math.ceil(text.builtWidth / 2.0));
+                sprite.set_y(sprite.get_y() + text.builtHeight / 2.0);
             }
+
             visuals.__set(i, sprite);
         }
     }

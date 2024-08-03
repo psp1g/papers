@@ -84,6 +84,7 @@
 
 		<!-- papers -->
 		<loc id="Passport" val="Passport" section="papers"/>
+		<loc id="JuicerCheckPassed" val="Juicer Check"/>
 		<loc id="EntryTicket" val="Entry Ticket"/>
 		<loc id="EntryPermit" val="Entry Permit"/>
 		<loc id="WorkPermit" val="Work Pass"/>
@@ -178,6 +179,7 @@
 
 	<paper id="Rules" stay="day">
 		<fact id="RuleNeedPassport" val="Entrant must have a passport"/>
+		<fact id="RuleNeedJuicerCheck" val="Entrant must have a valid Juicer Check"/>
 		<fact id="RuleNeedEntryPermit" val="Foreigners require an entry permit"/>
 		<fact id="RuleNeedEntryTicket" val="Foreigners require an entry ticket"/>
 		<fact id="RuleNeedCurrentDocs" val="All documents must be current"/>
@@ -220,6 +222,10 @@
 		<fact id="DiploSealsSweden" val="DiploSealsSweden.png"/>
 	</paper>
 
+	<paper id="JuicerCheckPassed">
+		<fact id=""/>
+	</paper>
+
 	<rulebook id="override">
 		<page id="home"/>
 		<page id="basic"/>
@@ -246,5 +252,13 @@
 		<page id="confiscation" confiscation="Native"/>
 		<page id="last"/>
 	</rulebook>
+
+	<groups>
+		
+		<group id="JuicerCheck">
+			<path val="JuicerCheckPassed"/>
+			<path val="Rules/RuleNeedJuicerCheck"/>
+		</group>
+	</groups>
 
 </facts>
