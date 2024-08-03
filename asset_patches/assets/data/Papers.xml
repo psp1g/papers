@@ -17,6 +17,15 @@
 		<page image="JuicerCheckFailedInner3.png"/>
 	</paper>
 
+	<!-- Make the keys appear on the right instead of travelers seemingly giving them -->
+	<paper id="KeyTranq" outer="KeyTranqOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
+		<page image="KeyTranqInner.png"/>
+	</paper>
+
+	<paper id="KeyKill" outer="KeyKillOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
+		<page image="KeyKillInner.png"/>
+	</paper>
+
 	<!-- Rules -->
 	<paper id="Rules" outer="RulesOuter.png" font="regular" textcolor="0x574848" dock="true">
 		<page id="home" image="RulesInnerHome.png" backcolor="0xe4e6bd">
