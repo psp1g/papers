@@ -116,6 +116,7 @@
 		<loc id="District" val="District"/>
 		<loc id="Gender" val="Gender"/>
 		<loc id="WorkEndDate" val="Work End Date"/>
+		<loc id="JuicerCheckId" val="Juicer Check ID"/>
 
 		<!-- districts -->
 		<loc id="Nowogrodka" val="Nowogrodka" section="districts"/>
@@ -179,7 +180,7 @@
 
 	<paper id="Rules" stay="day">
 		<fact id="RuleNeedPassport" val="Entrant must have a passport"/>
-		<fact id="RuleNeedJuicerCheck" val="Entrant must have a valid Juicer Check"/>
+		<fact id="RuleNeedJuicerCheck" val="Entrant must have a Juicer Check"/>
 		<fact id="RuleNeedEntryPermit" val="Foreigners require an entry permit"/>
 		<fact id="RuleNeedEntryTicket" val="Foreigners require an entry ticket"/>
 		<fact id="RuleNeedCurrentDocs" val="All documents must be current"/>
@@ -222,8 +223,20 @@
 		<fact id="DiploSealsSweden" val="DiploSealsSweden.png"/>
 	</paper>
 
-	<paper id="JuicerCheckPassed">
+	<paper id="JuicerCheck">
 		<fact id=""/>
+		<fact id="Exists"><invalidate path="Rules/RuleNeedJuicerCheck"/></fact>
+		<fact id="JuicerCheckId"/>
+	</paper>
+	
+	<paper id="FakeJuicerCheck1">
+		<fact id="" cite="This is obviously fake"/>
+	</paper>
+	<paper id="FakeJuicerCheck2">
+		<fact id="" cite="This is obviously fake"/>
+	</paper>
+	<paper id="FakeJuicerCheck3">
+		<fact id="" cite="This is obviously fake"/>
 	</paper>
 
 	<rulebook id="override">
@@ -254,9 +267,16 @@
 	</rulebook>
 
 	<groups>
-		
-		<group id="JuicerCheck">
-			<path val="JuicerCheckPassed"/>
+		<group id="Juicer-Check-Required">
+			<path val="Rules/RuleNeedJuicerCheck"/>
+			<path val="JuicerCheck"/>
+			<path val="Booth/Counter"/>
+			<path val="FakeJuicerCheck1"/>
+			<path val="FakeJuicerCheck2"/>
+			<path val="FakeJuicerCheck3"/>
+		</group>
+		<group id="Juicer-Check-Subtle">
+			<path val="JuicerCheck/JuicerCheckId"/>
 			<path val="Rules/RuleNeedJuicerCheck"/>
 		</group>
 	</groups>

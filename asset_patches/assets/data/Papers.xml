@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <papers>
 
-	<paper id="JuicerCheckPassed" outer="JuicerCheckPassedOuter.png" reveal="fromslot" textcolor="0x231918" oddshape="true">
-		<page image="JuicerCheckPassedInner.png" backcolor="0xe4b12c">
-			<mark image="BLANK:11x33" proxy="RuleNeedJuicerCheck" />
-			<mark image="BLANK:11x33" proxy="RuleNeedJuicerCheck" />
-			<mark text="742126" font="juicer" align="center" vertical="up" />
-			<mark text="123456" font="juicer" align="center" vertical="up" />
+	<paper id="JuicerCheck" outer="JuicerCheckOuter.png" reveal="fromslot" textcolor="0x231918" oddshape="true">
+		<page image="JuicerCheckInner.png" backcolor="0xe4b12c">
+			<mark text="$JuicerCheckId" font="juicer" align="center" vertical="up" />
+			<mark text="$JuicerCheckId" font="juicer" align="center" vertical="up" />
+			<mark image="BLANK:11x33" proxy="JuicerCheckId" pos="10 13" />
+			<mark image="BLANK:11x33" proxy="JuicerCheckId" pos="81 13" />
 		</page>
 	</paper>
 
-	<paper id="JuicerCheckFailed1" outer="JuicerCheckFailedOuter1.png" reveal="fromslot" oddshape="true">
-		<page image="JuicerCheckFailedInner1.png"/>
+	<paper id="FakeJuicerCheck1" outer="FakeJuicerCheckOuter1.png" reveal="fromslot" oddshape="true">
+		<page image="FakeJuicerCheckInner1.png"/>
 	</paper>
 
-	<paper id="JuicerCheckFailed2" outer="JuicerCheckFailedOuter2.png" reveal="fromslot" oddshape="true">
-		<page image="JuicerCheckFailedInner2.png"/>
+	<paper id="FakeJuicerCheck2" outer="FakeJuicerCheckOuter2.png" reveal="fromslot" oddshape="true">
+		<page image="FakeJuicerCheckInner2.png"/>
 	</paper>
 
-	<paper id="JuicerCheckFailed3" outer="JuicerCheckFailedOuter3.png" reveal="fromslot" oddshape="true">
-		<page image="JuicerCheckFailedInner3.png"/>
+	<paper id="FakeJuicerCheck3" outer="FakeJuicerCheckOuter3.png" reveal="fromslot" oddshape="true">
+		<page image="FakeJuicerCheckInner3.png"/>
 	</paper>
 
 	<!-- Rules -->

@@ -4,6 +4,7 @@ using HarmonyLib;
 using haxe.xml._Access;
 using play.day;
 using psp_papers_mod.Utils;
+using System;
 using Image = app.vis.Image;
 
 namespace psp_papers_mod.Patches;
@@ -78,7 +79,6 @@ public class PaperInnerVisualsPatch {
             };
 
             if (text.align == Align.CENTER) {
-                sprite.set_x(sprite.get_x() + Math.ceil(text.builtWidth / 2.0));
                 sprite.set_y(sprite.get_y() + text.builtHeight / 2.0);
             }
 

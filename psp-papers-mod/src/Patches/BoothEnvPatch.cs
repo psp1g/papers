@@ -1,7 +1,11 @@
 using data;
 using System.Linq;
 using HarmonyLib;
+using Il2CppInterop.Runtime;
 using play.day;
+using psp_papers_mod.Twitch;
+using psp_papers_mod.Utils;
+using System;
 
 namespace psp_papers_mod.Patches;
 
@@ -51,6 +55,48 @@ public class BoothEnvPatch {
 
         sayOp.speechId = text;
         return true;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(BoothEnv.makeFactValue))]
+    public static bool MakeModdedFactValues(string path, bool valid, Il2CppSystem.Object confusing, ref FactValue __result) {
+        if (!path.Split("/").Last().Equals("JuicerCheckId")) return true;
+        string id = "742126";
+        if (!valid) {
+            char[] chars = id.ToCharArray();
+            Random random = new();
+            int idx = random.Next(chars.Length);
+            char[] digits = "0123456789".ToCharArray();
+            chars[idx] = digits[random.Next(digits.Length - 1)];
+            if (chars[idx] == id[idx]) {
+                chars[idx] = digits[^1];
+            }
+            id = new string(chars);
+        }
+
+        __result = new FactValue(id, null, null);
+        return false;
+    }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(BoothEnv.makeNewTraveler))]
+    public static void ChooseChatterTraveler() {
+        PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
+        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+
+        if (chatter != null)
+            TwitchIntegration.SetActiveChatter(chatter);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(BoothEnv.makeNewTraveler))]
+    public static void AddJuicerCheck(BoothEnv __instance) {
+        Error error = __instance.traveler.modifiedError;
+        if (error != null && error.id.Contains("<juicer>")) {
+            AddPaper(error.ops[0].Cast<Op_REQUIREMENT>().tokens[0].ToManagedString());
+        } else {
+            AddPaper("JuicerCheck");
+        }
     }
 
     public static void AddPaper(string paperId, int ct = 1) {
