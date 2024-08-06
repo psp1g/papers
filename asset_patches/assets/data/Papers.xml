@@ -22,6 +22,28 @@
 		<page image="FakeJuicerCheckInner3.png"/>
 	</paper>
 
+
+	<!-- Sususterjan Id Card  -->
+	<paper id="IdCard" outer="IdCardOuter.png" font="tiny" textcolor="0x29241e" fromtraveler="true">
+		<page image="IdCardInner.png">
+			<mark text="$District" textcolor="0xeea400" />
+			<mark image="$Face" scale="0.4" backcolor="0xeea400" textcolor="0x29241e" />
+			<mark text="$Name" wrap="70" />
+			<mark text="$BirthDate" />
+			<mark text="$Height" />
+			<mark text="$Weight" />
+		</page>
+	</paper>
+
+	<!-- Make the keys appear on the right instead of travelers seemingly giving them -->
+	<paper id="KeyTranq" outer="KeyTranqOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
+		<page image="KeyTranqInner.png"/>
+	</paper>
+
+	<paper id="KeyKill" outer="KeyKillOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
+		<page image="KeyKillInner.png"/>
+	</paper>
+
 	<!-- Rules -->
 	<paper id="Rules" outer="RulesOuter.png" font="regular" textcolor="0x574848" dock="true">
 		<page id="home" image="RulesInnerHome.png" backcolor="0xe4e6bd">
