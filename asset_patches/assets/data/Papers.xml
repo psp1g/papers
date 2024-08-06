@@ -249,7 +249,8 @@
 		</page>
 
 		<page id="docs" image="RulesInnerDocs.png" backcolor="0xe4e6bd">
-			<mark text="Id Card (Native)" link="idcard" section="doc_listing" />
+			<mark text="Juicer Check" link="juicercheck" section="doc_listing" />
+			<mark text="Id Card (Native)" link="idcard" />
 			<mark text="Entry Permit" link="entrypermit" flow="down" flowpad="6" />
 			<mark text="Id Supplement" link="idsupplement" flow="down" flowpad="6" />
 			<mark text="Access Permit" link="accesspermit" flow="down" flowpad="6" />
@@ -265,6 +266,22 @@
 			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
 			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
 			<mark image="RulesTabDocsR.png" pos="236 86" />
+			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
+		</page>
+
+		<page id="juicercheck" image="RulesInnerJuicer.png" backcolor="0xe4e6bd">
+			<mark image="BLANK:75x85" proxy="RuleNeedJuicerCheck" />
+			<mark image="BLANK:85x40" proxy="Juicer-Check-Id" side="1" />
+			<mark image="BLANK:85x20" proxy="Juicer-Check-Wear" side="1" />
+
+
+			<mark image="RulesGoHome.png" link="home" pos="11 1" />
+			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
+			<mark image="RulesGoNext.png" link="#next" pos="219 143" />
+
+			<mark image="RulesTabRulesL.png" pos="0 8" link="basic" />
+			<mark image="RulesTabMapL.png" pos="0 42" link="map" />
+			<mark image="RulesTabDocsL.png" pos="2 86" link="docs" />
 			<mark image="RulesTabConfR.png" pos="238 120" link="confiscation" />
 		</page>
 

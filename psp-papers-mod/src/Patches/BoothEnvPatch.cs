@@ -61,7 +61,7 @@ public class BoothEnvPatch {
     [HarmonyPatch(nameof(BoothEnv.makeFactValue))]
     public static bool MakeModdedFactValues(string path, bool valid, Il2CppSystem.Object confusing, ref FactValue __result) {
         if (!path.Split("/").Last().Equals("JuicerCheckId")) return true;
-        string id = "742126";
+        string id = "74126";
         if (!valid) {
             char[] chars = id.ToCharArray();
             Random random = new();

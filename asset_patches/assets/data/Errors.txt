@@ -1,0 +1,106 @@
+#--------------------------------------------------------
+# Actions
+#--------------------------------------------------------
+*Interrogate
+	" $1
+
+*Interrogate:Missing
+	" ask-missing-$1
+	" missing-$1
+
+*Interrogate:Hidden
+	" ask-missing-$1
+	" hidden-paper
+
+*Interrogate:Expired
+	" ask-expired-paper
+	" expired-$1
+
+*Interrogate:WrongName
+	" ask-wrong-name
+	" wrong-name
+	@ Fingerprint
+
+*Interrogate:WrongAlias
+	" ask-wrong-alias
+	" wrong-alias
+	@ Detain
+
+*Interrogate:WrongFingerprints
+	" ask-wrong-fingerprints
+	" wrong-fingerprints
+	@ Detain
+
+*Interrogate:WrongThumbprint
+	" ask-wrong-thumbprint
+	" wrong-thumbprint
+	@ Detain
+
+*Interrogate:Forgery
+	" ask-forgery-$1
+	" forgery
+	@ Detain
+
+*Interrogate:Contraband
+	" ask-contraband
+	" contraband
+	@ Detain
+
+*Interrogate:Criminal
+	" ask-criminal
+	" criminal
+	@ Detain
+
+#--------------------------------------------------------
+# Passport
+#--------------------------------------------------------
+Passport-Hidden<missing>			Passport-MissingHidden
+	\ Passport
+	\ FEATURES has INSPECT
+	! Passport/Visible
+		> $Interrogate:Hidden passport
+			^ Passport/Visible
+Passport-WrongIssuingCity<generic><deny>
+	\ Passport
+	! Passport/IssuingCity
+		> Interrogate
+			" ask-wrong-issuingcity
+			" wrong-issuingcity
+			@ Detain
+Passport-WrongExpiration<generic><deny>
+	\ Passport
+	! Passport/ExpirationDate
+		> $Interrogate:Expired passport
+		
+#--------------------------------------------------------
+# Juicer Check
+#--------------------------------------------------------
+JuicerCheck-FakeObvious1<juicer><deny>
+	\ FakeJuicerCheck1
+	! FakeJuicerCheck1
+		> Interrogate
+			@ Detain
+	! JuicerCheck/Exists
+		> Interrogate
+			@ Detain
+JuicerCheck-FakeObvious2<juicer><deny>
+	\ FakeJuicerCheck2
+	! FakeJuicerCheck2
+		> Interrogate
+			@ Detain
+	! JuicerCheck/Exists
+		> Interrogate
+			@ Detain
+JuicerCheck-FakeObvious3<juicer><deny>
+	\ FakeJuicerCheck3
+	! FakeJuicerCheck3
+		> Interrogate
+			@ Detain
+	! JuicerCheck/Exists
+		> Interrogate
+			@ Detain
+JuicerCheck-FakeSubtle<generic><juicer><deny>
+	\ JuicerCheck
+	! JuicerCheck/JuicerCheckId
+		> Interrogate
+			@ Detain

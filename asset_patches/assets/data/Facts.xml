@@ -207,6 +207,9 @@
 		<fact id="SealsMoa" val=""/>
 		<fact id="SealsMol" val=""/>
 
+		<fact id="Juicer-Check-Id"/>
+		<fact id="Juicer-Check-Wear"/>
+
 		<fact id="SealRequired" val="RuleSealRequired.png"/>
 		<fact id="SealRequired-EntryPermit"/>
 		<fact id="SealRequired-WorkPermit"/>
@@ -252,7 +255,8 @@
 		<page id="region-su"/>
 		<page id="region-se"/>
 		<page id="booth"/>
-		<page id="docs" rule="RuleNeedIdCard"/>		
+		<page id="docs" rule="RuleNeedJuicerCheck"/>		
+		<page id="juicercheck" rule="RuleNeedJuicerCheck"/>
 		<page id="entrypermit" rule="RuleNeedEntryPermit"/>
 		<page id="idcard" rule="RuleNeedIdCard"/>
 		<page id="idsupplement" rule="RuleNeedIdSupplement"/>
@@ -275,9 +279,19 @@
 			<path val="FakeJuicerCheck2"/>
 			<path val="FakeJuicerCheck3"/>
 		</group>
+		<group id="Juicer-Check-Worn">
+			<path val="Rules/Juicer-Check-Wear"/>
+			<path val="JuicerCheck"/>
+			<path val="FakeJuicerCheck1"/>
+			<path val="FakeJuicerCheck2"/>
+			<path val="FakeJuicerCheck3"/>
+		</group>
 		<group id="Juicer-Check-Subtle">
+			<path val="Rules/Juicer-Check-Id"/>
 			<path val="JuicerCheck/JuicerCheckId"/>
-			<path val="Rules/RuleNeedJuicerCheck"/>
+			<path val="FakeJuicerCheck1"/>
+			<path val="FakeJuicerCheck2"/>
+			<path val="FakeJuicerCheck3"/>
 		</group>
 	</groups>
 
