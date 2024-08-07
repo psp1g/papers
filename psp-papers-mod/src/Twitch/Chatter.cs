@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using TwitchLib.Client.Models;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
+using psp_papers_mod.src.Utils;
 
 namespace psp_papers_mod.Twitch {
 
@@ -88,18 +89,9 @@ namespace psp_papers_mod.Twitch {
         }
 
         private void CreateName() {
-            // todo; maybe improve?
-            // Find last uppercase letter in username
-            int lastCapital = System.Array.FindLastIndex(this.Username.ToArray(), char.IsUpper);
-            int splitIndex = lastCapital > 0
-                ? lastCapital
-                // Or split username in half as first and last name
-                : (int) System.Math.Floor((float) this.Username.Length / 2);
-
-            this.First = this.Username[..splitIndex];
-            this.Last = this.Username[splitIndex..];
+            (this.First, this.Last) = SplitUsername.process(this.Username);
         }
-        
+
         public void SetDataFromMessage(ChatMessage chatMessage) {
             this.UserID = chatMessage.UserId;
             this.Username = chatMessage.Username;
