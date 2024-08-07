@@ -293,6 +293,10 @@
 			<path val="FakeJuicerCheck2"/>
 			<path val="FakeJuicerCheck3"/>
 		</group>
+		<group id="IdCard-District">
+			<path val="Rules/Sususterja-Districts"/>
+			<path val="IdCard/District"/>
+		</group>	
 	</groups>
 
 </facts>

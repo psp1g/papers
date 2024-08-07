@@ -272,7 +272,7 @@
 
 		<page id="docs" image="RulesInnerDocs.png" backcolor="0xe4e6bd">
 			<mark text="Juicer Check" link="juicercheck" section="doc_listing" />
-			<mark text="Id Card (Native)" link="idcard" />
+			<mark text="Id Card (Native)" link="idcard" flow="down" flowpad="6" />
 			<mark text="Entry Permit" link="entrypermit" flow="down" flowpad="6" />
 			<mark text="Id Supplement" link="idsupplement" flow="down" flowpad="6" />
 			<mark text="Access Permit" link="accesspermit" flow="down" flowpad="6" />
@@ -309,7 +309,7 @@
 
 		<page id="idcard" image="RulesInnerIdCard.png" backcolor="0xe4e6bd">
 			<mark image="BLANK:75x76" proxy="RuleNeedIdCard" section="" />
-			<mark text="$Arstotzka-Districts" wrap="75" side="1" />
+			<mark text="$Sususterja-Districts" wrap="75" side="1" />
 
 			<mark image="RulesGoHome.png" link="home" pos="11 1" />
 			<mark image="RulesGoPrev.png" link="#prev" pos="10 143" />
