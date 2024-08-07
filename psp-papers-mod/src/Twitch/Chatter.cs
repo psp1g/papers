@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using psp_papers_mod.Patches;
 using psp_papers_mod.MonoBehaviour;
-
+using psp_papers_mod.Utils;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -88,18 +88,9 @@ namespace psp_papers_mod.Twitch {
         }
 
         private void CreateName() {
-            // todo; maybe improve?
-            // Find last uppercase letter in username
-            int lastCapital = System.Array.FindLastIndex(this.Username.ToArray(), char.IsUpper);
-            int splitIndex = lastCapital > 0
-                ? lastCapital
-                // Or split username in half as first and last name
-                : (int) System.Math.Floor((float) this.Username.Length / 2);
-
-            this.First = this.Username[..splitIndex];
-            this.Last = this.Username[splitIndex..];
+            (this.First, this.Last) = SplitUsername.Process(this.Username);
         }
-        
+
         public void SetDataFromMessage(ChatMessage chatMessage) {
             this.UserID = chatMessage.UserId;
             this.Username = chatMessage.Username;
