@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using psp_papers_mod.Patches;
 using psp_papers_mod.MonoBehaviour;
-
+using psp_papers_mod.Utils;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using TwitchLib.Client.Models;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
-using psp_papers_mod.src.Utils;
 
 namespace psp_papers_mod.Twitch {
 
@@ -89,7 +88,7 @@ namespace psp_papers_mod.Twitch {
         }
 
         private void CreateName() {
-            (this.First, this.Last) = SplitUsername.process(this.Username);
+            (this.First, this.Last) = SplitUsername.Process(this.Username);
         }
 
         public void SetDataFromMessage(ChatMessage chatMessage) {
