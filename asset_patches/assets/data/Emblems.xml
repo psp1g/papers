@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<emblems>
+	<emblem id="DiplomaticAuth" count="6" valid="2" size="42 42" canrotate="true">
+		<nation id="Belarus" file="EmblemsDipBelarus.png"/>
+		<nation id="Estonia" file="EmblemsDipEstonia.png"/>
+		<nation id="Finland" file="EmblemsDipFinland.png"/>
+		<nation id="Latvia" file="EmblemsDipLatvia.png"/>
+		<nation id="Lithuania" file="EmblemsDipLithuania.png"/>
+		<nation id="Poland" file="EmblemsDipPoland.png"/>
+		<nation id="Sweden" file="EmblemsDipSweden.png"/>
+	</emblem>
+</emblems>
