@@ -54,12 +54,23 @@
 #--------------------------------------------------------
 # Passport
 #--------------------------------------------------------
-Passport-Hidden<missing>			Passport-MissingHidden
+Passport-WrongFaceClear<generic>	Passport-WrongFace
 	\ Passport
-	\ FEATURES has INSPECT
-	! Passport/Visible
-		> $Interrogate:Hidden passport
-			^ Passport/Visible
+	\ FEATURES has FINGERPRINT
+	! ~Passport/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+Passport-WrongFaceError<generic><deny><obvious>	Passport-WrongFace
+	\ Passport
+	! Passport/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
 Passport-WrongIssuingCity<generic><deny>
 	\ Passport
 	! Passport/IssuingCity
@@ -104,3 +115,259 @@ JuicerCheck-FakeSubtle<generic><juicer><deny>
 	! JuicerCheck/JuicerCheckId
 		> Interrogate
 			@ Detain
+
+#--------------------------------------------------------
+# IdCard
+#--------------------------------------------------------
+IdCard-Hidden<missing>
+	\ IdCard
+	! IdCard/Visible
+		> $Interrogate:Hidden idcard
+			^ IdCard/Visible
+IdCard-WrongName<generic><deny><obvious>		IdCard-WrongName
+	\ IdCard
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! IdCard/Name
+		> $Interrogate:WrongName
+IdCard-ConfusingName<generic>		IdCard-WrongName
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! ~IdCard/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias IdCard/Name
+IdCard-WrongDistrict<generic><deny>
+	\ IdCard
+	! IdCard/District
+		> Interrogate
+			" ask-forgery-idcard
+			" forgery
+			@ Detain
+IdCard-WrongBirthDate<generic><deny>
+	\ IdCard
+	! IdCard/BirthDate
+		> Interrogate
+			" ask-wrong-birthdate
+			" forgery
+			@ Detain
+IdCard-WrongHeightClear<generic>	IdCard-WrongHeight
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! ~IdCard/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+IdCard-WrongHeightError<generic>	IdCard-WrongHeight
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! IdCard/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints			
+IdCard-WrongFaceClear<generic>		IdCard-WrongFace
+	\ IdCard
+	\ FEATURES has FINGERPRINT
+	! ~IdCard/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+IdCard-WrongFaceError<generic><deny><obvious>		IdCard-WrongFace
+	\ IdCard
+	! IdCard/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+IdCard-Contraband<generic><contraband>
+	\ IdCard
+	\ FEATURES has SEARCH
+	! IdCard/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+
+#--------------------------------------------------------
+# IdSupplement
+#--------------------------------------------------------
+IdSupplement-Hidden<missing>
+	\ IdSupplement
+	! IdSupplement/Visible
+		> $Interrogate:Hidden idsupplement
+			^ IdSupplement/Visible
+IdSupplement-WrongExpiration<generic><deny>
+	\ IdSupplement
+	! IdSupplement/ExpirationDate
+		> $Interrogate:Expired idsupplement
+IdSupplement-WrongHeightClear<generic>		IdSupplement-WrongHeight
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT
+	! ~IdSupplement/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+IdSupplement-WrongHeightError<generic>		IdSupplement-WrongHeight
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT
+	! IdSupplement/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdSupplement/Thumbprint
+		> $Interrogate:WrongFingerprints
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+IdSupplement-ContrabandError<generic><contraband>
+	\ IdSupplement
+	\ FEATURES has SEARCH
+	! IdSupplement/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+IdSupplement-WrongDescriptionClear<generic>	IdSupplement-WrongAppearance
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT
+	! ~IdSupplement/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+IdSupplement-WrongDescriptionError<generic>	IdSupplement-WrongAppearance
+	\ IdSupplement
+	\ FEATURES has FINGERPRINT
+	! IdSupplement/Description
+		> Interrogate
+			" ask-wrong-description
+			" wrong-description
+			@ Fingerprint
+	! IdSupplement/Thumbprint
+		> $Interrogate:WrongThumbprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+
+#--------------------------------------------------------
+# DiplomaticAuth
+#--------------------------------------------------------
+DiplomaticAuth-WrongAccessNations<generic><deny>
+	\ DiplomaticAuth
+	! DiplomaticAuth/AccessNations
+		> Interrogate 
+			" ask-wrong-diploaccess
+			" wrong-diploaccess
+			@ Detain
+DiplomaticAuth-WrongSeal<generic><deny>
+	\ DiplomaticAuth
+	\ FEATURES has FORGERY
+	! DiplomaticAuth/Emblem/DiplomaticAuth
+		> $Interrogate:Forgery diplo		
+DiplomaticAuth-WrongId<generic><deny>
+	\ DiplomaticAuth
+	! DiplomaticAuth/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain
+DiplomaticAuth-WrongName<generic><deny><obvious>		DiplomaticAuth-WrongName
+	\ DiplomaticAuth
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! DiplomaticAuth/Name
+		> $Interrogate:WrongName
+DiplomaticAuth-ConfusingName<generic>			DiplomaticAuth-WrongName
+	\ DiplomaticAuth
+	\ FEATURES has FINGERPRINT
+	! ~DiplomaticAuth/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias DiplomaticAuth/Name
+
+#--------------------------------------------------------
+# AsylumGrant
+#--------------------------------------------------------
+AsylumGrant-Expired<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/ExpirationDate
+		> $Interrogate:Expired asylumgrant
+AsylumGrant-WrongId<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/IdNumber
+		> Interrogate 
+			" ask-wrong-idnumber
+			" wrong-idnumber
+			@ Detain	
+AsylumGrant-WrongName<generic><deny><obvious>		AsylumGrant-WrongName
+	\ AsylumGrant
+	! IdentityRecord/Alias
+		> $Interrogate:WrongAlias
+	! AsylumGrant/Name
+		> $Interrogate:WrongName
+AsylumGrant-ConfusingName<generic>					AsylumGrant-WrongName
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! ~AsylumGrant/Name
+		> $Interrogate:WrongName
+	= IdentityRecord/Alias AsylumGrant/Name	
+AsylumGrant-WrongHeightClear<generic>				AsylumGrant-WrongHeight
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! ~AsylumGrant/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+AsylumGrant-WrongHeightError<generic>				AsylumGrant-WrongHeight
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! AsylumGrant/Height
+		> Interrogate
+			" ask-wrong-height
+			" wrong-height
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+AsylumGrant-WrongFaceClear<generic>					AsylumGrant-WrongFace
+	\ AsylumGrant
+	\ FEATURES has FINGERPRINT
+	! ~AsylumGrant/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+AsylumGrant-WrongFaceError<generic><deny><obvious>		AsylumGrant-WrongFace
+	\ AsylumGrant
+	! AsylumGrant/Face
+		> Interrogate 
+			" ask-wrong-face
+			" wrong-face
+			@ Fingerprint
+	! IdentityRecord/Fingerprints
+		> $Interrogate:WrongFingerprints
+AsylumGrant-ContrabandError<generic><contraband>
+	\ AsylumGrant
+	\ FEATURES has SEARCH
+	! AsylumGrant/Weight
+		> Interrogate
+			" ask-search-enabled
+			@ Search
+	! Traveler/Contraband
+		> $Interrogate:Contraband
+AsylumGrant-WrongExpiration<generic><deny>
+	\ AsylumGrant
+	! AsylumGrant/ExpirationDate
+		> $Interrogate:Expired asylumgrant	
+AsylumGrant-WrongSeal<generic><deny>
+	\ AsylumGrant
+	\ FEATURES has FORGERY
+	! AsylumGrant/Emblem/MinistryOfAdmission
+		> $Interrogate:Forgery asylumgrant

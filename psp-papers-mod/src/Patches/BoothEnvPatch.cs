@@ -19,8 +19,6 @@ public class BoothEnvPatch {
 
     internal static BoothEnv BoothEnv;
 
-    private static readonly string[] BlockPaperIDs = ["EntryPermit", "WorkPermit", "IdSupplement", "VaccineCert", "DiplomaticAuth"];
-
     [HarmonyPostfix]
     [HarmonyPatch("__hx_ctor_play_day_BoothEnv", typeof(BoothEnv), typeof(BoothEnvRun), typeof(Day))]
     static void CtorPostfix(object[] __args) {
@@ -32,10 +30,9 @@ public class BoothEnvPatch {
     static bool AddPaperPrefix(ref string paperId) {
         bool moddedPaper = paperId.StartsWith("modded-");
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
-
-        bool allowed = !BlockPaperIDs.Contains(paperId) || moddedPaper;
-        PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No") + " Blocked: " + (!allowed ? "Yes" : "No"));
-        return allowed;
+        
+        PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No"));
+        return true;
     }
 
     [HarmonyPrefix]
