@@ -14,9 +14,6 @@ namespace psp_papers_mod.Twitch {
         }
 
         public Chatter GetRandomChatter(bool attacker = false) {
-            if (TwitchIntegration.ForcedActiveQueue.Count > 0)
-                return TwitchIntegration.ForcedActiveQueue.Dequeue();
-
             if (this.Count == 0) return null;
 
             List<int> weights = this

@@ -78,11 +78,7 @@ public class BoothEnvPatch {
     [HarmonyPrefix]
     [HarmonyPatch(nameof(BoothEnv.makeNewTraveler))]
     public static void ChooseChatterTraveler() {
-        PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
-        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
-
-        if (chatter != null)
-            TwitchIntegration.SetActiveChatter(chatter);
+        TwitchIntegration.NextActiveChatter();
     }
 
     [HarmonyPostfix]

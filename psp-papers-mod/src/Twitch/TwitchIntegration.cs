@@ -1,19 +1,18 @@
-using psp_papers_mod.Patches;
+using Newtonsoft.Json;
+using play.day.border;
 using psp_papers_mod.MonoBehaviour;
-
+using psp_papers_mod.Patches;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using Newtonsoft.Json;
-using play.day.border;
 using TwitchLib.Api;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
 using TwitchLib.Client;
+using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Communication.Events;
@@ -33,6 +32,8 @@ public class TwitchIntegration {
 
     public ChatterCollection FrequentChatters { get; }
 
+    public static Chatter NextChatter { get; set; }
+    
     public static Chatter ActiveChatter { get; set; }
 
     public static Queue<Chatter> ForcedActiveQueue { get; set; } = new();
@@ -75,7 +76,7 @@ public class TwitchIntegration {
         ConnectionCredentials credentials = new(Cfg.BotName.Value, authResponse.Token);
 
         this.client = new TwitchClient(
-            protocol: TwitchLib.Client.Enums.ClientProtocol.TCP
+            protocol: ClientProtocol.TCP
             //Logs everything from the twitch client to the console
             ,logger: new TwitchLogger<TwitchClient>()
         );
@@ -187,6 +188,10 @@ public class TwitchIntegration {
             }
             BorderPatch.Border.bomberSpeechBubble.showText(e.ChatMessage.Message, 0);
         }
+
+        if (NextChatter == null) {
+            PrepareNextChatter();
+        }
     }
 
     /**
@@ -236,19 +241,41 @@ public class TwitchIntegration {
         PapersPSP.Twitch.client.SendMessage(Cfg.Channel.Value, message);
     }
 
-    public static void SetActiveChatter(Chatter chatter) {
-        ActiveChatter = chatter;
-        RecentActiveChatters.Insert(0, chatter);
-
-        chatter.HasBeenActiveChatter = true;
-
-        Message($"@{chatter.Username}, You have been selected for entry into Sususterja flagSususterja . Please proceed to the booth.");
-
+    public static void PrepareNextChatter() {
+        NextChatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+        if (NextChatter == null) return;
+        
+        RecentActiveChatters.Insert(0, NextChatter);
         // Cap history to max
         if (RecentActiveChatters.Count > MAX_ACTIVE_CHATTER_HISTORY)
             RecentActiveChatters = RecentActiveChatters
                 .Take(MAX_ACTIVE_CHATTER_HISTORY)
                 .ToList();
+            
+        NextChatter.JuicerCheck();
+    }
+    
+    public static void NextActiveChatter() {
+        PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
+        Chatter next;
+        if (ForcedActiveQueue.Count > 0) {
+            next = ForcedActiveQueue.Dequeue();
+        } else {
+            next = NextChatter ?? PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
+            NextChatter = null;
+        }
+        if (NextChatter == null) {
+            PrepareNextChatter();
+        }
+        SetActiveChatter(next);
+    }
+    
+    public static void SetActiveChatter(Chatter chatter) {
+        ActiveChatter = chatter;
+        if(chatter == null) return;
+        chatter.HasBeenActiveChatter = true;
+
+        Message($"@{chatter.Username}, You have been selected for entry into Sususterja flagSususterja . Please proceed to the booth.");
     }
 
     public static void SetActiveAttacker(Chatter chatter) {
