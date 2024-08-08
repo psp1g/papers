@@ -24,12 +24,12 @@ public class ErrorMakerPatch {
         Chatter chatter = TwitchIntegration.ActiveChatter;
         if (chatter == null) return true;
 
-        chatter.JuicerCheck().Wait(); // FIXME: Run this while the previous traveler is being processed asynchronously
+        chatter.JuicerCheck().Wait();
         if (!chatter.Juicer) return true;
 
         List<Object> matches = __instance.errorLib.getMatchingErrors("<juicer>").ToIlList();
         if (matches.Count == 0) return true;
-        __result = matches[System.Math.Abs(__instance.rand.nextInt()) % matches.Count].TryCast<Error>();
+        __result = matches[__instance.rand.nextInt(matches.Count)].TryCast<Error>();
         return false;
     }
 
