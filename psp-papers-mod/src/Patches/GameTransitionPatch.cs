@@ -31,5 +31,6 @@ public class GameTransitionPatch {
         TwitchIntegration.ActiveAttacker = null;
         TwitchIntegration.ActiveAttackerPerson = null;
         TwitchIntegration.ChattersPerPerson.Clear();
+        TwitchIntegration.PrepareNextChatter();
     }
 }

@@ -7,6 +7,6 @@
 		bulletin="ENDLESS - TWITCH MODE\n\nProcess chatters as you see fit. Penalties are ignored.">
 	</style>
 
-	<course id="course3" name="Course 3" day="3" button="EndlessCourse3.png" leaderboard=""/>
+	<course id="course3" name="Course 1" day="1" button="EndlessCourse3.png" leaderboard=""/>
 
 </endlesses>

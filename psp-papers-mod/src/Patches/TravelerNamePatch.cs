@@ -4,6 +4,7 @@ using play.day;
 using play.day.border;
 using psp_papers_mod.Twitch;
 using psp_papers_mod.MonoBehaviour;
+using System;
 
 namespace psp_papers_mod.Patches;
 
@@ -18,13 +19,7 @@ public class TravelerNamePatch {
         AttackHandler.AttackIfPossible();
 
         AttackHandler.TravelerCtSinceLast++;
-
-        PapersPSP.Twitch.FrequentChatters.CheckChatExpiry();
-        Chatter chatter = PapersPSP.Twitch.FrequentChatters.GetRandomChatter();
-
-        if (chatter != null)
-            TwitchIntegration.SetActiveChatter(chatter);
-
+        
         // Allow detaining anytime
         BorderPatch.Border.booth.detainButton.set_dropped(true);
 
@@ -42,6 +37,7 @@ public class TravelerNamePatch {
             //BoothEnginePatch.GivePaperNow(BorderPatch.Border.tranqRifleButton.keyDeskItemId);
         }
 
+        Chatter chatter = TwitchIntegration.ActiveChatter;
         if (chatter == null) return true;
 
         chatter.JuicerCheck()

@@ -1,7 +1,11 @@
 using data;
 using System.Linq;
 using HarmonyLib;
+using Il2CppInterop.Runtime;
 using play.day;
+using psp_papers_mod.Twitch;
+using psp_papers_mod.Utils;
+using System;
 
 namespace psp_papers_mod.Patches;
 
@@ -15,8 +19,6 @@ public class BoothEnvPatch {
 
     internal static BoothEnv BoothEnv;
 
-    private static readonly string[] BlockPaperIDs = ["EntryPermit", "WorkPermit", "IdSupplement", "VaccineCert", "DiplomaticAuth"];
-
     [HarmonyPostfix]
     [HarmonyPatch("__hx_ctor_play_day_BoothEnv", typeof(BoothEnv), typeof(BoothEnvRun), typeof(Day))]
     static void CtorPostfix(object[] __args) {
@@ -28,10 +30,9 @@ public class BoothEnvPatch {
     static bool AddPaperPrefix(ref string paperId) {
         bool moddedPaper = paperId.StartsWith("modded-");
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
-
-        bool allowed = !BlockPaperIDs.Contains(paperId) || moddedPaper;
-        PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No") + " Blocked: " + (!allowed ? "Yes" : "No"));
-        return allowed;
+        
+        PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No"));
+        return true;
     }
 
     [HarmonyPrefix]
@@ -51,6 +52,44 @@ public class BoothEnvPatch {
 
         sayOp.speechId = text;
         return true;
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(BoothEnv.makeFactValue))]
+    public static bool MakeModdedFactValues(string path, bool valid, Il2CppSystem.Object confusing, ref FactValue __result) {
+        if (!path.Split("/").Last().Equals("JuicerCheckId")) return true;
+        string id = "74126";
+        if (!valid) {
+            char[] chars = id.ToCharArray();
+            Random random = new();
+            int idx = random.Next(chars.Length);
+            char[] digits = "0123456789".ToCharArray();
+            chars[idx] = digits[random.Next(digits.Length - 1)];
+            if (chars[idx] == id[idx]) {
+                chars[idx] = digits[^1];
+            }
+            id = new string(chars);
+        }
+
+        __result = new FactValue(id, null, null);
+        return false;
+    }
+    
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(BoothEnv.makeNewTraveler))]
+    public static void ChooseChatterTraveler() {
+        TwitchIntegration.NextActiveChatter();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(BoothEnv.makeNewTraveler))]
+    public static void AddJuicerCheck(BoothEnv __instance) {
+        Error error = __instance.traveler.modifiedError;
+        if (error != null && error.id.Contains("<juicer>")) {
+            AddPaper(error.ops[0].Cast<Op_REQUIREMENT>().tokens[0].ToManagedString());
+        } else {
+            AddPaper("JuicerCheck");
+        }
     }
 
     public static void AddPaper(string paperId, int ct = 1) {
