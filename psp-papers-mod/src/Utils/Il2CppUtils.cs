@@ -63,4 +63,11 @@ public static class Il2CppUtils {
 
         return netList;
     }
+    
+    public static bool IsType<T>(this Il2CppSystem.Object obj) {
+        IntPtr nativeClassPtr = Il2CppClassPointerStore<T>.NativeClassPtr;
+        IntPtr objClassPtr = IL2CPP.il2cpp_object_get_class(obj.Pointer);
+        return IL2CPP.il2cpp_class_is_assignable_from(nativeClassPtr, objClassPtr);
+    }
+    
 }
