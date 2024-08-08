@@ -7,7 +7,7 @@
 		<nation name="Latvia" cities="Riga;Daugavpils;Ventspils" citizen="Latvian"/>
 		<nation name="Lithuania" cities="Vilnius;Kaunas;Klaipeda" citizen="Lithuanian"/>
 		<nation name="Poland" cities="Warsaw;Krakow;Lublin" citizen="Pole"/>
-		<nation name="Sususterja" cities="Jelgava;Bugtown;Klaraj" citizen="Sususterja"/>
+		<nation name="Sususterja" cities="Jelgava;Bugtown;Klaraj" citizen="Sususterjan"/>
 		<nation name="Sweden" cities="Stockholm;Gothenburg;Uppsala" citizen="Swede"/>
 	</nations>
 

@@ -1,6 +1,7 @@
 using app.vis;
 using System;
 using HarmonyLib;
+using play.day;
 using play.day.border;
 using psp_papers_mod.Twitch;
 
@@ -29,6 +30,7 @@ public static class BorderPatch {
     [HarmonyPatch("throwGrenade")]
     public static void ThrowGrenade() {
         ThrewGrenade = true;
+        Border.day.setAttackResultWithPriority(AttackResult.FAILED_DIDNOTHING);
     }
 
     public static void SendChatterRunner() {
