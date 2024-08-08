@@ -1,7 +1,6 @@
 using HarmonyLib;
 using play.day;
 using psp_papers_mod.Utils;
-using System;
 
 namespace psp_papers_mod.Patches;
 
