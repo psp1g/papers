@@ -39,11 +39,5 @@ public class ErrorMakerPatch {
         foreach (Object id in JuicerPaperIds) {
             context.paperIds.remove(id);
         }
-
-        if(__result == null) return;
-        var iterator = __result.ops.iterator();
-        while (iterator.hasNext()) {
-            Console.WriteLine(iterator.next().Cast<Op>().ToString());
-        }
     }
 }
