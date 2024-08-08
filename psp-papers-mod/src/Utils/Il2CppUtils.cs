@@ -1,3 +1,4 @@
+using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using System;
 
@@ -40,4 +41,11 @@ public static class Il2CppUtils {
     public static Il2CppSystem.Object ToIl2CppBoxed(this double num) {
         return new Il2CppSystem.Double{ m_value = num }.BoxIl2CppObject();
     }
+    
+    public static bool IsType<T>(this Il2CppSystem.Object obj) {
+        IntPtr nativeClassPtr = Il2CppClassPointerStore<T>.NativeClassPtr;
+        IntPtr objClassPtr = IL2CPP.il2cpp_object_get_class(obj.Pointer);
+        return IL2CPP.il2cpp_class_is_assignable_from(nativeClassPtr, objClassPtr);
+    }
+    
 }
