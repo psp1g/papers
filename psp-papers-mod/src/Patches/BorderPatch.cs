@@ -76,9 +76,8 @@ public static class RifleButtonPatch {
     [HarmonyPrefix]
     [HarmonyPatch(nameof(RifleButton.react))]
     private static bool DeselectRifle(Input input, RifleButton __instance) {
-        Rect rect = __instance.rifleNormalSprite.hitRect(false.ToIl2CppBoxed());
-        Console.WriteLine(__instance.stater.curState.name);
         if (__instance.isTranq || !__instance.selected || __instance.stater.curState.name != "unlocked") return true;
+        Rect rect = __instance.rifleNormalSprite.hitRect(false.ToIl2CppBoxed());
         if (!input.checkPointerJustDown(__instance, __instance.worldPos(), rect, null)) return true;
         
         __instance.set_selected(false);
