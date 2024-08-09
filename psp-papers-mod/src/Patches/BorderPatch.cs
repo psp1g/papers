@@ -1,9 +1,11 @@
+using app.ent;
 using app.vis;
 using System;
 using HarmonyLib;
 using play.day;
 using play.day.border;
 using psp_papers_mod.Twitch;
+using psp_papers_mod.Utils;
 
 namespace psp_papers_mod.Patches;
 
@@ -67,4 +69,20 @@ public static class BorderPatch {
         TwitchIntegration.ActiveChatter.Detain();
     }
     
+}
+
+[HarmonyPatch(typeof(RifleButton))]
+public static class RifleButtonPatch {
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(RifleButton.react))]
+    private static bool DeselectRifle(Input input, RifleButton __instance) {
+        Rect rect = __instance.rifleNormalSprite.hitRect(false.ToIl2CppBoxed());
+        Console.WriteLine(__instance.stater.curState.name);
+        if (__instance.isTranq || !__instance.selected || __instance.stater.curState.name != "unlocked") return true;
+        if (!input.checkPointerJustDown(__instance, __instance.worldPos(), rect, null)) return true;
+        
+        __instance.set_selected(false);
+        return false;
+
+    }
 }
