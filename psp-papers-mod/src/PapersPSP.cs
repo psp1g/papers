@@ -48,6 +48,7 @@ public class PapersPSP : BasePlugin {
         Twitch.Connect().Wait();
 
         Initialized = true;
+        EmotePapers.Initialize();
 
         this.harmony.PatchAll(Assembly.GetExecutingAssembly());
         MethodInfo propSetter = typeof(app.vis.Text).GetProperty("text")!.GetSetMethod();

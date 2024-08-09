@@ -44,6 +44,8 @@ namespace psp_papers_mod.Twitch {
         
         public bool WantsBomb { get; set; }
 
+        public int EmotesUsed { get; set; }
+
         public double LastWantAttack { get; private set; }
 
         public bool GotDataFromChat { get; private set; }
@@ -315,6 +317,7 @@ namespace psp_papers_mod.Twitch {
             this.SemiRecentChats = 0;
             this.RecentChatExpires.Clear();
             this.SemiRecentChatExpires.Clear();
+            this.EmotesUsed = 0;
         }
 
     }

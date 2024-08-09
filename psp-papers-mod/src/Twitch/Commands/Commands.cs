@@ -48,4 +48,20 @@ public static class Commands {
         sender.WantsBomb = false;
     }
 
+    [ChatCommand("give")]
+    public static void GiveEmote(Chatter sender, ChatMessage chatMessage, string[] args) {
+        if (!sender.IsActiveChatter) return;
+        if (sender.EmotesUsed > Cfg.EmotesPerChatter.Value) {
+            chatMessage.Reply("You can only give " + Cfg.EmotesPerChatter.Value + " emotes!");
+            return;
+        }
+
+        sender.EmotesUsed++;
+
+        UnityThreadInvoker.Invoke(() =>
+            EmotePapers.GiveEmotePaper(args[0], chatMessage)
+
+        );
+    }
+    
 }
