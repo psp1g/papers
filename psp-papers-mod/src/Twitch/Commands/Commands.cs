@@ -6,11 +6,26 @@ namespace psp_papers_mod.Twitch.Commands;
 
 public static class Commands {
 
+    private static bool LeaveEnabled = true;
+    
     [ChatCommand("leave")]
     public static void LeaveCommand(Chatter sender, ChatMessage chatMessage, string[] _) {
-        if (!sender.Moderator && !sender.Streamer && !sender.IsActiveChatter) return;
+        if (!sender.Moderator && !sender.Streamer && (!sender.IsActiveChatter || !LeaveEnabled)) return;
         // Force the active booth chatter to leave
         UnityThreadInvoker.Invoke(BoothEnginePatch.ForceTravelerLeave);
+    }
+    
+    [ChatCommand("disableleave")]
+    public static void DisableLeaveCommand(Chatter sender, ChatMessage chatMessage, string[] _) {
+        if (!sender.Moderator && !sender.Streamer) return;
+        LeaveEnabled = false;
+    }
+    
+    
+    [ChatCommand("enableleave")]
+    public static void EnableLeaveCommand(Chatter sender, ChatMessage chatMessage, string[] _) {
+        if (!sender.Moderator && !sender.Streamer) return;
+        LeaveEnabled = true;
     }
 
     [ChatCommand("force")]
