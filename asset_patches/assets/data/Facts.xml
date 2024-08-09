@@ -226,6 +226,22 @@
 		<fact id="DiploSealsSweden" val="DiploSealsSweden.png"/>
 	</paper>
 
+	<!-- Diplomatic Auth -->
+	<paper id="DiplomaticAuth">
+		<fact id=""/>
+		<fact id="Exists">
+			<invalidate path="Rules/RuleNeedDiplomaticAuth"/>
+		</fact>
+		<fact id="Visible" editable="true"><invalidate path="Rules/RuleNeedDiplomaticAuth"/></fact>
+		<fact id="Name" format="FIRST LAST"/>
+		<fact id="Nation"/>
+		<fact id="IdNumber"/>
+		<fact id="AccessNations" cite="No Diplomatic Access to Sususterja"/>
+		<fact id="Emblem/DiplomaticAuth" cite="Forged Diplomatic Auth">
+			<invalidate when="NONE" path="Rules/SealRequired-DiplomaticAuth"/>
+		</fact>
+	</paper>
+
 	<paper id="JuicerCheck">
 		<fact id=""/>
 		<fact id="Exists"><invalidate path="Rules/RuleNeedJuicerCheck"/></fact>
