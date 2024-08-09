@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Numerics;
 using haxe.io;
+using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.PixelFormats;
 using TwitchLib.Client.Models;
 using System;
@@ -87,7 +89,6 @@ internal class EmotePapers {
     }
     
     static async Task<JArray> GetEmoteSet_FFZ() {
-
             using (HttpClient client = new HttpClient()) {
                 HttpResponseMessage response = await client.GetAsync(emoteSetUrl_FFZ);
 
@@ -99,11 +100,8 @@ internal class EmotePapers {
 
                 return (JArray)emoteSet;
             }
-        
-        
     }
-
-
+    
     public static string GetEmoteUrl_7TV(string emoteName) {
         if (emotes_7TV == null) return null;
 
@@ -147,18 +145,10 @@ internal class EmotePapers {
         return null;
     }
 
-
-
     public static void GiveEmotePaper(string text, ChatMessage chatMessage) {
-
-        if (emotes_7TV == null) {
-            PapersPSP.Log.LogWarning("SHIZ EMPTY");
-            return;
-        }
-
         string emoteUrl = null;
-        if (emoteUrl == null) emoteUrl = GetEmoteUrl_FFZ(text);
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_7TV(text);
+        if (emoteUrl == null) emoteUrl = GetEmoteUrl_FFZ(text);
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_BTTV(text);
 
         //Twitch Emotes
@@ -196,19 +186,17 @@ internal class EmotePapers {
         });
 
     }
-
-
+    
     static Bytes SharpImageToBytes(Image<Rgba32> image) {
         using (var ms = new MemoryStream()) {
-            image.Save(ms, new PngEncoder() { ColorType = PngColorType.RgbWithAlpha });
+            image.Save(ms, new PngEncoder { ColorType = PngColorType.RgbWithAlpha });
             byte[] data = ms.ToArray();
             Bytes result = new Bytes(data.Length, data);
             return result;
-        
         }
     }
 
-    public static (app.vis.Image, app.vis.Image) CreateOuterAndInner(ref Image<Rgba32> img) {
+    public static (app.vis.Image, app.vis.Image) CreateOuterAndInner(ref Image img) {
 
         Image<Rgba32> inner = img.CloneAs<Rgba32>();
         Image<Rgba32> outer = img.CloneAs<Rgba32>();
@@ -229,17 +217,7 @@ internal class EmotePapers {
         return (innerResult, outerResult);
     }
 
-    public static void RemoveWhiteBackground(Image img) {
-        img.Mutate(c => c.ProcessPixelRowsAsVector4(row => {
-            for (int x = 0; x < row.Length; x++) {
-                if (row[x] == new Vector4(1, 1, 1, 1)) {
-                    row[x] = new Vector4(0, 0, 0, 0);
-                }
-            }
-        }));
-    }
-
-    public static async Task<Image<Rgba32>> DownloadImage(string url) {
+    public static async Task<Image> DownloadImage(string url) {
         // todo: cache images - look for image in folder first or image.Save(path) after downloading
 
         using (HttpClient client = new HttpClient()) {
@@ -248,8 +226,9 @@ internal class EmotePapers {
             response.EnsureSuccessStatusCode();
 
             byte[] webpBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-            var img = Image.Load<Rgba32>(webpBytes);
-
+            WebpDecoderOptions options = new() { BackgroundColorHandling = BackgroundColorHandling.Ignore };
+            var img = WebpDecoder.Instance.Decode(options, new MemoryStream(webpBytes));
+            
             //animated emotes get a weird white background for some reason
             if (img.Frames.Count > 1) {
                 //RemoveWhiteBackground(img);
