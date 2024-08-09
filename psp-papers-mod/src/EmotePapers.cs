@@ -77,8 +77,12 @@ internal class EmotePapers {
             string responseBody = await response.Content.ReadAsStringAsync();
 
             JObject jsonResponse = JObject.Parse(responseBody);
-            JToken emoteSet = jsonResponse["channelEmotes"];
-            return  (JArray)emoteSet;
+            JArray shared = (JArray) jsonResponse["sharedEmotes"];
+            JArray owned = (JArray)jsonResponse["channelEmotes"];
+            foreach (JToken emote in owned) {
+                shared.Add(emote);
+            }
+            return shared;
         }
     }
     
