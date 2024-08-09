@@ -44,6 +44,11 @@ public static class Cfg {
 
     internal static ConfigEntry<string> CommandPrefix { get; private set; }
 
+    internal static ConfigEntry<int> SmallEmoteHeight { get; private set; }
+    internal static ConfigEntry<int> BigEmoteHeight { get; private set; }
+    internal static ConfigEntry<int> EmotesPerChatter { get; private set; }
+
+
     internal static void StartBindings(PapersPSP mod) {
         Channel = mod.Config.Bind(
             "Twitch",
@@ -300,6 +305,30 @@ public static class Cfg {
             "Prefix",
             "!",
             "Prefix used for all chat commands"
+        );
+
+
+        // Emote settings
+
+        EmotesPerChatter = mod.Config.Bind(
+            "Emotes",
+            "EmotesPerChatter",
+            2,
+            "How many emotes a chatter can give while in the booth"
+        );
+
+        BigEmoteHeight = mod.Config.Bind(
+            "Emotes",
+            "BigEmoteHeight",
+            40,
+            "The height in pixels for big emote papers"
+        );
+
+        SmallEmoteHeight = mod.Config.Bind(
+            "Emotes",
+            "SmallEmoteHeight",
+            25,
+            "The height in pixels for small emote papers"
         );
     }
 

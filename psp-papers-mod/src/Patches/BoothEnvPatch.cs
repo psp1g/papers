@@ -16,7 +16,6 @@ public static class CustomPapers {
 
 [HarmonyPatch(typeof(BoothEnv))]
 public class BoothEnvPatch {
-
     internal static BoothEnv BoothEnv;
 
     [HarmonyPostfix]
@@ -29,8 +28,12 @@ public class BoothEnvPatch {
     [HarmonyPatch("addPaper", typeof(string))]
     static bool AddPaperPrefix(ref string paperId) {
         bool moddedPaper = paperId.StartsWith("modded-");
+        bool emotePaper = paperId.StartsWith("emote-");
+
         if (moddedPaper) paperId = paperId.Replace("modded-", "");
-        
+
+        if (emotePaper) paperId = "emoteBlank";
+
         PapersPSP.Log.LogDebug("Paper ID Given: " + paperId + " Modded: " + (moddedPaper ? "Yes" : "No"));
         return true;
     }
