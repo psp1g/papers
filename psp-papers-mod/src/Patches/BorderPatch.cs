@@ -46,10 +46,9 @@ public static class BorderPatch {
     [HarmonyPrefix]
     [HarmonyPatch("checkSniped", typeof(Person), typeof(PointData), typeof(string))]
     private static bool SnipedPrefix(Person person, PointData pos, string shotAnim, ref bool __result) {
-        if (person.id != "waiting" && person.id != "guard0" && person.id != "guard1") return true;
+        if (person.id != "guard0" && person.id != "guard1") return true;
+        // Killing two left guards during detains breaks the game
 
-        // Killing the people in queue breaks the game
-        // So does killing the two left guards during detains
         __result = false;
         return false;
     }
@@ -58,6 +57,11 @@ public static class BorderPatch {
     [HarmonyPatch("checkSniped", typeof(Person), typeof(PointData), typeof(string))]
     private static void SnipedPostfix(Person person, PointData pos, string shotAnim, ref bool __result) {
         if (!__result) return;
+
+        // Can't call traveler if they were shot, have to remove from queue
+        if (person.id == "waiting") {
+            Border.waitingLine.people.remove(person);
+        }
 
         Console.Out.WriteLine("SNIPED " + person.id + " SHOTANIM: " + shotAnim);
     }
