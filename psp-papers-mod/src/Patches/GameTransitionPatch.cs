@@ -32,5 +32,6 @@ public class GameTransitionPatch {
         TwitchIntegration.ActiveAttackerPerson = null;
         TwitchIntegration.ChattersPerPerson.Clear();
         TwitchIntegration.PrepareNextChatter();
+        ConsoleClockPatch.DayFinished = false;
     }
 }

@@ -54,5 +54,8 @@ public class PapersPSP : BasePlugin {
         MethodInfo propSetter = typeof(app.vis.Text).GetProperty("text")!.GetSetMethod();
         MethodInfo method = typeof(app.vis.Text).GetMethods().First(m => m.Name == "set_text" && m != propSetter);
         this.harmony.Patch(method, prefix: new HarmonyMethod(typeof(TextPatch).GetMethod("SetMenuTextPrefix")));
+        propSetter = typeof(play.day.booth.ConsoleClock).GetProperty("hour")!.GetSetMethod();
+        method = typeof(play.day.booth.ConsoleClock).GetMethods().First(m => m.Name == "set_hour" && m != propSetter);
+        this.harmony.Patch(method, postfix: new HarmonyMethod(typeof(ConsoleClockPatch).GetMethod("CheckDayFinished")));
     }
 }

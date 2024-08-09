@@ -10,7 +10,6 @@ namespace psp_papers_mod.Patches;
 
 [HarmonyPatch(typeof(BoothEngine))]
 public class BoothEnginePatch {
-
     public static BoothEngine BoothEngine;
     private static StampApprovalKind lastStamp;
 
@@ -89,4 +88,10 @@ public class BoothEnginePatch {
         );
     }
 
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(BoothEngine.handleEvent))]
+    private static void CreditAllTravelers(EngineEvent @event, BoothEngine __instance) {
+        __instance.day.numProcessedTravelersPaid += __instance.day.numProcessedTravelersUnpaid;
+        __instance.day.numProcessedTravelersUnpaid = 0;
+    }
 }
