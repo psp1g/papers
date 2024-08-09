@@ -1,3 +1,4 @@
+using data;
 using play;
 using System;
 using HarmonyLib;
@@ -47,4 +48,16 @@ public class GameTransitionPatch {
         day.citations = Il2CppUtils.NewHaxeArray(0);
 
     }
+}
+
+[HarmonyPatch(typeof(EndlessId))]
+public class EndlessIdPatch {
+
+    [HarmonyPrefix]
+    [HarmonyPatch(nameof(EndlessId.__hx_ctor_data_EndlessId))]
+    public static void ChangeId(ref string styleId_, ref string courseId_) {
+        styleId_ = "endurance";
+        courseId_ = "course3";
+    }
+    
 }
