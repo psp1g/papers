@@ -18,6 +18,7 @@
 	creepycode
 	ftk789
 	pigswitched
+	Flourek
 
 + Developed with Haxe & Unity
 	[IMAGE] CreditsHaxe.png
