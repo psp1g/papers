@@ -22,6 +22,9 @@
 		<page image="FakeJuicerCheckInner3.png"/>
 	</paper>
 
+	<paper id="emoteBlank" outer="debugError.png" reveal="fromslot" oddshape="true">
+		<page image="debugError.png"/>
+	</paper>
 
 	<!-- Sususterjan Id Card  -->
 	<paper id="IdCard" outer="IdCardOuter.png" font="tiny" textcolor="0x29241e" fromtraveler="true">
