@@ -2,12 +2,9 @@ using data;
 using play;
 using System;
 using HarmonyLib;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using play.day;
-using play.day.border;
 using psp_papers_mod.Twitch;
 using psp_papers_mod.Utils;
-using Object = Il2CppSystem.Object;
 
 namespace psp_papers_mod.Patches;
 
@@ -42,6 +39,8 @@ public class GameTransitionPatch {
         
         if(!transitionName.Contains("ADVANCE_TO_NEXTDAY")) return;
         Day day = BorderPatch.Border.day;
+        day.id++;
+        day.date += 1.0;
         day.numDetains = 0;
         day.numProcessedTravelersPaid = 0;
         day.numProcessedTravelersUnpaid = 0;
