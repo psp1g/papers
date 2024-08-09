@@ -147,13 +147,18 @@ internal class EmotePapers {
 
     public static void GiveEmotePaper(string text, ChatMessage chatMessage) {
         string emoteUrl = null;
+        bool isWebp = true;
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_7TV(text);
-        if (emoteUrl == null) emoteUrl = GetEmoteUrl_FFZ(text);
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_BTTV(text);
+        if (emoteUrl == null) {
+            emoteUrl = GetEmoteUrl_FFZ(text);
+            isWebp = false;
+        }
 
         //Twitch Emotes
         if (chatMessage.EmoteSet.Emotes.Count > 0) {
             emoteUrl = String.Format(emoteUrl_Twitch, chatMessage.EmoteSet.Emotes[0].Id);
+            isWebp = false;
             PapersPSP.Log.LogWarning(text + " " + chatMessage.EmoteSet.Emotes[0].ImageUrl);
         }
 
@@ -168,7 +173,7 @@ internal class EmotePapers {
         Paper paper = BorderPatch.Border.booth.autoFindPaper("emoteBlank");
         play.day.EnginePaper enginePaper = BorderPatch.Border.booth.engine.findEnginePaper("emoteBlank");
 
-        DownloadImage(emoteUrl).ResultWithUnityThread((image) => {
+        DownloadImage(emoteUrl, isWebp).ResultWithUnityThread((image) => {
             var (inner, outer) = CreateOuterAndInner(ref image);
 
             paper.deskItem.setInnerImage(inner, false);
@@ -217,7 +222,7 @@ internal class EmotePapers {
         return (innerResult, outerResult);
     }
 
-    public static async Task<Image> DownloadImage(string url) {
+    public static async Task<Image> DownloadImage(string url, bool isWebp) {
         // todo: cache images - look for image in folder first or image.Save(path) after downloading
 
         using (HttpClient client = new HttpClient()) {
@@ -225,9 +230,15 @@ internal class EmotePapers {
 
             response.EnsureSuccessStatusCode();
 
-            byte[] webpBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
-            WebpDecoderOptions options = new() { BackgroundColorHandling = BackgroundColorHandling.Ignore };
-            var img = WebpDecoder.Instance.Decode(options, new MemoryStream(webpBytes));
+            Image img;
+            
+            byte[] imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+            if(isWebp) {
+                WebpDecoderOptions options = new() { BackgroundColorHandling = BackgroundColorHandling.Ignore };
+                img = WebpDecoder.Instance.Decode(options, new MemoryStream(imageBytes));
+            } else {
+                img = Image.Load<Rgba32>(imageBytes);
+            }
             
             //animated emotes get a weird white background for some reason
             if (img.Frames.Count > 1) {

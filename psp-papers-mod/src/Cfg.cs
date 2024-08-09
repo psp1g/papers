@@ -313,7 +313,7 @@ public static class Cfg {
         EmotesPerChatter = mod.Config.Bind(
             "Emotes",
             "EmotesPerChatter",
-            3,
+            2,
             "How many emotes a chatter can give while in the booth"
         );
 
