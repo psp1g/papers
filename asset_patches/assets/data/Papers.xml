@@ -38,6 +38,28 @@
 		</page>
 	</paper>
 
+	<!-- Meth -->
+	<paper id="Poison" outer="PoisonOuter.png" font="regular" textcolor="0x5a5559" reveal="fromslot" inspectable="false" oddshape="true" canpinch="true">
+		<page id="front" image="MethInnerFront.png">
+			<mark image="BLANK:16x16" link="back" pos="74 54"/>
+		</page>
+		<page id="back" image="PoisonInnerBack.png">
+			<mark image="BLANK:40x24" link="open1" pos="24 0"/>
+			<mark image="BLANK:16x16" link="front" pos="0 54"/>
+		</page>
+		<page id="open1" image="PoisonInnerOpen1.png">
+			<mark image="$Powder1" link="#poison-touch" pos="25 33" stamplinksize="54 27"/>
+			<mark image="BLANK:15x70" link="open2" pos="0 0"/>
+			<mark image="BLANK:40x20" link="back" pos="24 97"/>
+		</page>
+		<page id="open2" image="PoisonInnerOpen2.png">
+			<mark image="$Powder2" link="#poison-apply" pos="99 33" stamplinksize="54 27"/>
+			<mark image="BLANK:12x70" link="open1" pos="163 0"/>
+			<mark image="BLANK:40x20" link="back" pos="24 97"/>
+		</page>
+	</paper>
+
+
 	<!-- Make the keys appear on the right instead of travelers seemingly giving them -->
 	<paper id="KeyTranq" outer="KeyTranqOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
 		<page image="KeyTranqInner.png"/>
