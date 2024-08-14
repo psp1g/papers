@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using TwitchLib.Client.Models;
 using TwitchLib.Api.Helix.Models.Moderation.BanUser;
 using TwitchLib.Api.Helix.Models.Users.GetUsers;
+using psp_papers_mod.src.Twitch;
 
 namespace psp_papers_mod.Twitch {
 
@@ -20,7 +21,6 @@ namespace psp_papers_mod.Twitch {
         public string Username { get; private set; }
         public string First { get; private set; }
         public string Last { get; private set; }
-
         public bool VIP { get; private set; }
         public bool Moderator { get; private set; }
         public bool Subscriber { get; private set; }
@@ -261,6 +261,10 @@ namespace psp_papers_mod.Twitch {
                     if (AttackHandler.ChatterWantAttackCt < 1) return;
                     AttackHandler.ChatterWantAttackCt--;
                 });
+        }
+
+        public string GetLocalization() {
+            return ChatterLocalization.GetChatterCountry(Username);
         }
 
         public async void Timeout(int seconds, string reason = "") {
