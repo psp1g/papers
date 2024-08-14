@@ -14,7 +14,7 @@ namespace Coin {
 
         static Paper coin;
 
-        static bool isAnimating = false;
+        public static bool isAnimating = false;
         static float animStart;
         static float animEnd;
         static float framecount = 0;
@@ -50,6 +50,8 @@ namespace Coin {
             if (coin.idWithIndex == "Coin") {
                 if (isAnimating) {
                     isAnimating = false;
+                    BorderPatch.Border.day.endless.speaker.play("metal-dragstart");
+
                     coin.deskItem.touchDrag.decay = 0.75;
 
                     // determine result based on current frame 
@@ -76,6 +78,8 @@ namespace Coin {
                 var pages = coin.def.pages;
                 int index = (coin.get_page() + 1) % pages.length;
                 coin.setPage(index);
+
+                BorderPatch.Border.day.endless.speaker.play("metal-dragstop");
             }
 
             // change movementdir every 5 frames
@@ -89,6 +93,8 @@ namespace Coin {
             // apply movementdir every frame
             coin.deskItem.pos = movementDir;
 
+
+
             if (secondsElapsed > duration) {
                 Stop();
             }
@@ -99,6 +105,8 @@ namespace Coin {
             coin.deskItem.touchDrag.decay = 0.85;
             framecount = 0;
             animStart = Time.realtimeSinceStartup;
+            BorderPatch.Border.day.endless.speaker.play("metal-dragstart");
+
         }
 
         public static void Start() {
@@ -119,7 +127,6 @@ namespace Coin {
                 duration = (int)(10.0f / speed);
                 PapersPSP.Log.LogWarning(duration);
 
-
                 Animate();
             }
         }
@@ -132,6 +139,9 @@ namespace Coin {
             if (page.id.Contains("Angle"))
                 return;
 
+            BorderPatch.Border.day.endless.speaker.play("metal-dragstart");
+
+
             // make landing on side more rare 
             if (page.id.Contains("side")) {
                 int random = PapersPSP.Random.Next(3);
@@ -142,6 +152,7 @@ namespace Coin {
                         coin.set_page((int)Pages.Heads);
                 }
             }
+
 
             isAnimating = false;
             coin.deskItem.touchDrag.decay = 0.75;
@@ -169,7 +180,17 @@ namespace Coin {
         static void moveCoin() {
             CoinFlip.Start();
         }
-    }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("start")]
+        static void stopCoin() {
+            if (CoinFlip.isAnimating) {
+                CoinFlip.onClick();
+            }
+        }
+    }  
+    
+  
 
     [HarmonyPatch(typeof(Booth))]
     internal class BoothPatch {
