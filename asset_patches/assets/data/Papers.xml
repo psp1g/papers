@@ -38,6 +38,27 @@
 		</page>
 	</paper>
 
+
+	<sounds id="coin" 
+		dragstart="metal-dragstart" 
+		dragstop="metal-dragstop" 
+		drop="metal-drop" 
+		totop="metal-dragstop" 
+	/>
+
+	<!-- Coin, pages in order of the animation -->
+	<paper id="Coin" outer="coin/heads.png" font="regular" textcolor="0x5a5559" reveal="ondesk:350,5" sounds="coin" inspectable="false">
+		<page id="heads" 		image="coin/heads.png"> 			<mark image="BLANK:40x40" link="tails" pos="0 0"/> </page>
+		<page id="headsAngleL" 	image="coin/headsAngleL.png">		<mark image="BLANK:40x40" link="" pos="0 0"/> </page>
+		<page id="side" 		image="coin/side.png">				<mark image="BLANK:40x40" link="tails" pos="0 0"/> </page>
+		<page id="tailsAngleR" 	image="coin/tailsAngleR.png">		<mark image="BLANK:40x40" link="" pos="0 0"/> </page>
+		<page id="tails" 		image="coin/tails.png"> 			<mark image="BLANK:40x40" link="heads" pos="0 0"/> </page>
+		<page id="tailsAngleL" 	image="coin/tailsAngleL.png">		<mark image="BLANK:40x40" link="" pos="0 0"/> </page>
+		<page id="side2" 		image="coin/side.png">				<mark image="BLANK:40x40" link="heads" pos="0 0"/> </page>
+		<page id="headsAngleR" 	image="coin/headsAngleR.png">		<mark image="BLANK:40x40" link="" pos="0 0"/> </page>
+	</paper>
+
+
 	<!-- Make the keys appear on the right instead of travelers seemingly giving them -->
 	<paper id="KeyTranq" outer="KeyTranqOuter.png" reveal="spitfromright" sounds="metal" oddshape="true">
 		<page image="KeyTranqInner.png"/>
