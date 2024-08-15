@@ -20,16 +20,15 @@ internal class ChatterLocalization {
 
     // Add or update a chatter's country
     public static void AddOrUpdateChatter(string username, string country) {
-
         ChatterCountries[username] = country;
         if (country == "Random") ChatterCountries.Remove(username);
 
         SaveToFile().SuccessWithUnityThread(() => {});
     }
 
-    // i think this causes the game to stutter
     // Get a chatter's country by their username
     public static string GetChatterCountry(string username) {
+
         if (ChatterCountries.TryGetValue(username, out var country)) {
             return country;
         }
@@ -55,6 +54,7 @@ internal class ChatterLocalization {
     
     // Load chatters from a JSON file
     public static void LoadFromFile() {
+
         if (File.Exists(filePath)) {
             var json = File.ReadAllText(filePath);
             ChatterCountries = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
