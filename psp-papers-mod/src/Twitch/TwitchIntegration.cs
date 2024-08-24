@@ -58,6 +58,7 @@ public class TwitchIntegration {
     public TwitchIntegration() {
         this.FrequentChatters = new ChatterCollection();
 
+
         Task<LocalAuthResponse> authTask = LocalAuthResponse.Fetch();
         authTask.Wait();
 

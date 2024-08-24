@@ -23,14 +23,15 @@ public static class TextPatch {
             return;
         }
 
-        if (v.Contains("_GUARDS__")) {
-            if (!ChatterGuards.SetGuards()) {
-                v = "";
-                return;
-            }
-            v = v.Replace("__LEFT_GUARDS__", ChatterGuards.GuardNames(false));
-            v = v.Replace("__RIGHT_GUARDS__", ChatterGuards.GuardNames(true));
-            return;
+        if (ChatterGuards.WantToGuardChatters.Count < 1) {
+            if (v is "Assigned guards:" || v.Contains("__GUARD")) v = "";
+        } else {
+            ChatterGuards.SetGuards(); 
+            if (v is "__GUARD0__") v = ChatterGuards.Guards[0]?.Username;
+            if (v is "__GUARD1__") v = ChatterGuards.Guards[1]?.Username;
+            if (v is "__GUARD2__") v = ChatterGuards.Guards[2]?.Username;
+            if (v is "__GUARD3__") v = ChatterGuards.Guards[3]?.Username;
+            if (v is "__GUARD4__") v = ChatterGuards.Guards[4]?.Username;
         }
     }
 
