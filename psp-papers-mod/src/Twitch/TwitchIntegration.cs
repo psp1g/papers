@@ -31,6 +31,7 @@ public class TwitchIntegration {
     public const float DENIED_WEIGHT_MODIFIER = 0.8f;
 
     public ChatterCollection FrequentChatters { get; }
+    
 
     public static Chatter NextChatter { get; set; }
     

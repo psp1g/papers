@@ -47,6 +47,101 @@
 		<page image="KeyKillInner.png"/>
 	</paper>
 
+	<!-- Bulletin -->
+	<paper id="Bulletin" outer="BulletinOuter.png" font="regular_short" textcolor="0x565656" reveal="ondesk:120,2" dock="true">
+		<page id="notice0" image="BulletinInner.png">
+			<mark image="$Emblem0" pos="110 153" inspectable="false"/>
+			<mark text="$Notice0" wrap="140" inspectable="false"/>
+			<mark text="$NowDate" align="right" pos="142 11"/>
+			<mark text="Today's guards:" pos="4 142"/>
+			<mark text="Left:   __LEFT_GUARDS__" pos="21 152"/>
+			<mark text="Right: __RIGHT_GUARDS__" pos="21 162"/>
+			<mark text="$PageNumberNotice0" align="right" pos="129 195" inspectable="false"/>
+			<mark image="$PagesNote" pos="148 173" align="right" inspectable="false"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="notice1" image="BulletinInner.png">
+			<mark text="$Notice1" wrap="140" inspectable="false"/>
+			<mark image="$Emblem1" pos="110 153" inspectable="false"/>
+			<mark text="$PageNumberNotice1" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="guntut" image="BulletinInnerGunTut.png">
+			<mark text="$PageNumberGuntut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="filertut" image="BulletinInnerFilerTut.png">
+			<mark text="$PageNumberFilertut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="criminals" image="BulletinInnerCriminals.png" backcolor="0xa3a3a3">
+			<mark image="$Criminal0" pos="19 46" scale="0.4"/>
+			<mark image="$Criminal1" pos="19 95" scale="0.4"/>
+			<mark image="$Criminal2" pos="19 144" scale="0.4"/>
+
+			<mark text="$PageNumberCriminals" align="right" pos="129 195" backcolor="0" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="passporttut" image="BulletinInnerPassportTut.png">
+			<mark text="$PageNumberPassporttut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="correlatetut" image="BulletinInnerCorrelateTut.png">
+			<mark text="$PageNumberCorrelatetut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="touchtut" image="BulletinInnerTouchTut.png">
+			<mark text="$PageNumberTouchtut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="missingtut" image="BulletinInnerMissingTut.png">
+			<mark text="$PageNumberMissingtut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<!--
+		<page id="diplotut" image="BulletinInnerDiploTut.png">
+			<mark text="$PageNumberDiplotut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>	
+		-->
+		<page id="ruletut" image="BulletinInnerRuleTut.png">
+			<mark text="$PageNumberRuletut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="contratut" image="BulletinInnerContraTut.png">
+			<mark text="$PageNumberContratut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="boothtut" image="BulletinInnerBoothTut.png" image_portrait_wide="BulletinInnerBoothTut2.png" image_portrait_thin="BulletinInnerBoothTut3.png">
+			<mark text="$PageNumberBoothtut" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+		<page id="news" image="BulletinInnerNews.png">
+			<mark text="$News0" pos="76 38" align="center" wrap="122"/>
+			<mark image="NewsDivider.png" pos="76 0" flow="down" align="center" wrap="122"/>
+			<mark text="$News1" pos="76 0" flow="down" align="center" wrap="122"/>
+			<mark image="NewsDivider.png" pos="76 0" flow="down" align="center" wrap="122"/>
+			<mark text="$News2" pos="76 0" flow="down" align="center" wrap="122"/>
+			<mark image="NewsDivider.png" pos="76 0" flow="down" align="center" wrap="122"/>
+			<mark text="$PageNumberNews" align="right" pos="129 195" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+	</paper>
+
+
 	<!-- Rules -->
 	<paper id="Rules" outer="RulesOuter.png" font="regular" textcolor="0x574848" dock="true">
 		<page id="home" image="RulesInnerHome.png" backcolor="0xe4e6bd">
