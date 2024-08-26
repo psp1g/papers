@@ -24,9 +24,11 @@ public static class TextPatch {
         }
 
         if (ChatterGuards.WantToGuardChatters.Count < 1) {
-            if (v is "Assigned guards:" || v.Contains("__GUARD")) v = "";
+            if (v.Contains("__GUARD")) v = "";
         } else {
-            ChatterGuards.SetGuards(); 
+            // hacky, but executes once per day right when it's needed
+            if (v is "Assigned guards:") ChatterGuards.SetGuards(); 
+            
             if (v is "__GUARD0__") v = ChatterGuards.Guards[0]?.Username;
             if (v is "__GUARD1__") v = ChatterGuards.Guards[1]?.Username;
             if (v is "__GUARD2__") v = ChatterGuards.Guards[2]?.Username;
