@@ -54,14 +54,14 @@
 			<mark text="$Notice0" wrap="140" inspectable="false"/>
 			<mark text="$NowDate" align="right" pos="142 11"/>
 			<mark text="Assigned guards:" pos="6 140"/>
-			<mark text="L" pos="10 155"  textcolor="0xA3A3A3" />
-			<mark text="R" pos="10 180"  textcolor="0xA3A3A3" />
-			<mark text="__GUARD0__" pos="21 150"/>
-			<mark text="__GUARD1__" pos="21 160"/>
-			<mark text="....................................." pos="10 163"  textcolor="0xA3A3A3" />
-			<mark text="__GUARD2__" pos="21 170"/>
-			<mark text="__GUARD3__" pos="21 180"/>
-			<mark text="__GUARD4__" pos="21 190" />
+			<mark text="LEFT" pos="10 155"  textcolor="0xA3A3A3" />
+			<mark text="RIGHT" pos="10 180"  textcolor="0xA3A3A3" />
+			<mark text="__GUARD0__" pos="40 149"/>
+			<mark text="__GUARD1__" pos="40 159"/>
+			<mark text="..............................................." pos="10 163"  textcolor="0xA3A3A3" />
+			<mark text="__GUARD2__" pos="40 171"/>
+			<mark text="__GUARD3__" pos="40 181"/>
+			<mark text="__GUARD4__" pos="40 191" />
 			<mark text="$PageNumberNotice0" align="right" pos="129 195" inspectable="false"/>
 			<mark image="$PagesNote" pos="148 173" align="right" inspectable="false"/>
 			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
