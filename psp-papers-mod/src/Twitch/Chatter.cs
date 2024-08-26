@@ -172,7 +172,10 @@ namespace psp_papers_mod.Twitch {
 
                 // The active chatter can't be the attacker and vice versa
                 (attacker && TwitchIntegration.ActiveChatter == this) ||
-                (!attacker && TwitchIntegration.ActiveAttacker == this)
+                (!attacker && TwitchIntegration.ActiveAttacker == this) ||
+                
+                // Guards can't be active chatters
+                (ChatterGuards.Guards.Contains(this))
             )
                 return 0;
 

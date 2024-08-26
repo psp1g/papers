@@ -72,8 +72,6 @@ internal class SplitUsername {
 
         // uni1g -> 1g, uni
         if (username.EndsWith("1g")) {
-            Console.WriteLine("1g");
-
             splitIndex = username.LastIndexOf("1g", StringComparison.Ordinal);
         }
 
