@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Numerics;
 using haxe.io;
+using psp_papers_mod.Twitch;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Formats.Webp;
@@ -21,11 +22,9 @@ internal class EmotePapers {
 
     public static string desiredEmote = "buh";
 
-    // todo: set these ids according to channel
-    private static string id = "104391402"; 
-    private static string emoteSetUrl_7TV = "https://7tv.io/v3/users/twitch/" + id;
-    private static string emoteSetUrl_BTTV = "https://api.betterttv.net/3/cached/users/twitch/" + id;
-    private static string emoteSetUrl_FFZ = "https://api.frankerfacez.com/v1/room/psp1g";
+    private static string emoteSetUrl_7TV = "https://7tv.io/v3/users/twitch/" + PapersPSP.Twitch.BroadcasterID;
+    private static string emoteSetUrl_BTTV = "https://api.betterttv.net/3/cached/users/twitch/" + PapersPSP.Twitch.BroadcasterID;
+    private static string emoteSetUrl_FFZ = "https://api.frankerfacez.com/v1/room/" + Cfg.Channel.Value;
 
     private static string emoteUrl_7TV = "https://cdn.7tv.app/emote/{0}/4x.webp";
     private static string emoteUrl_Twitch = "https://static-cdn.jtvnw.net/emoticons/v2/{0}/default/dark/3.0";
@@ -38,7 +37,7 @@ internal class EmotePapers {
     private static string emoteErrorUrl = "https://cdn.7tv.app/emote/6151c1de43b2d9da0d32adf9/4x.webp";
 
     public static void Initialize() {
-        Console.WriteLine(emoteSetUrl_FFZ + " " + emoteSetUrl_BTTV);
+        Console.WriteLine(emoteSetUrl_FFZ + "\n " + emoteSetUrl_BTTV  + " \n" + emoteSetUrl_7TV);
 
         GetEmoteSet_7TV().ResultWithUnityThread((res) => {
             emotes_7TV = res;
@@ -127,7 +126,7 @@ internal class EmotePapers {
             }
         }
 
-        PapersPSP.Log.LogWarning("FFZ Emote not found!");
+        PapersPSP.Log.LogMessage("FFZ Emote not found!");
         return null;
     }
 
@@ -148,6 +147,7 @@ internal class EmotePapers {
     public static void GiveEmotePaper(string text, ChatMessage chatMessage) {
         string emoteUrl = null;
         bool isWebp = true;
+        
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_7TV(text);
         if (emoteUrl == null) emoteUrl = GetEmoteUrl_BTTV(text);
         if (emoteUrl == null) {
