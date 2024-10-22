@@ -28,11 +28,7 @@ internal class ChatterLocalization {
 
     // Get a chatter's country by their username
     public static string GetChatterCountry(string username) {
-
-        if (ChatterCountries.TryGetValue(username, out var country)) {
-            return country;
-        }
-        return null; 
+        return ChatterCountries.GetValueOrDefault(username);
     }
 
     public static bool ValidCountry(string country, bool sususterjaIncluded) {
