@@ -57,6 +57,7 @@
 			<mark image="BLANK:12x70" link="open1" pos="163 0"/>
 			<mark image="BLANK:40x20" link="back" pos="24 97"/>
 		</page>
+	</paper>
 
 	<sounds id="coin" 
 		dragstart="metal-dragstart" 
