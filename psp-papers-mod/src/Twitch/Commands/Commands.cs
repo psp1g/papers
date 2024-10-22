@@ -55,7 +55,7 @@ public static class Commands {
 
         if (args.Length == 1) {
 
-            string country = args[0];
+            string country = args[0].Capitalize();
             bool canSususterja = (sender.Moderator || sender.VIP || sender.TwitchStaff);
 
             if (country == "Sususterja" && !canSususterja) {
@@ -80,7 +80,7 @@ public static class Commands {
                 return;
 
             string username = args[0];
-            string country = args[1];
+            string country = args[1].Capitalize();
 
             if (ChatterLocalization.ValidCountry(country, true)) {
                 ChatterLocalization.AddOrUpdateChatter(username, country);
@@ -106,6 +106,10 @@ public static class Commands {
             EmotePapers.GiveEmotePaper(args[0], chatMessage)
 
         );
+    }
+    
+    public static string Capitalize(this string str) {
+        return str[0].ToString().ToUpper() + str[1..].ToLower();
     }
     
 }
