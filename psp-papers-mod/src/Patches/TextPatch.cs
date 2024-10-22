@@ -13,12 +13,28 @@ public static class TextPatch {
     }
     
     public static void SetMenuTextPrefix(ref string v) {
-        if (v is not "The day was cut short by a terrorist attack.") return;
+        if (v == null) return;
+        
+        if (v is "The day was cut short by a terrorist attack.") {
+            Chatter attacker = TwitchIntegration.ActiveAttacker;
+            if (attacker == null) return;
 
-        Chatter attacker = TwitchIntegration.ActiveAttacker;
-        if (attacker == null) return;
+            v = v.Replace(".", " by " + attacker.Username + ".");
+            return;
+        }
 
-        v = v.Replace(".", " by " + attacker.Username + ".");
+        if (ChatterGuards.WantToGuardChatters.Count < 1) {
+            if (v.Contains("__GUARD")) v = "";
+        } else {
+            // hacky, but executes once per day right when it's needed
+            if (v is "Assigned guards:") ChatterGuards.SetGuards(); 
+            
+            if (v is "__GUARD0__") v = ChatterGuards.Guards[0]?.Username;
+            if (v is "__GUARD1__") v = ChatterGuards.Guards[1]?.Username;
+            if (v is "__GUARD2__") v = ChatterGuards.Guards[2]?.Username;
+            if (v is "__GUARD3__") v = ChatterGuards.Guards[3]?.Username;
+            if (v is "__GUARD4__") v = ChatterGuards.Guards[4]?.Username;
+        }
     }
 
 }

@@ -63,6 +63,19 @@ public static class Commands {
         sender.WantsBomb = false;
     }
 
+    [ChatCommand("guard")]
+    public static void WantsGuard(Chatter sender, ChatMessage chatMessage, string[] args) {
+        string username = sender.Username;
+        if (!ChatterGuards.WantToGuardChatters.ContainsKey(username)) {
+            ChatterGuards.WantToGuardChatters.Add(username, new Chatter(chatMessage));
+            
+            chatMessage.Reply("Thank you for enlisting in the border patrol o7");
+        } else {
+            ChatterGuards.WantToGuardChatters.Remove(username);
+            chatMessage.Reply("Opted out of being a guard.");
+        }
+    }
+
     [ChatCommand("give")]
     public static void GiveEmote(Chatter sender, ChatMessage chatMessage, string[] args) {
         if (!sender.IsActiveChatter) return;

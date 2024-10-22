@@ -87,6 +87,37 @@
 		<page image="KeyKillInner.png"/>
 	</paper>
 
+	<!-- Bulletin -->
+	<paper id="Bulletin" outer="BulletinOuter.png" font="regular_short" textcolor="0x565656" reveal="ondesk:120,2" dock="true">
+		<page id="notice0" image="BulletinInner.png">
+			<mark image="$Emblem0" pos="110 25" inspectable="false"/>
+			<mark text="$Notice0" wrap="140" inspectable="false"/>
+			<mark text="$NowDate" align="right" pos="142 11"/>
+			<mark text="Assigned guards:" pos="6 140"/>
+			<mark text="LEFT" pos="10 155"  textcolor="0xA3A3A3" />
+			<mark text="RIGHT" pos="10 180"  textcolor="0xA3A3A3" />
+			<mark text="__GUARD0__" pos="40 149"/>
+			<mark text="__GUARD1__" pos="40 159"/>
+			<mark text="..............................................." pos="10 163"  textcolor="0xA3A3A3" />
+			<mark text="__GUARD2__" pos="40 171"/>
+			<mark text="__GUARD3__" pos="40 181"/>
+			<mark text="__GUARD4__" pos="40 191" />
+			<mark text="$PageNumberNotice0" align="right" pos="129 195" inspectable="false"/>
+			<mark image="$PagesNote" pos="148 173" align="right" inspectable="false"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+ 		<page id="criminals" image="BulletinInnerCriminals.png" backcolor="0xa3a3a3">
+			<mark image="$Criminal0" pos="19 46" scale="0.4"/>
+			<mark image="$Criminal1" pos="19 95" scale="0.4"/>
+			<mark image="$Criminal2" pos="19 144" scale="0.4"/>
+
+			<mark text="$PageNumberCriminals" align="right" pos="129 195" backcolor="0" inspectable="false"/>
+			<mark image="BulletinGoPrev.png" pos="0 184" link="#prev"/>
+			<mark image="BulletinGoNext.png" pos="132 184" link="#next"/>
+		</page>
+	</paper>
+
+
 	<!-- Rules -->
 	<paper id="Rules" outer="RulesOuter.png" font="regular" textcolor="0x574848" dock="true">
 		<page id="home" image="RulesInnerHome.png" backcolor="0xe4e6bd">
