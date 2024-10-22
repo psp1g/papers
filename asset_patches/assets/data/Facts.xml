@@ -258,6 +258,8 @@
 		<fact id="" cite="This is obviously fake"/>
 	</paper>
 
+	<paper id="Coin" stay="day"/>
+
 	<rulebook id="override">
 		<page id="home"/>
 		<page id="basic"/>
