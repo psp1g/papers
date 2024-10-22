@@ -14,7 +14,6 @@ public static class TravelerContextPatch {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(TravelerContext), nameof(TravelerContext.makeTravelerSpec))]
     private static void MarkSpecCall() {
-        Console.WriteLine("TravelerContext.makeTravelerSpec called");
         isSpecCall = true;
     }
     
