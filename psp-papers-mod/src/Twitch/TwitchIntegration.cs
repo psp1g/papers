@@ -168,6 +168,10 @@ public class TwitchIntegration {
         Chatter chatter = this.FrequentChatters[username];
         chatter.Chatted();
 
+        if (NextChatter == null) {
+            PrepareNextChatter();
+        }
+        
         // If there's a command in the message, don't show anything
         if (ChatCommand.ProcessCommand(chatter, e.ChatMessage)) return;
 
@@ -187,10 +191,6 @@ public class TwitchIntegration {
                 BorderPatch.Border.bomberSpeechBubble.dottedLine.visible = false;
             }
             BorderPatch.Border.bomberSpeechBubble.showText(e.ChatMessage.Message, 0);
-        }
-
-        if (NextChatter == null) {
-            PrepareNextChatter();
         }
     }
 

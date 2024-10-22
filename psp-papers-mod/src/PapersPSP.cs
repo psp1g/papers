@@ -8,6 +8,7 @@ using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
 using psp_papers_mod.Patches;
 using System.Linq;
+using psp_papers_mod.src.Twitch;
 
 namespace psp_papers_mod;
 
@@ -49,6 +50,7 @@ public class PapersPSP : BasePlugin {
 
         Initialized = true;
         EmotePapers.Initialize();
+        ChatterLocalization.LoadFromFile();
 
         this.harmony.PatchAll(Assembly.GetExecutingAssembly());
         MethodInfo propSetter = typeof(app.vis.Text).GetProperty("text")!.GetSetMethod();
