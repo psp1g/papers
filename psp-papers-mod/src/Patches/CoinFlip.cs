@@ -33,6 +33,11 @@ namespace Coin {
             HeadsAngle,
         }
 
+        public static void Reset() {
+            coin = null;
+            isAnimating = false;
+        }
+        
         static bool SetCoinInstance() {
             if (coin == null) {
                 coin = BorderPatch.Border.booth.autoFindPaper("Coin");

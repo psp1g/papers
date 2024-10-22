@@ -29,6 +29,7 @@ public class GameTransitionPatch {
         string transitionName = gameTransitionKind.ToString();
         if (!transitionName.Contains("FADE_TO_ENDLESS_DAY") && !transitionName.Contains("ADVANCE_TO_NEXTDAY")) return;
         
+        Coin.CoinFlip.Reset();
         TravelerNamePatch.Reset();
         BorderPatch.ThrewGrenade = false;
         TwitchIntegration.ActiveAttacker = null;
@@ -45,7 +46,6 @@ public class GameTransitionPatch {
         day.numProcessedTravelersPaid = 0;
         day.numProcessedTravelersUnpaid = 0;
         day.citations = Il2CppUtils.NewHaxeArray(0);
-
     }
 }
 
