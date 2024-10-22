@@ -23,7 +23,6 @@ public static class TravelerContextPatch {
     private static void FixCountry(ref string __result) {
         if (TwitchIntegration.ActiveChatter == null || !isSpecCall)
             return;
-        Console.WriteLine("Fixing country");
         isSpecCall = false;
         string country = TwitchIntegration.ActiveChatter.GetLocalization();
         if (country == null) return;
