@@ -14,7 +14,7 @@ public class ChatterGuards {
     // 0-1: left guards, 2-4: right guards
         
     public static bool SetGuards() {
-        if (WantGuardChatters.Count < 1) return false;
+        if (WantToGuardChatters.Count < 1) return false;
 
         int[] order = { 2, 3, 4, 0, 1 }; // Prioritize setting the right ones first
 
