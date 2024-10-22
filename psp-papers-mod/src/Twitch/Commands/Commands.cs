@@ -3,6 +3,7 @@ using psp_papers_mod.MonoBehaviour;
 using psp_papers_mod.Patches;
 using System.Linq;
 using psp_papers_mod.src.Twitch;
+using System.Globalization;
 
 namespace psp_papers_mod.Twitch.Commands;
 
@@ -55,9 +56,9 @@ public static class Commands {
 
         if (args.Length == 1) {
 
-            string country = args[0].Capitalize();
+            string country = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(args[0]);
             bool canSususterja = (sender.Moderator || sender.VIP || sender.TwitchStaff);
-
+            
             if (country == "Sususterja" && !canSususterja) {
                 chatMessage.Reply("You're not eligible for a Sususterjan passport GAGAGA");
                 return;
@@ -80,7 +81,7 @@ public static class Commands {
                 return;
 
             string username = args[0];
-            string country = args[1].Capitalize();
+            string country = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(args[1]);
 
             if (ChatterLocalization.ValidCountry(country, true)) {
                 ChatterLocalization.AddOrUpdateChatter(username, country);

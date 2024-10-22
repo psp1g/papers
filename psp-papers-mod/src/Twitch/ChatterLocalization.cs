@@ -36,8 +36,6 @@ internal class ChatterLocalization {
     }
 
     public static bool ValidCountry(string country, bool sususterjaIncluded) {
-        country = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(country);
-
         if (sususterjaIncluded) {
             return countriesWithSususterja.Contains(country);
         } else {
