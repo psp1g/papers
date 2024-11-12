@@ -59,5 +59,6 @@ If you have suggestions for new features or have bug reports, please
 - **[creepycode](https://github.com/ByteZ1337)** - Ideas, Lots of reverse engineering help, Author of the [art asset decrypt/patcher tool](https://github.com/psp1g/papers-tools-rs)
 - **[ftk789](https://twitch.tv/ftk789)** - Ideas, Coding/Audio help, Custom art assets
 - **[pigswitched](https://twitch.tv/pigswitched)** - Custom art assets
+- **[Flourek](https://github.com/Flourek)** - Ideas, Programming, Custom art assets
 
 ## [Development Setup & Contributing](Development_and_Contributing.md)
